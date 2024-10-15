@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 2 Multiple Linear Regression | Statistics and Research Design</title>
+<meta name="author" content="James Bartlett">
+<meta name="description" content="In this chapter, we build on the chapter 1 content where you learnt about the general linear model and applied it to the case of simple linear regression. In this chapter, we will extend that...">
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta property="og:title" content="Chapter 2 Multiple Linear Regression | Statistics and Research Design">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://psyteachr.github.io/statsresdesign/multiple-linear-regression.html">
+<meta property="og:image" content="https://psyteachr.github.io/statsresdesign/images/logos/logo.png">
+<meta property="og:description" content="In this chapter, we build on the chapter 1 content where you learnt about the general linear model and applied it to the case of simple linear regression. In this chapter, we will extend that...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 2 Multiple Linear Regression | Statistics and Research Design">
+<meta name="twitter:description" content="In this chapter, we build on the chapter 1 content where you learnt about the general linear model and applied it to the case of simple linear regression. In this chapter, we will extend that...">
+<meta name="twitter:image" content="https://psyteachr.github.io/statsresdesign/images/logos/logo.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.6.1/transition.js"></script><script src="libs/bs3compat-0.6.1/tabs.js"></script><script src="libs/bs3compat-0.6.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-6NP3MF25W3');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="include/psyteachr.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Statistics and Research Design</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li><a class="" href="introduction-to-linear-regression.html"><span class="header-section-number">1</span> Introduction to Linear Regression</a></li>
+<li><a class="active" href="multiple-linear-regression.html"><span class="header-section-number">2</span> Multiple Linear Regression</a></li>
+<li><a class="" href="introduction-to-generalised-linear-models.html"><span class="header-section-number">3</span> Introduction to Generalised Linear Models</a></li>
+<li><a class="" href="introduction-to-bayesian-hypothesis-testing.html"><span class="header-section-number">4</span> Introduction to Bayesian Hypothesis Testing</a></li>
+<li><a class="" href="introduction-to-bayesian-estimation.html"><span class="header-section-number">5</span> Introduction to Bayesian Estimation</a></li>
+<li><a class="" href="introduction-to-linear-mixed-effects-models.html"><span class="header-section-number">6</span> Introduction to Linear Mixed Effects Models</a></li>
+<li class="book-part">Appendices</li>
+<li><a class="" href="installing-r.html"><span class="header-section-number">A</span> Installing R</a></li>
+<li><a class="" href="conventions.html"><span class="header-section-number">B</span> Conventions</a></li>
+<li><a class="" href="license.html">License</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/psyteachr/statsresdesign">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="multiple-linear-regression" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> Multiple Linear Regression<a class="anchor" aria-label="anchor" href="#multiple-linear-regression"><i class="fas fa-link"></i></a>
+</h1>
+<p>In this chapter, we build on the chapter 1 content where you learnt about the general linear model and applied it to the case of simple linear regression. In this chapter, we will extend that framework for when you want to want to include multiple predictor variables and interactions between predictors. We will cover concepts like standardised and unstandardised predictors, and different coding schemes for predictor variables.</p>
+<div id="learning-objectives-1" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>By the end of this chapter, you should be able to:</p>
+<ol style="list-style-type: decimal">
+<li><p>Understand <a href="multiple-linear-regression.html#coding-schemes">different predictor coding schemes</a>.</p></li>
+<li><p>Understand the difference between <a href="multiple-linear-regression.html#standardised-betas">unstandardised and standardised beta coefficients</a>.</p></li>
+<li><p>Understand how to run and interpret a regression for multiple predictors.</p></li>
+<li><p>Understand how to run and interpret a regression containing interaction terms.</p></li>
+</ol>
+<p>To follow along to this chapter and try the code yourself, please download the data files we will be using in <a href="data/02_data.zip">this zip file</a>.</p>
+</div>
+<div id="packages-and-the-data-sets" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> Packages and the data sets<a class="anchor" aria-label="anchor" href="#packages-and-the-data-sets"><i class="fas fa-link"></i></a>
+</h2>
+<p>We first need to load some packages and the data for this task. If you do not have any of the packages, make sure you install them first.</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># wrangling and visualisation functions </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="co"># Regression interaction plots</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://strengejacke.github.io/sjPlot/">sjPlot</a></span><span class="op">)</span></span>
+<span><span class="co"># Standardise model coefficients</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/">effectsize</a></span><span class="op">)</span></span>
+<span><span class="co"># VIF and other regression functions</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/">car</a></span><span class="op">)</span></span>
+<span><span class="co"># Interaction estimates</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rvlenth/emmeans">emmeans</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load data for coding schemes</span></span>
+<span><span class="va">james_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/James_2015.csv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">Condition</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>post_intrusions <span class="op">=</span> <span class="va">Days_One_to_Seven_Number_of_Intrusions</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load data for multiple linear regression</span></span>
+<span><span class="va">evans_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/Evans_2023.csv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>QWE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">QWE</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"low"</span>, <span class="st">"high"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>         MI <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">MI</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"unethical"</span>, <span class="st">"ethical"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>         PI <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">PI</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"unethical"</span>, <span class="st">"ethical"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="coding-schemes" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> Different predictor coding schemes<a class="anchor" aria-label="anchor" href="#coding-schemes"><i class="fas fa-link"></i></a>
+</h2>
+<div id="introduction-to-the-dataset" class="section level3" number="2.3.1">
+<h3>
+<span class="header-section-number">2.3.1</span> Introduction to the dataset<a class="anchor" aria-label="anchor" href="#introduction-to-the-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>For the guided examples, we have two datasets, but we will introduce them in turn. To demonstrate different predictor coding schemes, we will use data from <span class="citation">James et al. (<a href="references.html#ref-james_computer_2015">2015</a>)</span> who wanted to find non-pharmacological interventions for reducing intrusive memories of traumatic events. They compared four conditions:</p>
+<ol style="list-style-type: decimal">
+<li><p>No-task control: Participants completed a 10-minute filler task.</p></li>
+<li><p>Reactivation + Tetris: Participants were shown a series of images from a trauma film to
+reactivate traumatic memories. After a filler task, participants played Tetris for 12 minutes.</p></li>
+<li><p>Tetris Only: Participants played Tetris for 12 minutes in isolation.</p></li>
+<li><p>Reactivation Only: Participants completed the reactivation task in isolation.</p></li>
+</ol>
+<p>Their research question was: Would the reactivation and Tetris condition lead to fewer intrusive memories? They predicted the reactivation and Tetris group will have fewer intrusive memories in the week after experimental trauma exposure compared to the other three groups.</p>
+<p>This means there is one predictor variable <code>Condition</code> with four levels, one for each experimental condition. We then have one outcome variable <code>post_intrusions</code> for the number of intrusive memories they recorded in the week after the experiment. To support the hypothesis, <code>post_intrusions</code> should decrease in group 2 compared to the three other groups.</p>
+</div>
+<div id="exploratory-data-analysis-1" class="section level3" number="2.3.2">
+<h3>
+<span class="header-section-number">2.3.2</span> Exploratory data analysis<a class="anchor" aria-label="anchor" href="#exploratory-data-analysis-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>When starting any data analysis, it is important to visualise the data for some exploratory data analysis. Using the skills you developed in data skills for reproducible research, you can explore the data to understand its properties and look for potential patterns. We can create a boxplot to get a brief overview of how the number of intrusive memories changes across the four condition groups.</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">james_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Condition</span>, y <span class="op">=</span> <span class="va">post_intrusions</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Number of Intrusive Memories"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Experimental Task"</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Control"</span>, <span class="st">"Reactivation + Tetris"</span>, <span class="st">"Tetris"</span>, <span class="st">"Reactivation"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02-LM2_files/figure-html/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>We can see group 2 (reactivation + Tetris) has the lowest score, but we need inferential statistics to test the hypothesis.</p>
+</div>
+<div id="no-specific-coding" class="section level3" number="2.3.3">
+<h3>
+<span class="header-section-number">2.3.3</span> No specific coding<a class="anchor" aria-label="anchor" href="#no-specific-coding"><i class="fas fa-link"></i></a>
+</h3>
+<p>For a starting point, we can see what it looks like if you enter <code>post_intrusions</code> as the outcome and <code>Condition</code> as the predictor in simple linear regression with no specific coding scheme.</p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">james_nocoding</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">post_intrusions</span> <span class="op">~</span> <span class="va">Condition</span>, data <span class="op">=</span> <span class="va">james_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">james_nocoding</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = post_intrusions ~ Condition, data = james_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.1111 -1.8889 -0.8333  1.1111 10.8889 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   5.1111     0.7485   6.828 2.89e-09 ***
+## Condition2   -3.2222     1.0586  -3.044  0.00332 ** 
+## Condition3   -1.2222     1.0586  -1.155  0.25231    
+## Condition4   -0.2778     1.0586  -0.262  0.79381    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.176 on 68 degrees of freedom
+## Multiple R-squared:  0.1434, Adjusted R-squared:  0.1056 
+## F-statistic: 3.795 on 3 and 68 DF,  p-value: 0.01409</code></pre>
+<p>Although we use <code>Condition</code> as a single predictor, we actually get three different predictors. In regression, it can only compare two groups at a time, so it will apply dummy coding to your groups. You get <em>k</em>-1 predictors, where there will be one fewer predictor than there are groups.</p>
+<p>Using what you learnt in chapter 1, we can see its a significant model, but the only significant predictor is <code>Condition2</code>. Group 1 is the reference group as the intercept, so <code>Condition2</code> tells you the mean difference between group 1 and group 2. We compare each group successively to the reference, so <code>Condition3</code> is the mean difference between group 1 and group 3 etc.</p>
+</div>
+<div id="dummy-coding-condition" class="section level3" number="2.3.4">
+<h3>
+<span class="header-section-number">2.3.4</span> Dummy coding <code>Condition</code><a class="anchor" aria-label="anchor" href="#dummy-coding-condition"><i class="fas fa-link"></i></a>
+</h3>
+<p>To demonstrate different coding schemes, we will start with dummy coding. Dummy coding is the default in R and when we entered <code>Condition</code> as a predictor, this is what R does behind the scenes. However, we have no control over the process and the reference group/intercept will be first in numerical or alphabetical order, then each successive <em>k</em>-1 group will be added as separate predictors.</p>
+<p>Instead, we can define our own dummy coding to control the reference and target groups. This is particularly useful when you have specific hypotheses like in <span class="citation">James et al. (<a href="references.html#ref-james_computer_2015">2015</a>)</span>, as we are interested in the combined reactivation and Tetris group (group 2). This means we can code for condition 2 as the reference group / intercept, and the other groups are coded as individual predictors.</p>
+<p>For dummy coding, you will have <em>k</em>-1 predictors, meaning one fewer predictor than the number of groups. Since we have four groups, we will need to create three predictors. In the code below, our reference group will always be set to 0. Then, for each dummy coded predictor, we will set the target group to 1. Each target group will be 1 for when it is a predictor, but reactivation and Tetris (condition 2) will always be set to 0.</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Dummy code condition 2 as 0 for each comparison, and each successive group as 1</span></span>
+<span><span class="va">james_data</span> <span class="op">&lt;-</span> <span class="va">james_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># For each group at a time, code as 1, with the default set to 0 for all other groups</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>RT_control <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">Condition</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">~</span> <span class="fl">1</span>, .default <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>         RT_tetris <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">Condition</span> <span class="op">==</span> <span class="fl">3</span> <span class="op">~</span> <span class="fl">1</span>, .default <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>         RT_reactivation <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">Condition</span> <span class="op">==</span> <span class="fl">4</span> <span class="op">~</span> <span class="fl">1</span>, .default <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>We can get an overview of how this looks by checking the distinct values against <code>Condition</code>.</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">james_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">Condition</span>, <span class="va">RT_control</span>, <span class="va">RT_tetris</span>, <span class="va">RT_reactivation</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Condition</th>
+<th align="right">RT_control</th>
+<th align="right">RT_tetris</th>
+<th align="right">RT_reactivation</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>The three predictors show how each comparison is dummy coded. For <code>RT_control</code>, group 1 is coded 1 and all the others are coded 0. For <code>RT_tetris</code>, group 3 is coded 1 and all the others are coded 0 etc. Group is the only one without ever being coded 1.</p>
+<div class="info">
+<p>Remember the interpretation of the intercept is what the outcome value is when the predictors are set to 0. Setting all the predictors to 0 would indicate group 2 in this case, so that represents our reference group. See the predictors as little switches to turn on and off, and when they are all turned off (0), that represents the reference group.</p>
+</div>
+<p>We can now see what this looks like as our regression model containing dummy coded predictors.</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">james_dummy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">post_intrusions</span> <span class="op">~</span> <span class="va">RT_control</span> <span class="op">+</span> <span class="va">RT_tetris</span> <span class="op">+</span> <span class="va">RT_reactivation</span>, data <span class="op">=</span> <span class="va">james_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">james_dummy</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = post_intrusions ~ RT_control + RT_tetris + RT_reactivation, 
+##     data = james_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.1111 -1.8889 -0.8333  1.1111 10.8889 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept)       1.8889     0.7485   2.523  0.01396 * 
+## RT_control        3.2222     1.0586   3.044  0.00332 **
+## RT_tetris         2.0000     1.0586   1.889  0.06312 . 
+## RT_reactivation   2.9444     1.0586   2.781  0.00700 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.176 on 68 degrees of freedom
+## Multiple R-squared:  0.1434, Adjusted R-squared:  0.1056 
+## F-statistic: 3.795 on 3 and 68 DF,  p-value: 0.01409</code></pre>
+<p>This gives us a similar result to before, some of the coefficients are even the same, but we are controlling what the reference group is for the intercept, and what each target comparison is. They are all positive predictors showing the number of intrusive memories is higher in each control group compared to the combined reactivation and Tetris group. However, the difference to Tetris in isolation is not statistically significant.</p>
+<p>For these initial steps, it is also a good opportunity to sense check how the comparisons work. The intercept is the mean for our reference group - reactivation plus Tetris. Each coefficient is then the mean difference for each target group against the reference. We can show this is the case by comparing the means.</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate and isolate the mean for group 2 as our reference group</span></span>
+<span><span class="va">RT_mean</span> <span class="op">&lt;-</span> <span class="va">james_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Isolate group 2</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Condition</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_intrusions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">post_intrusions</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Isolate the first value</span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># For each other group, calculate the mean difference between the group mean and RT mean</span></span>
+<span><span class="va">james_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Omit group 2</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Condition</span> <span class="op">!=</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Get mean difference for all other groups</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Condition</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_difference <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">post_intrusions</span><span class="op">)</span> <span class="op">-</span> <span class="va">RT_mean</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Condition</th>
+<th align="right">mean_difference</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="right">3.222222</td>
+</tr>
+<tr class="even">
+<td align="left">3</td>
+<td align="right">2.000000</td>
+</tr>
+<tr class="odd">
+<td align="left">4</td>
+<td align="right">2.944444</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="warning">
+<p>We can see the mean for group 2 and the mean differences align with exactly what we expect. It is important to work through the process now as the group means align with the model estimates. This will not be the case when we have multiple predictors since the coefficients become partial effects.</p>
+</div>
+</div>
+<div id="deviation-coding-condition" class="section level3" number="2.3.5">
+<h3>
+<span class="header-section-number">2.3.5</span> Deviation coding <code>Condition</code><a class="anchor" aria-label="anchor" href="#deviation-coding-condition"><i class="fas fa-link"></i></a>
+</h3>
+<p>Finally, we have deviation coding. This is more useful once we get to interactions later, but it is easier to see the logic behind what it is doing when we have no other predictors to worry about.</p>
+<p>Remember, in dummy coding, the intercept is the reference group mean, and each dummy coded predictor is the mean difference against the reference group.</p>
+<p>In deviation coding, the interpretation of the intercept changes to be the grand mean of all observations, i.e., taking the mean of all four groups. The coefficients are then the difference between each comparison group with the grand mean for a main effect. We still need to create a new predictor for <em>k</em>-1 groups, but instead of coding 0 and 1, we use 0.5 and -0.5.</p>
+<p>You might see different ways of deviation coding. When you use 0.5/-0.5, you can calculate the effect of the group as 0.5 * the slope, which tells you the difference to the grand mean. For 1/-1. you calculate the effect of the group as 1 * the slope, which tells you the difference to the grand mean. We will typically use 0.5/-0.5 for consistency with other materials, but be aware you might see each approach.</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create deviation coding for k-1 groups</span></span>
+<span><span class="co"># In this method, group 2 as our reference will be -0.5 in each comparison. </span></span>
+<span><span class="co"># Variables not included in the predictor are set to 0</span></span>
+<span><span class="co"># The target group is set to 0.5 for each predictor</span></span>
+<span><span class="va">james_data</span> <span class="op">&lt;-</span> <span class="va">james_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>control_deviation <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">Condition</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">~</span> <span class="fl">0.5</span>,</span>
+<span>                                       <span class="va">Condition</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">~</span> <span class="fl">0</span>,</span>
+<span>                                       <span class="va">Condition</span> <span class="op">==</span> <span class="fl">2</span> <span class="op">~</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>         tetris_deviation <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">Condition</span> <span class="op">==</span> <span class="fl">3</span> <span class="op">~</span> <span class="fl">0.5</span>,</span>
+<span>                                       <span class="va">Condition</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">~</span> <span class="fl">0</span>,</span>
+<span>                                       <span class="va">Condition</span> <span class="op">==</span> <span class="fl">2</span> <span class="op">~</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>         reactivation_deviation <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">Condition</span> <span class="op">==</span> <span class="fl">4</span> <span class="op">~</span> <span class="fl">0.5</span>,</span>
+<span>                                       <span class="va">Condition</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">~</span> <span class="fl">0</span>,</span>
+<span>                                       <span class="va">Condition</span> <span class="op">==</span> <span class="fl">2</span> <span class="op">~</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>As before, we can get an overview of how this looks by checking the distinct values against <code>Condition</code>.</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">james_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">Condition</span>, <span class="va">control_deviation</span>, <span class="va">tetris_deviation</span>, <span class="va">reactivation_deviation</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="14%">
+<col width="26%">
+<col width="25%">
+<col width="33%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Condition</th>
+<th align="right">control_deviation</th>
+<th align="right">tetris_deviation</th>
+<th align="right">reactivation_deviation</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="right">0.5</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="right">-0.5</td>
+<td align="right">-0.5</td>
+<td align="right">-0.5</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="right">0.0</td>
+<td align="right">0.5</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.5</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>The three predictors show how each comparison is deviation coded. For <code>control_deviation</code>, group 1 is coded 0.5, the predictors to ignore are coded 0, and the target group is coded -0.5. For <code>tetris_deviation</code>, group 3 is coded 0.5 etc. Group 2 is always coded -0.5 in this case.</p>
+<div class="info">
+<p>Remember the interpretation of the intercept is what the outcome value is when the predictors are set to 0. The interpretation shifts here as the intercept represents the grand mean across the group. When the predictors are set to 0, the outcome is in the middle of -0.5 and 0.5, so its the mid point or average. When you do not have interactions, this might not be as useful, but its easier to understand the logic when there are no partial effects.</p>
+</div>
+<p>We can now see what this looks like for our regression model containing deviation coded predictors.</p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">james_deviation</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">post_intrusions</span> <span class="op">~</span> <span class="va">control_deviation</span> <span class="op">+</span> <span class="va">tetris_deviation</span> <span class="op">+</span> <span class="va">reactivation_deviation</span>, data <span class="op">=</span> <span class="va">james_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">james_deviation</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = post_intrusions ~ control_deviation + tetris_deviation + 
+##     reactivation_deviation, data = james_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.1111 -1.8889 -0.8333  1.1111 10.8889 
+## 
+## Coefficients:
+##                        Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)             3.93056    0.37427  10.502 7.11e-16 ***
+## control_deviation       2.36111    1.29652   1.821    0.073 .  
+## tetris_deviation       -0.08333    1.29652  -0.064    0.949    
+## reactivation_deviation  1.80556    1.29652   1.393    0.168    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.176 on 68 degrees of freedom
+## Multiple R-squared:  0.1434, Adjusted R-squared:  0.1056 
+## F-statistic: 3.795 on 3 and 68 DF,  p-value: 0.01409</code></pre>
+<p>This time, the results look a little different. None of the coefficients are significant, but importantly, the model is exactly the same. We are still explaining the same amount of variance in the outcome, but the way we are expressing it is different.</p>
+<p>Deviation coding is tricky at first to appreciate what its doing, so working through the logic is even more important than for dummy coding. This time, we need to calculate the grand mean of all observations, then compare the coefficients against the grand mean.</p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate and isolate the grand mean of all groups</span></span>
+<span><span class="va">grand_mean</span> <span class="op">&lt;-</span> <span class="va">james_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_intrusions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">post_intrusions</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Calculate the mean number of intrusions for each group</span></span>
+<span><span class="co"># Then calculate the deviations as 2 times the mean difference </span></span>
+<span><span class="va">james_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Condition</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_intrusions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">post_intrusions</span><span class="op">)</span>,</span>
+<span>            deviations <span class="op">=</span> <span class="op">(</span><span class="va">grand_mean</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">post_intrusions</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Condition</th>
+<th align="right">mean_intrusions</th>
+<th align="right">deviations</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="right">5.111111</td>
+<td align="right">-2.3611111</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="right">1.888889</td>
+<td align="right">4.0833333</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="right">3.888889</td>
+<td align="right">0.0833333</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="right">4.833333</td>
+<td align="right">-1.8055556</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="warning">
+<p>We can see the grand mean and deviations align with exactly what we expect. It is trickier than dummy coding, but this is what deviation coding does. Note in the model you do not get the group 2 contrast as that's always the reference group and we are ignoring the sign of the deviation to check its consistency. Also pay attention to calculating 2 times the difference, since we used 0.5/-0.5 as the coding scheme.</p>
+<p>It is important to work through the process now as the deviations align with the model estimates. This will not be the case when we have multiple predictors since the coefficients become partial predictors.</p>
+</div>
+</div>
+<div id="standardised-betas" class="section level3" number="2.3.6">
+<h3>
+<span class="header-section-number">2.3.6</span> Unstandardised vs standardised betas<a class="anchor" aria-label="anchor" href="#standardised-betas"><i class="fas fa-link"></i></a>
+</h3>
+<p>In this final demonstration, we will use this data set as an opportunity to demonstrate the difference between unstandardised and standardised beta coefficients.</p>
+<p>When you use the raw data, the interpretation of the intercept and slopes relates to the units of measurement. So, how your outcome changes for a 1 unit change in your predictor. That 1 unit will be relative to the units of measurement and the interpretation changes depending on what your variables are.</p>
+<p>When you have multiple predictors, the units might be different in each predictor, so it can be difficult to judge which predictor has the biggest impact. Alternatively, standardising predictors is comparable to Cohen's d when you compare groups which you see all the time in psychology.</p>
+<p>You can do this manually by scaling all the variables. This means you transform each variable to have a mean of 0 and standard deviation of 1. Instead of being in the raw units, the units are expressed in standard deviations.</p>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Select our four variables of interest for the dummy coded version of the model</span></span>
+<span><span class="va">standardise_variables</span> <span class="op">&lt;-</span> <span class="va">james_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">post_intrusions</span>, <span class="va">RT_control</span>, <span class="va">RT_tetris</span>, <span class="va">RT_reactivation</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Standardise the variables by using the scale() function on them</span></span>
+<span><span class="co"># There are two layers here as scale() saves the variables just as a matrix, so we need to store it in a data frame</span></span>
+<span><span class="va">standardise_variables</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">standardise_variables</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># See what the standardised variables look like</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">standardise_variables</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="right">post_intrusions</th>
+<th align="right">RT_control</th>
+<th align="right">RT_tetris</th>
+<th align="right">RT_reactivation</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.0206797</td>
+<td align="right">1.719981</td>
+<td align="right">-0.5733269</td>
+<td align="right">-0.5733269</td>
+</tr>
+<tr class="even">
+<td align="right">-0.2771082</td>
+<td align="right">1.719981</td>
+<td align="right">-0.5733269</td>
+<td align="right">-0.5733269</td>
+</tr>
+<tr class="odd">
+<td align="right">0.6162555</td>
+<td align="right">1.719981</td>
+<td align="right">-0.5733269</td>
+<td align="right">-0.5733269</td>
+</tr>
+<tr class="even">
+<td align="right">-0.5748961</td>
+<td align="right">1.719981</td>
+<td align="right">-0.5733269</td>
+<td align="right">-0.5733269</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.2771082</td>
+<td align="right">1.719981</td>
+<td align="right">-0.5733269</td>
+<td align="right">-0.5733269</td>
+</tr>
+<tr class="even">
+<td align="right">0.0206797</td>
+<td align="right">1.719981</td>
+<td align="right">-0.5733269</td>
+<td align="right">-0.5733269</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>We can now refit the dummy-coded model using the standardised version of the data set. All the predictor and outcome names remained the same.</p>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">standardised_dummy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">post_intrusions</span> <span class="op">~</span> <span class="va">RT_control</span> <span class="op">+</span> <span class="va">RT_tetris</span> <span class="op">+</span> <span class="va">RT_reactivation</span>, data <span class="op">=</span> <span class="va">standardise_variables</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Temporarily turn off scientific notation so we can see the numbers clearer</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>scipen <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">standardised_dummy</span><span class="op">)</span></span>
+<span><span class="co"># Turn scientific notation back on to stop everything else printing to loads of decimals</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>scipen <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = post_intrusions ~ RT_control + RT_tetris + RT_reactivation, 
+##     data = standardise_variables)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1.5220 -0.5625 -0.2482  0.3309  3.2426 
+## 
+## Coefficients:
+##                                Estimate              Std. Error t value
+## (Intercept)     -0.00000000000000005042  0.11145399933614341670   0.000
+## RT_control       0.41840827520580753385  0.13746063961845123025   3.044
+## RT_tetris        0.25970168805877702489  0.13746063961845123025   1.889
+## RT_reactivation  0.38233859630875477453  0.13746063961845117474   2.781
+##                 Pr(&gt;|t|)   
+## (Intercept)      1.00000   
+## RT_control       0.00332 **
+## RT_tetris        0.06312 . 
+## RT_reactivation  0.00700 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9457 on 68 degrees of freedom
+## Multiple R-squared:  0.1434, Adjusted R-squared:  0.1056 
+## F-statistic: 3.795 on 3 and 68 DF,  p-value: 0.01409</code></pre>
+<p>Instead of the original units, our coefficients are now expressed as a standardised mean difference. This means instead of the reference group having an average of 3.22 fewer intrusive memories than control, the difference was 0.42 standard deviations. Standardised units are reported all the time in psychology as its easier to compare studies using different measures, but its important the measures and comparisons are comparable to make sense.</p>
+<p>Now you know the logic behind standardising predictors and how it works, there is a shortcut you can use to standardise the estimates of a model you have already created. The <code class="package">effectsize</code> package has a handy function called <code><span><span class="fu">standardize_parameters</span><span class="op">(</span><span class="op">)</span></span></code> which will refit a model and return standardised estimates, helpfully also including the 95% CI around the estimates.</p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">james_dummy</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Parameter</th>
+<th align="right">Std_Coefficient</th>
+<th align="right">CI</th>
+<th align="right">CI_low</th>
+<th align="right">CI_high</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">0.0000000</td>
+<td align="right">0.95</td>
+<td align="right">-0.2224030</td>
+<td align="right">0.2224030</td>
+</tr>
+<tr class="even">
+<td align="left">RT_control</td>
+<td align="right">0.4184083</td>
+<td align="right">0.95</td>
+<td align="right">0.1441098</td>
+<td align="right">0.6927067</td>
+</tr>
+<tr class="odd">
+<td align="left">RT_tetris</td>
+<td align="right">0.2597017</td>
+<td align="right">0.95</td>
+<td align="right">-0.0145967</td>
+<td align="right">0.5340001</td>
+</tr>
+<tr class="even">
+<td align="left">RT_reactivation</td>
+<td align="right">0.3823386</td>
+<td align="right">0.95</td>
+<td align="right">0.1080402</td>
+<td align="right">0.6566370</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Reassuringly, we get the same estimates as when we converted the variables ourselves.</p>
+</div>
+</div>
+<div id="multiple-linear-regression-with-individual-predictors" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Multiple linear regression with individual predictors<a class="anchor" aria-label="anchor" href="#multiple-linear-regression-with-individual-predictors"><i class="fas fa-link"></i></a>
+</h2>
+<div id="introduction-to-the-dataset-1" class="section level3" number="2.4.1">
+<h3>
+<span class="header-section-number">2.4.1</span> Introduction to the dataset<a class="anchor" aria-label="anchor" href="#introduction-to-the-dataset-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>To demonstrate multiple linear regression models, we will use data from <span class="citation">Evans (<a href="references.html#ref-evans_unethical_2024">2024</a>)</span> (the stage two manuscript is currently under review) who performed a multi-site registered replication report containing 2218 participants. They wanted to replicate <span class="citation">Jones &amp; Kavanagh (<a href="references.html#ref-jones_experimental_1996">1996</a>)</span> - an influential study in organisational psychology on unethical workplace behaviour. The variables can be split into two types. The first are situational factors and relate to experimental manipulations on a vignette that participants read:</p>
+<ol style="list-style-type: decimal">
+<li><p>Workplace environment (<code>QWE</code>): Your workplace environment is described as high or low quality.</p></li>
+<li><p>Manager influence (<code>MI</code>): Your manager is described as behaving ethically or unethically.</p></li>
+<li><p>Peer influence (<code>PI</code>): Your peers are described as behaving ethically or unethically.</p></li>
+</ol>
+<p>The second group of variables are individual and relate to the participant rather than being experimentally manipulated:</p>
+<ol style="list-style-type: decimal">
+<li><p>Locus of control (<code>LOCTot</code>): A measure of whether someone attributes events internally or externally.</p></li>
+<li><p>Social desirability (<code>SocDesTot</code>): A measure of whether someone would respond in a way that would make them look better than they would typically act.</p></li>
+<li><p>Machiavellianism (<code>MachTot</code>): A personality trait that is part of the dark-triad, showing a lack of empathy and willingness to manipulate others.</p></li>
+</ol>
+<p>The outcome in the study was then the participant's unethical workplace behaviour intention (<code>BehIntTot</code>). The vignette described a situation in a company and the unethical behaviour was whether you would manipulate expense requests to claim more money than you really should. There were four questions which were added up to range from 4 to 20, with higher values meaning greater intention to behave unethically.</p>
+<p>Our research question for this study is: What is the effect of individual and situational factors on unethical workplace behaviour intentions? We will not pose specific hypotheses, but we essentially predict that these six factors will affect someone's unethical workplace behaviour intention.</p>
+</div>
+<div id="visualise-the-relationship" class="section level3" number="2.4.2">
+<h3>
+<span class="header-section-number">2.4.2</span> Visualise the relationship<a class="anchor" aria-label="anchor" href="#visualise-the-relationship"><i class="fas fa-link"></i></a>
+</h3>
+<p>When starting any data analysis, it is important to visualise the data for some exploratory data analysis. Using the skills you developed in data skills for reproducible research, explore the data understand its properties and look for potential patterns.</p>
+<p>Please try this yourself and explore different variables and their relationship to unethical workplace behaviour. For example, we can look at the effect of quality of workplace environment:</p>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">evans_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">QWE</span>, y <span class="op">=</span> <span class="va">BehIntTot</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Sum of Behavioural Intentions"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Quality of Workplace Environment"</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Low"</span>, <span class="st">"High"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure">
+<img src="02-LM2_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;">
+Alternatively, we might look at the relationship between unethical behaviour intention and Machiavellianism:</div>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">evans_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">MachTot</span>, y <span class="op">=</span> <span class="va">BehIntTot</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Sum of Behavioural Intentions"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Machiavellianism"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02-LM2_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="model-1-situational-factors" class="section level3" number="2.4.3">
+<h3>
+<span class="header-section-number">2.4.3</span> Model 1: Situational factors<a class="anchor" aria-label="anchor" href="#model-1-situational-factors"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now you understand the data a little better, it is time to apply our modelling techniques to address our research question. We will go with the hierarchical approach to entering predictors to enter them in two steps. First, situational factors, then the individual factors on top of them.</p>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">individual_model1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">BehIntTot</span> <span class="op">~</span> <span class="va">QWE</span> <span class="op">+</span> <span class="va">MI</span> <span class="op">+</span> <span class="va">PI</span>, data <span class="op">=</span> <span class="va">evans_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">individual_model1</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = BehIntTot ~ QWE + MI + PI, data = evans_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -6.5855 -2.5855 -0.5956  2.9452 10.3357 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  10.5855     0.1628  65.018  &lt; 2e-16 ***
+## QWEhigh      -0.3905     0.1629  -2.397  0.01663 *  
+## MIethical    -0.5307     0.1630  -3.256  0.00115 ** 
+## PIethical    -0.4592     0.1630  -2.817  0.00488 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.837 on 2214 degrees of freedom
+## Multiple R-squared:  0.01068,    Adjusted R-squared:  0.009341 
+## F-statistic: 7.968 on 3 and 2214 DF,  p-value: 2.774e-05</code></pre>
+<p>All three predictors are statistically significant and are all negative. Since we coded the positive manipulations as the target groups, this shows people reported lower unethical workplace behaviour intentions in the high/ethical groups.</p>
+<p>We explain a significant amount of variance in unethical behaviour intentions, but note the <span class="math inline">\(R^2\)</span> and adjusted <span class="math inline">\(R^2\)</span> values. They are approximately .01 or 1%, showing with 2000 plus participants, we can reject the null, but we explain only a modest proportion of variance.</p>
+<p>At this point, it is an important lesson to see how the presence of other predictors affects the estimates of another predictor. For a demonstration, we will create another regression model, but only including one situational variable at a time. Feel free to create the other two yourself and compare.</p>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">individual_model1a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">BehIntTot</span> <span class="op">~</span> <span class="va">QWE</span>, data <span class="op">=</span> <span class="va">evans_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">individual_model1a</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = BehIntTot ~ QWE, data = evans_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -6.0938 -2.0938 -0.7052  2.9062 10.2948 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  10.0938     0.1151  87.685   &lt;2e-16 ***
+## QWEhigh      -0.3886     0.1635  -2.377   0.0176 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.851 on 2216 degrees of freedom
+## Multiple R-squared:  0.002542,   Adjusted R-squared:  0.002092 
+## F-statistic: 5.648 on 1 and 2216 DF,  p-value: 0.01756</code></pre>
+<div class="info">
+<p>If you compare the coefficient for QWE in model 1 to this new isolated model, we get slightly different estimates. Its close, but not exactly the same. That is because in a multiple linear regression model, the predictors become partial effects. We are trying to model different sources of variance, so what might be explained by a predictor in one model, might change in a model with additional predictors. So, you might find predictors that are significant in one model are no longer significant in another model.</p>
+</div>
+</div>
+<div id="model-2-situational-and-individual-factors" class="section level3" number="2.4.4">
+<h3>
+<span class="header-section-number">2.4.4</span> Model 2: Situational and individual factors<a class="anchor" aria-label="anchor" href="#model-2-situational-and-individual-factors"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now we have explored the effect of situational factors on unethical behaviour intentions, we can add the individual factors to see how well they contribute to the model.</p>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">individual_model2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">BehIntTot</span> <span class="op">~</span> <span class="va">QWE</span> <span class="op">+</span> <span class="va">MI</span> <span class="op">+</span> <span class="va">PI</span> <span class="op">+</span> <span class="va">LOCTot</span> <span class="op">+</span> <span class="va">SocDesTot</span> <span class="op">+</span> <span class="va">MachTot</span>, data <span class="op">=</span> <span class="va">evans_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">individual_model2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = BehIntTot ~ QWE + MI + PI + LOCTot + SocDesTot + 
+##     MachTot, data = evans_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -8.0856 -2.7105 -0.4456  2.8414 11.8721 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  7.61519    1.00062   7.610 4.02e-14 ***
+## QWEhigh     -0.41735    0.15513  -2.690  0.00719 ** 
+## MIethical   -0.47421    0.15532  -3.053  0.00229 ** 
+## PIethical   -0.39941    0.15526  -2.572  0.01016 *  
+## LOCTot       0.02330    0.01687   1.381  0.16744    
+## SocDesTot   -0.08860    0.01984  -4.467 8.35e-06 ***
+## MachTot      0.18967    0.01773  10.697  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.652 on 2211 degrees of freedom
+## Multiple R-squared:  0.1049, Adjusted R-squared:  0.1025 
+## F-statistic: 43.19 on 6 and 2211 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>With three more variables, we explain a larger proportion of variance. Before, adjusted <span class="math inline">\(R^2\)</span> was around 1%, now it is .10 or 10%. So adding these situational variables seem to explain a larger chunk of variance. All the predictors apart from locus of control are statistically significant. Almost all the significant predictors are negative, suggesting lower unethical behaviour intention, apart from Machiavellianism. This makes sense as it means higher in a personality trait for unempathic behaviour is associated with higher intention for unethical behaviour.</p>
+<div id="standardised-coefficients" class="section level4" number="2.4.4.1">
+<h4>
+<span class="header-section-number">2.4.4.1</span> Standardised coefficients<a class="anchor" aria-label="anchor" href="#standardised-coefficients"><i class="fas fa-link"></i></a>
+</h4>
+<p>At this point with a mix of predictors, we can also check the standardised coefficients to see which predictors appear to be the strongest on a standard deviation scale.</p>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">individual_model2</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Parameter</th>
+<th align="right">Std_Coefficient</th>
+<th align="right">CI</th>
+<th align="right">CI_low</th>
+<th align="right">CI_high</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">0.1659965</td>
+<td align="right">0.95</td>
+<td align="right">0.0871282</td>
+<td align="right">0.2448649</td>
+</tr>
+<tr class="even">
+<td align="left">QWEhigh</td>
+<td align="right">-0.1082689</td>
+<td align="right">0.95</td>
+<td align="right">-0.1871863</td>
+<td align="right">-0.0293515</td>
+</tr>
+<tr class="odd">
+<td align="left">MIethical</td>
+<td align="right">-0.1230192</td>
+<td align="right">0.95</td>
+<td align="right">-0.2020337</td>
+<td align="right">-0.0440047</td>
+</tr>
+<tr class="even">
+<td align="left">PIethical</td>
+<td align="right">-0.1036139</td>
+<td align="right">0.95</td>
+<td align="right">-0.1826004</td>
+<td align="right">-0.0246273</td>
+</tr>
+<tr class="odd">
+<td align="left">LOCTot</td>
+<td align="right">0.0296680</td>
+<td align="right">0.95</td>
+<td align="right">-0.0124626</td>
+<td align="right">0.0717985</td>
+</tr>
+<tr class="even">
+<td align="left">SocDesTot</td>
+<td align="right">-0.0989384</td>
+<td align="right">0.95</td>
+<td align="right">-0.1423766</td>
+<td align="right">-0.0555001</td>
+</tr>
+<tr class="odd">
+<td align="left">MachTot</td>
+<td align="right">0.2421870</td>
+<td align="right">0.95</td>
+<td align="right">0.1977892</td>
+<td align="right">0.2865848</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Machiavellianism seems to be the strongest predictor here, showing for every 1 standard deviation increase in Machiavellianism, we expect unethical behaviour intentions to increase by 0.24 standard deviations.</p>
+</div>
+<div id="checking-assumptions" class="section level4" number="2.4.4.2">
+<h4>
+<span class="header-section-number">2.4.4.2</span> Checking assumptions<a class="anchor" aria-label="anchor" href="#checking-assumptions"><i class="fas fa-link"></i></a>
+</h4>
+<p>At this point, we can check whether there any red flags by checking the assumption plots. Remember, in multiple linear regression, we want:</p>
+<ul>
+<li><p>The outcome is interval/ratio level data</p></li>
+<li><p>The predictor variables are interval/ratio or categorical (with two levels at a time)</p></li>
+<li><p>All values of the outcome variable are independent (i.e., each score should come from a different participant/observation)</p></li>
+<li><p>The predictors have non-zero variance</p></li>
+<li><p>The relationship between the outcome and predictors is linear</p></li>
+<li><p>The residuals should be normally distributed</p></li>
+<li><p>There should be homoscedasticity</p></li>
+</ul>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">individual_model2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="02-LM2_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;"><img src="02-LM2_files/figure-html/unnamed-chunk-21-2.png" width="100%" style="display: block; margin: auto;"><img src="02-LM2_files/figure-html/unnamed-chunk-21-3.png" width="100%" style="display: block; margin: auto;"><img src="02-LM2_files/figure-html/unnamed-chunk-21-4.png" width="100%" style="display: block; margin: auto;"></p>
+<p>There do not appear to be any major red flags (apart from discrete looking data which we will get onto). Plots 1 and 3 show homoscedasticity as the residuals are roughly consistent across the x-axis. The qq plot in plot 2 is fine, just with values at the lower and upper scale moving away from the line. Combined with plots 1 and 3, there are characteristic signs that the outcome may not be truly interval. The residuals are organised into lines as remember our outcome is the sum of a Likert question, so there are only so many possible values. We will come back to this idea in chapter 3. Finally, plot 4 is not flagging any observations as high in leverage for potential outliers.</p>
+<p>So far, this is the same as chapter 1. We have a new assumption to check when we have multiple predictors though. We do not want predictors to be too heavily correlated with each other, known as multicollinearity. We can check this using a function from <code class="package">car</code> called <code><span><span class="fu">vif</span><span class="op">(</span><span class="op">)</span></span></code>.</p>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/vif.html">vif</a></span><span class="op">(</span><span class="va">individual_model2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##       QWE        MI        PI    LOCTot SocDesTot   MachTot 
+##  1.000447  1.002926  1.002201  1.140099  1.211972  1.266108</code></pre>
+<p>VIF stands for variance inflation factor and a conservative estimate is values that are less than 2.5 are fine. Values above 2.5 suggest your predictors are too heavily correlated. Some people suggest less than 10 is OK, but siding with caution is normally a good approach. Here, the highest value is 1.27, so it does not look like there is anything to worry about.</p>
+</div>
+</div>
+<div id="model-comparison" class="section level3" number="2.4.5">
+<h3>
+<span class="header-section-number">2.4.5</span> Model comparison<a class="anchor" aria-label="anchor" href="#model-comparison"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now we have two competing models, we can see whether model 2 is the better fitting model and is worth adding three additional predictors in. We are trying to avoid overfitting as <span class="math inline">\(R^2\)</span> will almost always increase with more variables, but it might not be actually doing anything worthwhile.</p>
+<div id="comparing-models-using-anova" class="section level4" number="2.4.5.1">
+<h4>
+<span class="header-section-number">2.4.5.1</span> Comparing models using <code>anova()</code><a class="anchor" aria-label="anchor" href="#comparing-models-using-anova"><i class="fas fa-link"></i></a>
+</h4>
+<p>First, we can compare the two models using analysis of variance (ANOVA) to see whether model 2 explains significantly more variance than model 1.</p>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">individual_model1</span>, <span class="va">individual_model2</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="right">Res.Df</th>
+<th align="right">RSS</th>
+<th align="right">Df</th>
+<th align="right">Sum of Sq</th>
+<th align="right">F</th>
+<th align="right">Pr(&gt;F)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">2214</td>
+<td align="right">32591.48</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">2211</td>
+<td align="right">29487.44</td>
+<td align="right">3</td>
+<td align="right">3104.04</td>
+<td align="right">77.5814</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>It does seem to be the case here. Careful of the rounding as the <em>p</em>-value is tiny and its rounded to 0 in the rendering of the book. The difference between the models is statistically significant, suggesting model 2 explains more variance than model 1.</p>
+</div>
+<div id="comparing-r2-for-each-model" class="section level4" number="2.4.5.2">
+<h4>
+<span class="header-section-number">2.4.5.2</span> Comparing R2 for each model<a class="anchor" aria-label="anchor" href="#comparing-r2-for-each-model"><i class="fas fa-link"></i></a>
+</h4>
+<p>Second, we can compare <span class="math inline">\(R^2\)</span> for each model to see if model 2 explains more variance in our outcome than model 1. This is more of a prompt to look at your two model objects and compare the values.</p>
+<p>Remember, adjusted <span class="math inline">\(R^2\)</span> is particularly useful here as it corrects for model complexity. It penalises for the number of predictors in your model, so there will be a bigger difference in <span class="math inline">\(R^2\)</span> and adjusted <span class="math inline">\(R^2\)</span> when the model is unnecessarily complex. This also supports our case as adjusted <span class="math inline">\(R^2\)</span> increase from approximately .01 to .10.</p>
+</div>
+<div id="checking-model-fit-using-aic" class="section level4" number="2.4.5.3">
+<h4>
+<span class="header-section-number">2.4.5.3</span> Checking model fit using AIC<a class="anchor" aria-label="anchor" href="#checking-model-fit-using-aic"><i class="fas fa-link"></i></a>
+</h4>
+<p>Finally, we can check the Akaike Information Criterion (AIC) as a measure of model fit. It calculates prediction error in the model and it can only be interpreted as a relative value. There is not an inherent good or bad threshold, its relative to the data and models you are working with.</p>
+<p>As it represents prediction error, lower AIC values mean better model fit relative to another model. If a more complicated model has a higher AIC than a less complicated model, there is potential overfitting when you have redundant predictors, so its better to retain the less complex model.</p>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">individual_model1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">individual_model2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 12265.16
+## [1] 12049.17</code></pre>
+<p>The AIC value decreases in model 2, suggesting that although we have a more complex model, the additional predictors are not redundant, there is less prediction error and we are learning something useful by including these extra predictors.</p>
+</div>
+</div>
+</div>
+<div id="multiple-linear-regression-with-interactions" class="section level2" number="2.5">
+<h2>
+<span class="header-section-number">2.5</span> Multiple linear regression with interactions<a class="anchor" aria-label="anchor" href="#multiple-linear-regression-with-interactions"><i class="fas fa-link"></i></a>
+</h2>
+<p>Finally, we will explore how you can express different types of interactions in multiple linear regression models.</p>
+<div id="coding-schemes-for-interactions" class="section level3" number="2.5.1">
+<h3>
+<span class="header-section-number">2.5.1</span> Coding schemes for interactions<a class="anchor" aria-label="anchor" href="#coding-schemes-for-interactions"><i class="fas fa-link"></i></a>
+</h3>
+<p>At the start of this chapter and previously in chapter 1, we explored different coding schemes for predictors. For continuous predictors, we can enter variables as raw or centered values. For categorical predictors, we can enter variables as dummy or deviation coded values.</p>
+<p>When you have multiple linear regression models, changing the coding scheme does little else but helps you interpret the intercept. However, once you start adding interaction terms, it is super important to know the difference between what the coefficients mean when you center the predictors or not.</p>
+<p>In preparation for later, lets deviation code the categorical variables and center the continuous variables.</p>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">evans_data</span> <span class="op">&lt;-</span> <span class="va">evans_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Start by deviation coding the categorical variables as 0.5 and -0.5</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>QWE_deviation <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">QWE</span> <span class="op">==</span> <span class="st">"high"</span> <span class="op">~</span> <span class="fl">0.5</span>, .default <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>         MI_deviation <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">MI</span> <span class="op">==</span> <span class="st">"ethical"</span> <span class="op">~</span> <span class="fl">0.5</span>, .default <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>         PI_deviation <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">PI</span> <span class="op">==</span> <span class="st">"ethical"</span> <span class="op">~</span> <span class="fl">0.5</span>, .default <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>         <span class="co"># Then center the continuous predictors by subtracting the mean</span></span>
+<span>         LOCTot_center <span class="op">=</span> <span class="va">LOCTot</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">LOCTot</span><span class="op">)</span>,</span>
+<span>         SocDesTot_center <span class="op">=</span> <span class="va">SocDesTot</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">SocDesTot</span><span class="op">)</span>,</span>
+<span>         MachTot_center <span class="op">=</span> <span class="va">MachTot</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">MachTot</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="categorical-by-categorical-interactions" class="section level3" number="2.5.2">
+<h3>
+<span class="header-section-number">2.5.2</span> Categorical by categorical interactions<a class="anchor" aria-label="anchor" href="#categorical-by-categorical-interactions"><i class="fas fa-link"></i></a>
+</h3>
+<p>We will demonstrate these principles by focusing on two predictors at a time, but note these concepts just add onto to everything you learnt so far. You could have just two interacting predictors, or you could have a mix of individual and interacting predictors.</p>
+<p>First, we will explore categorical by categorical interactions. This looks at the moderating effect of one predictor on the difference in the outcome between levels of another predictor.</p>
+<div id="dummy-coded-predictors" class="section level4" number="2.5.2.1">
+<h4>
+<span class="header-section-number">2.5.2.1</span> Dummy coded predictors<a class="anchor" aria-label="anchor" href="#dummy-coded-predictors"><i class="fas fa-link"></i></a>
+</h4>
+<p>For a starting point, let's look at what the model looks like for our original dummy coded predictors. Previously, we separated predictors with +, but to get the interaction between predictors, we use * instead.</p>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">interaction_model1_dummy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">BehIntTot</span> <span class="op">~</span> <span class="va">MI</span> <span class="op">*</span> <span class="va">PI</span>, data <span class="op">=</span> <span class="va">evans_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">interaction_model1_dummy</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = BehIntTot ~ MI * PI, data = evans_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -6.4693 -2.4693 -0.4841  3.1418 10.2177 
+## 
+## Coefficients:
+##                     Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)          10.4693     0.1632  64.156  &lt; 2e-16 ***
+## MIethical            -0.6870     0.2297  -2.992  0.00281 ** 
+## PIethical            -0.6112     0.2298  -2.660  0.00787 ** 
+## MIethical:PIethical   0.3130     0.3263   0.959  0.33759    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.841 on 2214 degrees of freedom
+## Multiple R-squared:  0.008527,   Adjusted R-squared:  0.007184 
+## F-statistic: 6.347 on 3 and 2214 DF,  p-value: 0.0002781</code></pre>
+<div class="info">
+<p>There are different symbols you can use for model formulae. Using * is shorthand for "give me the individual and interaction effects of these variables". You could also specify it fully by using <code>predictor1 + predictor 2 + predictor1:predictor2</code>. You can find a full list of formula syntax in places like this <a href="https://www.econometrics.blog/post/the-r-formula-cheatsheet/" target="_blank">Econometrics blog</a>.</p>
+</div>
+<p>Manager influence and peer influence are both significant, but the interaction between them is not statistically significant.</p>
+</div>
+<div id="deviation-coded-predictors" class="section level4" number="2.5.2.2">
+<h4>
+<span class="header-section-number">2.5.2.2</span> Deviation coded predictors<a class="anchor" aria-label="anchor" href="#deviation-coded-predictors"><i class="fas fa-link"></i></a>
+</h4>
+<p>Compare that to the same model, but using the deviation coded predictors instead. Look at the coefficients for the individual predictors and the interaction. Which are different and which are the same between the models?</p>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">interaction_model1_deviation</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">BehIntTot</span> <span class="op">~</span> <span class="va">MI_deviation</span> <span class="op">*</span> <span class="va">PI_deviation</span>, data <span class="op">=</span> <span class="va">evans_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">interaction_model1_deviation</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = BehIntTot ~ MI_deviation * PI_deviation, data = evans_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -6.4693 -2.4693 -0.4841  3.1418 10.2177 
+## 
+## Coefficients:
+##                           Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                9.89847    0.08158 121.341  &lt; 2e-16 ***
+## MI_deviation              -0.53053    0.16315  -3.252  0.00116 ** 
+## PI_deviation              -0.45467    0.16315  -2.787  0.00537 ** 
+## MI_deviation:PI_deviation  0.31297    0.32630   0.959  0.33759    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.841 on 2214 degrees of freedom
+## Multiple R-squared:  0.008527,   Adjusted R-squared:  0.007184 
+## F-statistic: 6.347 on 3 and 2214 DF,  p-value: 0.0002781</code></pre>
+<p>You will see that the model fit and coefficient for the interaction is identical, but the individual predictor coefficients changed. This happens because of the interpretation of the intercept and coefficient in dummy coding. When you dummy code these variables, the intercept is the value for the outcome when both manager influence is unethical and peer influence is unethical. The coefficient for manager influence is then how we expect the outcome to change for ethical managers, when there is an unethical peer influence. These are <strong>simple effects</strong>, which can be useful information, but it might not be what you are expecting.</p>
+<p>In the deviation model, this turns into something more familiar to those working with ANOVA to compare categorical variables. The intercept is the grand mean now, so the individual predictors become <strong>main effects</strong>, or the effect of one predictor, when the second predictor is held constant at 0. For instance, an ethical manager decreases the unethical behaviour intention by 0.35 (0.5 * 0.69 because of the deviation coding scheme) compared to the grand mean.</p>
+<p>Both approaches provide useful information, but think about what information you are looking for. Typically, main effects are more useful when you want to know the individual effect of predictors on the outcome. Simple effects are then normally more useful when you are trying to break down each element of an interaction and you want the conditional effect of one predictor on another.</p>
+<p>Its always about your research question and what information you want to know.</p>
+</div>
+<div id="plotting-interactions" class="section level4" number="2.5.2.3">
+<h4>
+<span class="header-section-number">2.5.2.3</span> Plotting interactions<a class="anchor" aria-label="anchor" href="#plotting-interactions"><i class="fas fa-link"></i></a>
+</h4>
+<p>In these examples, the dataset is great for a large sample of different variables, but there are not really any meaningful interactions to explore. But, we can still demonstrate what you would do if there <em>was</em> an interaction to explore.</p>
+<p>First, plotting is your friend. Sometimes you can plot your design fine using <code class="package">ggplot2</code>, but you often miss out on the inferential parts for the confidence intervals around estimates, particularly when there are interactions to explore. So, the <code class="package">sjPlot</code> package can be useful as it can take regression models and plot the model predictions. To decomponse an interaction, it is normally more useful to use the original / dummy-coded variables, as we are interested in the simple effects here, and the units will be more interpretation for the average reader.</p>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># sjPlot makes it easy to plot estimates from the model</span></span>
+<span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">interaction_model1_dummy</span>, <span class="co"># You enter the model object</span></span>
+<span>           type <span class="op">=</span> <span class="st">"pred"</span>, <span class="co"># The type of plot you want to create</span></span>
+<span>           terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MI"</span>, <span class="st">"PI"</span><span class="op">)</span><span class="op">)</span> <span class="co"># The predictors you want to plot </span></span></code></pre></div>
+<div class="inline-figure"><img src="02-LM2_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>It is up to you and your research question which way you plot the interaction. You can explore the moderating effect of predictor 1 on predictor 2, or the moderating effect of predictor 2 on predictor 1. You will need to consider which addresses your research question. For example, we can flip it around:</p>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># sjPlot makes it easy to plot estimates from the model</span></span>
+<span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">interaction_model1_dummy</span>, <span class="co"># You enter the model object</span></span>
+<span>           type <span class="op">=</span> <span class="st">"pred"</span>, <span class="co"># The type of plot you want to create</span></span>
+<span>           terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"PI"</span>, <span class="st">"MI"</span><span class="op">)</span><span class="op">)</span> <span class="co"># The predictors you want to plot </span></span></code></pre></div>
+<div class="inline-figure"><img src="02-LM2_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p><code class="package">sjPlot</code> is somewhat based on <code class="package">ggplot2</code>, so the output may not be publication quality immediately, but you can edit some elements like <code class="package">ggplot2</code>. Annoyingly, its not easy to edit the x-axis and legend labels, so its normally better to edit the underlying variable name and labels instead.</p>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">interaction_model1_dummy</span>,</span>
+<span>           type <span class="op">=</span> <span class="st">"pred"</span>, </span>
+<span>           terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MI"</span>, <span class="st">"PI"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">14</span>, <span class="fl">2</span><span class="op">)</span>, </span>
+<span>                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">14</span><span class="op">)</span>, </span>
+<span>                     name <span class="op">=</span> <span class="st">"Unethical Workplace Behaviour Intention"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Scale for y is already present.
+## Adding another scale for y, which will replace the existing scale.</code></pre>
+<div class="inline-figure"><img src="02-LM2_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="breaking-down-model-estimates" class="section level4" number="2.5.2.4">
+<h4>
+<span class="header-section-number">2.5.2.4</span> Breaking down model estimates<a class="anchor" aria-label="anchor" href="#breaking-down-model-estimates"><i class="fas fa-link"></i></a>
+</h4>
+<p>Another way of breaking down interactions is by reporting the estimated marginal means. When there is an interaction, you often want to known whether the mean difference in predictor 1 is different across the levels of predictor 2. Plotting shows you this visually, but you might want to report effect sizes in your write-up.</p>
+<p>The <code class="package">emmeans</code> package can take a model object and report the estimated marginal means providing you tell it which variables you want to break it down by. Remember, you can switch the order of the variables depending on which predictor you want as the moderator.</p>
+<p>For example, we can report the estimated marginal means and their confidence intervals of all four groups.</p>
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">interaction_model1_dummy</span>, <span class="op">~</span> <span class="va">MI</span> <span class="op">|</span> <span class="va">PI</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## PI = unethical:
+##  MI        emmean    SE   df lower.CL upper.CL
+##  unethical  10.47 0.163 2214    10.15    10.79
+##  ethical     9.78 0.162 2214     9.47    10.10
+## 
+## PI = ethical:
+##  MI        emmean    SE   df lower.CL upper.CL
+##  unethical   9.86 0.162 2214     9.54    10.18
+##  ethical     9.48 0.166 2214     9.16     9.81
+## 
+## Confidence level used: 0.95</code></pre>
+<p>Or we can report the mean difference moderated by the second predictor by wrapping it in the <code><span><span class="fu">contrast</span><span class="op">(</span><span class="op">)</span></span></code> function.</p>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/contrast.html">contrast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">interaction_model1_dummy</span>, <span class="op">~</span> <span class="va">MI</span> <span class="op">|</span> <span class="va">PI</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## PI = unethical:
+##  contrast         estimate    SE   df t.ratio p.value
+##  unethical effect    0.344 0.115 2214   2.992  0.0028
+##  ethical effect     -0.344 0.115 2214  -2.992  0.0028
+## 
+## PI = ethical:
+##  contrast         estimate    SE   df t.ratio p.value
+##  unethical effect    0.187 0.116 2214   1.614  0.1067
+##  ethical effect     -0.187 0.116 2214  -1.614  0.1067
+## 
+## P value adjustment: fdr method for 2 tests</code></pre>
+<p>Note you get all combinations of these comparisons, so when you have two levels in a predictor, you get the same contrast but flipped around for each level of the moderator.</p>
+<p>One final warning, you can look at these variables in many ways, but think about your plan and what will address your research question and hypothesis.</p>
+</div>
+</div>
+<div id="continuous-by-categorical-cinteractions" class="section level3" number="2.5.3">
+<h3>
+<span class="header-section-number">2.5.3</span> Continuous by categorical cinteractions<a class="anchor" aria-label="anchor" href="#continuous-by-categorical-cinteractions"><i class="fas fa-link"></i></a>
+</h3>
+<p>Second, we have categorical by continuous interactions. This is where you have one categorical predictor and one continuous predictor. It tells you whether the relationship between your continuous predictor and your outcome is moderated by your categorical predictor.</p>
+<p>For this model, we will focus on whether workplace quality (<code>QWE_deviation</code>) moderates the relationship between Machiavellianism (<code>MachTot_center</code>) and unethical behaviour intentions (<code>BehIntTot</code>). Now you know the difference between raw and centered predictors, make sure you use the centered variables to interpret the individual predictors as main effects.</p>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">interaction_model2_deviation</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">BehIntTot</span> <span class="op">~</span> <span class="va">QWE_deviation</span> <span class="op">*</span> <span class="va">MachTot_center</span>, data <span class="op">=</span> <span class="va">evans_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">interaction_model2_deviation</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = BehIntTot ~ QWE_deviation * MachTot_center, data = evans_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -8.0748 -2.7977 -0.5381  2.9165 11.5690 
+## 
+## Coefficients:
+##                              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                   9.90061    0.07817 126.647  &lt; 2e-16 ***
+## QWE_deviation                -0.41162    0.15635  -2.633  0.00853 ** 
+## MachTot_center                0.22810    0.01591  14.341  &lt; 2e-16 ***
+## QWE_deviation:MachTot_center -0.04788    0.03181  -1.505  0.13246    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.681 on 2214 degrees of freedom
+## Multiple R-squared:  0.0892, Adjusted R-squared:  0.08796 
+## F-statistic: 72.28 on 3 and 2214 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>There is no interaction again, but if we did want to explore it, we can plot the simple effects by creating a dummy-coded model.</p>
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">interaction_model2_dummy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">BehIntTot</span> <span class="op">~</span> <span class="va">QWE</span> <span class="op">*</span> <span class="va">MachTot</span>, data <span class="op">=</span> <span class="va">evans_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">interaction_model2_dummy</span>, type <span class="op">=</span> <span class="st">"pred"</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MachTot"</span>, <span class="st">"QWE"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02-LM2_files/figure-html/unnamed-chunk-34-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>In a continuous by categorical interaction, it will tell you whether the slope between your outcome and continuous predictor is different/moderated by the levels of your categorical predictor. For example, whether the relationship flips from positive to negative, one is very weak, or the gradient of the slopes are just different. Here, we can see the relationship is slightly weaker / shallower in high quality workplaces compared to low quality, but ultimately that difference is not statistically significant as shown by the interaction term in the model.</p>
+</div>
+<div id="continuous-by-continuous-interactions" class="section level3" number="2.5.4">
+<h3>
+<span class="header-section-number">2.5.4</span> Continuous by continuous interactions<a class="anchor" aria-label="anchor" href="#continuous-by-continuous-interactions"><i class="fas fa-link"></i></a>
+</h3>
+<p>Finally, we have continuous by continuous interactions. This is where you have two continuous predictors. It tells you whether the relationship between your first continuous predictor and your outcome is moderated by your second continuous predictor.</p>
+<p>For this model, we will focus on whether locus of control (<code>LOCTot_center</code>) moderates the relationship between Machiavellianism (<code>MachTot_center</code>) and unethical behaviour intentions (<code>BehIntTot</code>). Make sure you use the centered variables to interpret the individual predictors as main effects.</p>
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">interaction_model3_deviation</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">BehIntTot</span> <span class="op">~</span> <span class="va">LOCTot_center</span> <span class="op">*</span> <span class="va">MachTot_center</span>, data <span class="op">=</span> <span class="va">evans_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">interaction_model3_deviation</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = BehIntTot ~ LOCTot_center * MachTot_center, data = evans_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -8.0970 -2.7347 -0.5072  2.8787 12.0243 
+## 
+## Coefficients:
+##                                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                   9.9073451  0.0810659 122.213   &lt;2e-16 ***
+## LOCTot_center                 0.0357878  0.0168673   2.122    0.034 *  
+## MachTot_center                0.2172115  0.0168029  12.927   &lt;2e-16 ***
+## LOCTot_center:MachTot_center -0.0007797  0.0027161  -0.287    0.774    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.685 on 2214 degrees of freedom
+## Multiple R-squared:  0.08733,    Adjusted R-squared:  0.0861 
+## F-statistic: 70.62 on 3 and 2214 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Plotting is always helpful for interpreting interactions, but it is critical for continuous by continuous interactions.</p>
+<p>The interpretation relies on simple slopes analysis. As there are not discrete values of your moderator, simple slopes works by creating discrete values from your continuous predictor. Typically, this is 1 SD below the mean, the mean, and 1 SD above the mean. This tells you as you increase levels of your moderator, how does it affect the relationship between your first predictor and the outcome?</p>
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">interaction_model3_dummy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">BehIntTot</span> <span class="op">~</span> <span class="va">LOCTot</span> <span class="op">*</span> <span class="va">MachTot</span>, data <span class="op">=</span> <span class="va">evans_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">interaction_model3_dummy</span>, type <span class="op">=</span> <span class="st">"pred"</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MachTot"</span>, <span class="st">"LOCTot"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02-LM2_files/figure-html/unnamed-chunk-36-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>In a simple slopes analysis, it will tell you whether the slope between your outcome and continuous predictor is different/moderated by the fixed points of your second predictor. For example, whether the relationship flips from positive to negative, one is very weak, or the gradient of the slopes are just different. Here, the interaction was non-significant, and there is very little difference between the three lines, they are almost exactly parallel to each other.</p>
+</div>
+</div>
+<div id="independent-activity-1" class="section level2" number="2.6">
+<h2>
+<span class="header-section-number">2.6</span> Independent activity<a class="anchor" aria-label="anchor" href="#independent-activity-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Now you have followed along to a guided example, it is important you can transfer your knowledge to a new scenario. So, we have a new data set for you to try out your understanding of these techniques on. Follow the instructions below and answer the questions, you can then scroll down to the <a href="multiple-linear-regression.html#C2_solution">end of the chapter</a> to see the solution we based on the questions on.</p>
+<p>For an independent activity, we will use data from Tulloch et al. who performed an unpublished replication of <span class="citation">Troy et al. (<a href="references.html#ref-troy_change_2017">2017</a>)</span>. Troy et al. conducted three studies exploring the effect of emotion regulation and socioeconomic status on depressive symptoms. The data you will use comes from a dissertation project where we replicated study one to investigate if socioeconomic status moderates the link between cognitive reappraisal ability and depressive symptoms. For the purposes of this task, the key variables from the study included:</p>
+<ul>
+<li><p>Socioeconomic Status (SES; <code>SES</code>) - Current annual family income was rated on a 1 to 12 scale aligning with income bands. The bands were converted from the original study's values in US dollars, to the replication study's target population of UK (in British Pounds) and Malaysia (in Malaysian Ringgit). Its an odd way of recording this data, but go with it...</p></li>
+<li><p>Country (<code>Country</code>) - Categorical variable showing whether the participant completed the study in Malaysia or the UK.</p></li>
+<li><p>Cognitive Reappraisal Ability (CRA; <code>CRA_mean</code>) - A scale measuring cognitive reappraisal ability. The variable was calculated from the mean of eight items measured on a 1 (strongly disagree) - 7 (strongly agree) scale, with higher values meaning higher cognitive reappraisal ability.</p></li>
+<li><p>Depressive Symptoms (<code>DS_sum</code>) - This was measured as current non-clinical symptoms of depression from the Center for Epidemiological Studies Depression Scale. Participants reported the presence of depression symptoms in the past week across five items on a 0 (none of the time) to 3 (all of the time) scale. The variable was calculated from the sum of the five items, meaning the scale could range from 0 to 15, with higher values meaning greater depression symptoms in the past week.</p></li>
+<li><p>Life Stress (<code>LS_mean</code>) - This was measured as perceptions of life stress in the past two years. Participants completed four questions on a 1 (never) to 5 (very often) scale. The variable was calculated from the mean of four questions, with higher values meaning greater life stress in the past two years.</p></li>
+</ul>
+<p>In the original Troy et al. study, they investigated if socioeconomic status moderates the link between cognitive reappraisal ability and depressive symptoms. In study one, they applied a multiple regression model with depressive symptoms as the outcome, life stress as an individual predictor, and an interaction between cognitive reappraisal ability and socioeconomic status. They found that:</p>
+<ul>
+<li><p>Life stress was a significant positive predictor of depressive symptoms.</p></li>
+<li><p>Cognitive reappraisal was a significant negative predictor of depressive symptoms.</p></li>
+<li><p>There was a significant interaction between cognitive reappraisal and socioeconomic status. They found that there was a stronger negative relationship between cognitive reappraisal and depressive symptoms for lower values of socioeconomic status compared to higher values (i.e., simple slopes analysis).</p></li>
+</ul>
+<p>In the replication study, we wanted to replicate the study to see if we would observe similar findings by including two different countries of origin (Malaysia and UK) compared to the original sample from the United States. The research questions were:</p>
+<ol style="list-style-type: decimal">
+<li><p>Does country of origin, life stress, cognitive reappraisal ability, and socioeconomic status predict depressive symptoms?</p></li>
+<li><p>Does socioeconomic status moderate the relationship between cognitive reappraisal ability and depressive symptoms?</p></li>
+</ol>
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load data for coding schemes</span></span>
+<span><span class="co"># We are applying the coding scheme, just so its crystal clear whether your answers align</span></span>
+<span><span class="va">tulloch_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/Tulloch_2022.csv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Country <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Country</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Malaysia"</span>, <span class="st">"UK"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>         Country_deviation <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">Country</span> <span class="op">==</span> <span class="st">"UK"</span> <span class="op">~</span> <span class="fl">0.5</span>, .default <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>         SES_center <span class="op">=</span> <span class="va">SES</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">SES</span><span class="op">)</span>, </span>
+<span>         CRA_center <span class="op">=</span> <span class="va">CRA_mean</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">CRA_mean</span><span class="op">)</span>,</span>
+<span>         LS_center <span class="op">=</span> <span class="va">LS_mean</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">LS_mean</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="try">
+<p>Fit two models:</p>
+<ol style="list-style-type: decimal">
+<li><p>Predict depressive symptoms (<code>DS_sum</code>) from country of origin (<code>Country_deviation</code>), life stress (<code>LS_center</code>), cognitive reappraisal (<code>CRA_center</code>), and socioeconomic status (<code>SES_center</code>) as individual predictors.</p></li>
+<li><p>Predict depressive symptoms (<code>DS_sum</code>) from country of origin (<code>Country_deviation</code>), life stress (<code>LS_center</code>), and the interaction between cognitive reappraisal (<code>CRA_center</code>) and socioeconomic status (<code>SES_center</code>).</p></li>
+</ol>
+<p>From here, apply what you learnt in the guided examples above to this new independent task and complete the questions below to check your understanding.</p>
+</div>
+<div id="model-1-individual-predictors" class="section level3" number="2.6.1">
+<h3>
+<span class="header-section-number">2.6.1</span> Model 1: Individual predictors<a class="anchor" aria-label="anchor" href="#model-1-individual-predictors"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p>Rounding to three decimals, adjusted <span class="math inline">\(R^2\)</span> for the model is <input class="webex-solveme nospaces" data-tol="0.001" size="5" data-answer='["0.239",".239"]'>, meaning the predictors explain <input class="webex-solveme nospaces" data-tol="0.001" size="2" data-answer='["24"]'>% of the variance in our outcome of depressive symptoms.</p></li>
+<li><p>Rounding to two decimals, the slope for <code>Country_deviation</code> is <input class="webex-solveme nospaces" data-tol="0.001" size="4" data-answer='["1.33"]'>, suggesting depressive symptoms were higher in <select class="webex-select"><option value="blank"></option>
+<option value="answer">the UK</option>
+<option value="x">Malaysia</option></select>.</p></li>
+<li><p>Rounding to two decimals, the slope for <code>LS_center</code> is <input class="webex-solveme nospaces" data-tol="0.001" size="3" data-answer='["1.7"]'>, suggesting life stress is a <select class="webex-select"><option value="blank"></option>
+<option value="answer">positive</option>
+<option value="x">negative</option></select> predictor.</p></li>
+<li><p>Rounding to two decimals, the slope for <code>CRA_center</code> is <input class="webex-solveme nospaces" data-tol="0.001" size="5" data-answer='["-0.48","-.48"]'>, suggesting cognitive reappraisal is a <select class="webex-select"><option value="blank"></option>
+<option value="x">positive</option>
+<option value="answer">negative</option></select> predictor.</p></li>
+<li><p>Rounding to two decimals, the slope for <code>SES_center</code> is <input class="webex-solveme nospaces" data-tol="0.001" size="5" data-answer='["-0.21","-.21"]'>, suggesting socioeconomic status is a <select class="webex-select"><option value="blank"></option>
+<option value="x">positive</option>
+<option value="answer">negative</option></select> predictor.</p></li>
+<li><p>Converting the model to standardised predictors, <select class="webex-select"><option value="blank"></option>
+<option value="x">country of origin</option>
+<option value="answer">life stress</option>
+<option value="x">cognitive reappraisal</option>
+<option value="x">socioeconomic status</option></select> has the largest effect on depressive symptoms.</p></li>
+</ul>
+</div>
+<div id="model-2-interaction-term" class="section level3" number="2.6.2">
+<h3>
+<span class="header-section-number">2.6.2</span> Model 2: Interaction term<a class="anchor" aria-label="anchor" href="#model-2-interaction-term"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p>Rounding to three decimals, adjusted <span class="math inline">\(R^2\)</span> for the model is <input class="webex-solveme nospaces" data-tol="0.001" size="5" data-answer='["0.235",".235"]'>, meaning the predictors explain <input class="webex-solveme nospaces" data-tol="0.001" size="2" data-answer='["24"]'>% of the variance in our outcome of depressive symptoms.</p></li>
+<li><p>Rounding to two decimals, the slope for <code>Country_deviation</code> is <input class="webex-solveme nospaces" data-tol="0.001" size="4" data-answer='["1.32"]'>, suggesting depressive symptoms were higher in <select class="webex-select"><option value="blank"></option>
+<option value="answer">the UK</option>
+<option value="x">Malaysia</option></select>.</p></li>
+<li><p>Rounding to two decimals, the slope for <code>LS_center</code> is <input class="webex-solveme nospaces" data-tol="0.001" size="4" data-answer='["1.69"]'>, suggesting life stress is a <select class="webex-select"><option value="blank"></option>
+<option value="answer">positive</option>
+<option value="x">negative</option></select> predictor.</p></li>
+<li><p>Rounding to two decimals, the slope for <code>CRA_center</code> is<input class="webex-solveme nospaces" data-tol="0.001" size="5" data-answer='["-0.49","-.49"]'>, suggesting cognitive reappraisal is a <select class="webex-select"><option value="blank"></option>
+<option value="x">positive</option>
+<option value="answer">negative</option></select> predictor.</p></li>
+<li><p>Rounding to two decimals, the slope for <code>SES_center</code> is <input class="webex-solveme nospaces" data-tol="0.001" size="5" data-answer='["-0.21","-.21"]'>, suggesting socioeconomic status is a <select class="webex-select"><option value="blank"></option>
+<option value="x">positive</option>
+<option value="answer">negative</option></select> predictor.</p></li>
+<li><p>Rounding to two decimals, the slope for <code>CRA_center:SES_center</code> is <input class="webex-solveme nospaces" data-tol="0.001" size="4" data-answer='["0.02",".02"]'>, and it is a <select class="webex-select"><option value="blank"></option>
+<option value="x">significant</option>
+<option value="answer">non-significant</option></select> predictor.</p></li>
+</ul>
+</div>
+<div id="model-comparison-1" class="section level3" number="2.6.3">
+<h3>
+<span class="header-section-number">2.6.3</span> Model comparison<a class="anchor" aria-label="anchor" href="#model-comparison-1"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p>Comparing the two models using ANOVA, model 2 <select class="webex-select"><option value="blank"></option>
+<option value="x">does</option>
+<option value="answer">does not</option></select> explain significantly more variance in depressive symptoms than model 1.</p></li>
+<li><p>Adjusted <span class="math inline">\(R^2\)</span> is larger in <select class="webex-select"><option value="blank"></option>
+<option value="answer">model 1</option>
+<option value="x">model 2</option></select>.</p></li>
+<li><p>The AIC value is lower in <select class="webex-select"><option value="blank"></option>
+<option value="answer">model 1</option>
+<option value="x">model 2</option></select>.</p></li>
+<li><p>Looking at these model comparison criteria, <select class="webex-select"><option value="blank"></option>
+<option value="answer">model 1</option>
+<option value="x">model 2</option></select> seems to be the most appropriate model.</p></li>
+</ul>
+</div>
+</div>
+<div id="further-resources-1" class="section level2" number="2.7">
+<h2>
+<span class="header-section-number">2.7</span> Further resources<a class="anchor" aria-label="anchor" href="#further-resources-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Within the School of Psychology and Neuroscience, we have a series of PsyTeachR books. We have written this book to specifically support the statistics and research design course, but you might find other books useful:</p>
+<ol style="list-style-type: decimal">
+<li>
+<a href="https://psyteachr.github.io/stat-models-v1/" target="_blank">Learning Statistical Models Through Simulation in R</a> will be particularly helpful for the concepts covered in this chapter. Chapters 3 and 4 cover multiple regression and interactions.</li>
+</ol>
+</div>
+<div id="C2_solution" class="section level2" number="2.8">
+<h2>
+<span class="header-section-number">2.8</span> Independent activity solution<a class="anchor" aria-label="anchor" href="#C2_solution"><i class="fas fa-link"></i></a>
+</h2>
+<div id="model-1" class="section level3" number="2.8.1">
+<h3>
+<span class="header-section-number">2.8.1</span> Model 1<a class="anchor" aria-label="anchor" href="#model-1"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tulloch_model1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">DS_sum</span> <span class="op">~</span> <span class="va">Country_deviation</span> <span class="op">+</span> <span class="va">LS_center</span> <span class="op">+</span> <span class="va">CRA_center</span> <span class="op">+</span> <span class="va">SES_center</span>,</span>
+<span>                     data <span class="op">=</span> <span class="va">tulloch_data</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">tulloch_model1</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = DS_sum ~ Country_deviation + LS_center + CRA_center + 
+##     SES_center, data = tulloch_data)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -7.301 -2.069 -0.484  2.064  8.623 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)        4.57426    0.22915  19.962  &lt; 2e-16 ***
+## Country_deviation  1.32867    0.56926   2.334  0.02070 *  
+## LS_center          1.69695    0.31853   5.327 2.95e-07 ***
+## CRA_center        -0.48039    0.18290  -2.626  0.00937 ** 
+## SES_center        -0.21012    0.09833  -2.137  0.03396 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.996 on 180 degrees of freedom
+## Multiple R-squared:  0.2557, Adjusted R-squared:  0.2391 
+## F-statistic: 15.46 on 4 and 180 DF,  p-value: 6.901e-11</code></pre>
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">tulloch_model1</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Parameter</th>
+<th align="right">Std_Coefficient</th>
+<th align="right">CI</th>
+<th align="right">CI_low</th>
+<th align="right">CI_high</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">0.0000000</td>
+<td align="right">0.95</td>
+<td align="right">-0.1265450</td>
+<td align="right">0.1265450</td>
+</tr>
+<tr class="even">
+<td align="left">Country_deviation</td>
+<td align="right">0.1890952</td>
+<td align="right">0.95</td>
+<td align="right">0.0292300</td>
+<td align="right">0.3489603</td>
+</tr>
+<tr class="odd">
+<td align="left">LS_center</td>
+<td align="right">0.3628109</td>
+<td align="right">0.95</td>
+<td align="right">0.2284307</td>
+<td align="right">0.4971912</td>
+</tr>
+<tr class="even">
+<td align="left">CRA_center</td>
+<td align="right">-0.1769852</td>
+<td align="right">0.95</td>
+<td align="right">-0.3099507</td>
+<td align="right">-0.0440197</td>
+</tr>
+<tr class="odd">
+<td align="left">SES_center</td>
+<td align="right">-0.1724731</td>
+<td align="right">0.95</td>
+<td align="right">-0.3317415</td>
+<td align="right">-0.0132047</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div id="model-2" class="section level3" number="2.8.2">
+<h3>
+<span class="header-section-number">2.8.2</span> Model 2<a class="anchor" aria-label="anchor" href="#model-2"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tulloch_model2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">DS_sum</span> <span class="op">~</span> <span class="va">Country_deviation</span> <span class="op">+</span> <span class="va">LS_center</span> <span class="op">+</span> <span class="va">CRA_center</span><span class="op">*</span><span class="va">SES_center</span>,</span>
+<span>                     data <span class="op">=</span> <span class="va">tulloch_data</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">tulloch_model2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = DS_sum ~ Country_deviation + LS_center + CRA_center * 
+##     SES_center, data = tulloch_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -7.2692 -2.0546 -0.4714  1.9568  8.6498 
+## 
+## Coefficients:
+##                       Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)            4.57570    0.22980  19.911  &lt; 2e-16 ***
+## Country_deviation      1.31934    0.57172   2.308  0.02216 *  
+## LS_center              1.69024    0.32026   5.278 3.75e-07 ***
+## CRA_center            -0.48954    0.18632  -2.627  0.00935 ** 
+## SES_center            -0.21228    0.09889  -2.147  0.03318 *  
+## CRA_center:SES_center  0.01761    0.06357   0.277  0.78208    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.004 on 179 degrees of freedom
+## Multiple R-squared:  0.256,  Adjusted R-squared:  0.2352 
+## F-statistic: 12.32 on 5 and 179 DF,  p-value: 2.832e-10</code></pre>
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">tulloch_model2</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Parameter</th>
+<th align="right">Std_Coefficient</th>
+<th align="right">CI</th>
+<th align="right">CI_low</th>
+<th align="right">CI_high</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">0.0007205</td>
+<td align="right">0.95</td>
+<td align="right">-0.1262589</td>
+<td align="right">0.1276998</td>
+</tr>
+<tr class="even">
+<td align="left">Country_deviation</td>
+<td align="right">0.1877666</td>
+<td align="right">0.95</td>
+<td align="right">0.0272046</td>
+<td align="right">0.3483285</td>
+</tr>
+<tr class="odd">
+<td align="left">LS_center</td>
+<td align="right">0.3613759</td>
+<td align="right">0.95</td>
+<td align="right">0.2262574</td>
+<td align="right">0.4964944</td>
+</tr>
+<tr class="even">
+<td align="left">CRA_center</td>
+<td align="right">-0.1803568</td>
+<td align="right">0.95</td>
+<td align="right">-0.3158157</td>
+<td align="right">-0.0448979</td>
+</tr>
+<tr class="odd">
+<td align="left">SES_center</td>
+<td align="right">-0.1742427</td>
+<td align="right">0.95</td>
+<td align="right">-0.3344240</td>
+<td align="right">-0.0140615</td>
+</tr>
+<tr class="even">
+<td align="left">CRA_center:SES_center</td>
+<td align="right">0.0182935</td>
+<td align="right">0.95</td>
+<td align="right">-0.1120138</td>
+<td align="right">0.1486008</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div id="model-comparison-2" class="section level3" number="2.8.3">
+<h3>
+<span class="header-section-number">2.8.3</span> Model comparison<a class="anchor" aria-label="anchor" href="#model-comparison-2"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">tulloch_model1</span>, <span class="va">tulloch_model2</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="right">Res.Df</th>
+<th align="right">RSS</th>
+<th align="right">Df</th>
+<th align="right">Sum of Sq</th>
+<th align="right">F</th>
+<th align="right">Pr(&gt;F)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">180</td>
+<td align="right">1616.120</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">179</td>
+<td align="right">1615.428</td>
+<td align="right">1</td>
+<td align="right">0.6925931</td>
+<td align="right">0.0767439</td>
+<td align="right">0.7820792</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">tulloch_model1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">tulloch_model2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 937.9814
+## [1] 939.9021</code></pre>
+
+</div>
+</div>
+</div>
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  if (t = document.getElementById("webex-total_correct")) {
+    var correct = document.getElementsByClassName("webex-correct").length;
+    var solvemes = document.getElementsByClassName("webex-solveme").length;
+    var radiogroups = document.getElementsByClassName("webex-radiogroup").length;
+    var selects = document.getElementsByClassName("webex-select").length;
+
+    t.innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    $(solveme[i]).after(" <span class='webex-icon'></span>");
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    $(selects[i]).after(" <span class='webex-icon'></span>");
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+$( document ).ready(function() {
+  var cite = ' ';
+  var psyteachr = ' <a href="https://psyteachr.github.io/"><img src="images/logos/psyteachr_logo.png" style="height: 31px; color: white;" alt="psyTeachR: Reproducible Research" /></a>';
+  var license = ' <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>';
+
+  $("footer div.row div:eq(1) p").html(
+    psyteachr + license + cite
+  );
+
+  // open rdrr links externally
+  $("a[href^='https://rdrr.io']").click(function(){
+    window.open(this.href);
+    return false;
+  });
+
+  // visible second sidebar in mobile
+  function move_sidebar() {
+    var w = window.innerWidth;
+    if (w < 992) {
+      $("#toc").appendTo($("#main-nav"));
+    } else {
+      $("#toc").appendTo($("div.sidebar-chapter"));
+    }
+  }
+  move_sidebar();
+  window.onresize = move_sidebar;
+});
+</script><div class="chapter-nav">
+<div class="prev"><a href="introduction-to-linear-regression.html"><span class="header-section-number">1</span> Introduction to Linear Regression</a></div>
+<div class="next"><a href="introduction-to-generalised-linear-models.html"><span class="header-section-number">3</span> Introduction to Generalised Linear Models</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#multiple-linear-regression"><span class="header-section-number">2</span> Multiple Linear Regression</a></li>
+<li><a class="nav-link" href="#learning-objectives-1"><span class="header-section-number">2.1</span> Learning objectives</a></li>
+<li><a class="nav-link" href="#packages-and-the-data-sets"><span class="header-section-number">2.2</span> Packages and the data sets</a></li>
+<li>
+<a class="nav-link" href="#coding-schemes"><span class="header-section-number">2.3</span> Different predictor coding schemes</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#introduction-to-the-dataset"><span class="header-section-number">2.3.1</span> Introduction to the dataset</a></li>
+<li><a class="nav-link" href="#exploratory-data-analysis-1"><span class="header-section-number">2.3.2</span> Exploratory data analysis</a></li>
+<li><a class="nav-link" href="#no-specific-coding"><span class="header-section-number">2.3.3</span> No specific coding</a></li>
+<li><a class="nav-link" href="#dummy-coding-condition"><span class="header-section-number">2.3.4</span> Dummy coding Condition</a></li>
+<li><a class="nav-link" href="#deviation-coding-condition"><span class="header-section-number">2.3.5</span> Deviation coding Condition</a></li>
+<li><a class="nav-link" href="#standardised-betas"><span class="header-section-number">2.3.6</span> Unstandardised vs standardised betas</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#multiple-linear-regression-with-individual-predictors"><span class="header-section-number">2.4</span> Multiple linear regression with individual predictors</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#introduction-to-the-dataset-1"><span class="header-section-number">2.4.1</span> Introduction to the dataset</a></li>
+<li><a class="nav-link" href="#visualise-the-relationship"><span class="header-section-number">2.4.2</span> Visualise the relationship</a></li>
+<li><a class="nav-link" href="#model-1-situational-factors"><span class="header-section-number">2.4.3</span> Model 1: Situational factors</a></li>
+<li><a class="nav-link" href="#model-2-situational-and-individual-factors"><span class="header-section-number">2.4.4</span> Model 2: Situational and individual factors</a></li>
+<li><a class="nav-link" href="#model-comparison"><span class="header-section-number">2.4.5</span> Model comparison</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#multiple-linear-regression-with-interactions"><span class="header-section-number">2.5</span> Multiple linear regression with interactions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#coding-schemes-for-interactions"><span class="header-section-number">2.5.1</span> Coding schemes for interactions</a></li>
+<li><a class="nav-link" href="#categorical-by-categorical-interactions"><span class="header-section-number">2.5.2</span> Categorical by categorical interactions</a></li>
+<li><a class="nav-link" href="#continuous-by-categorical-cinteractions"><span class="header-section-number">2.5.3</span> Continuous by categorical cinteractions</a></li>
+<li><a class="nav-link" href="#continuous-by-continuous-interactions"><span class="header-section-number">2.5.4</span> Continuous by continuous interactions</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#independent-activity-1"><span class="header-section-number">2.6</span> Independent activity</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#model-1-individual-predictors"><span class="header-section-number">2.6.1</span> Model 1: Individual predictors</a></li>
+<li><a class="nav-link" href="#model-2-interaction-term"><span class="header-section-number">2.6.2</span> Model 2: Interaction term</a></li>
+<li><a class="nav-link" href="#model-comparison-1"><span class="header-section-number">2.6.3</span> Model comparison</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#further-resources-1"><span class="header-section-number">2.7</span> Further resources</a></li>
+<li>
+<a class="nav-link" href="#C2_solution"><span class="header-section-number">2.8</span> Independent activity solution</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#model-1"><span class="header-section-number">2.8.1</span> Model 1</a></li>
+<li><a class="nav-link" href="#model-2"><span class="header-section-number">2.8.2</span> Model 2</a></li>
+<li><a class="nav-link" href="#model-comparison-2"><span class="header-section-number">2.8.3</span> Model comparison</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/psyteachr/statsresdesign/blob/master/book/02-LM2.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/psyteachr/statsresdesign/edit/master/book/02-LM2.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Statistics and Research Design</strong>" was written by James Bartlett. It was last built on 2024-03-18.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 4 Introduction to Bayesian Hypothesis Testing | Statistics and Research Design</title>
+<meta name="author" content="James Bartlett">
+<meta name="description" content="In this chapter, we will be exploring how you can perform hypothesis testing under a Bayesian framework. After working through some interactive apps to understand the logic behind Bayesian...">
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta property="og:title" content="Chapter 4 Introduction to Bayesian Hypothesis Testing | Statistics and Research Design">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://psyteachr.github.io/statsresdesign/introduction-to-bayesian-hypothesis-testing.html">
+<meta property="og:image" content="https://psyteachr.github.io/statsresdesign/images/logos/logo.png">
+<meta property="og:description" content="In this chapter, we will be exploring how you can perform hypothesis testing under a Bayesian framework. After working through some interactive apps to understand the logic behind Bayesian...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 4 Introduction to Bayesian Hypothesis Testing | Statistics and Research Design">
+<meta name="twitter:description" content="In this chapter, we will be exploring how you can perform hypothesis testing under a Bayesian framework. After working through some interactive apps to understand the logic behind Bayesian...">
+<meta name="twitter:image" content="https://psyteachr.github.io/statsresdesign/images/logos/logo.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.6.1/transition.js"></script><script src="libs/bs3compat-0.6.1/tabs.js"></script><script src="libs/bs3compat-0.6.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-6NP3MF25W3');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="include/psyteachr.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Statistics and Research Design</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li><a class="" href="introduction-to-linear-regression.html"><span class="header-section-number">1</span> Introduction to Linear Regression</a></li>
+<li><a class="" href="multiple-linear-regression.html"><span class="header-section-number">2</span> Multiple Linear Regression</a></li>
+<li><a class="" href="introduction-to-generalised-linear-models.html"><span class="header-section-number">3</span> Introduction to Generalised Linear Models</a></li>
+<li><a class="active" href="introduction-to-bayesian-hypothesis-testing.html"><span class="header-section-number">4</span> Introduction to Bayesian Hypothesis Testing</a></li>
+<li><a class="" href="introduction-to-bayesian-estimation.html"><span class="header-section-number">5</span> Introduction to Bayesian Estimation</a></li>
+<li><a class="" href="introduction-to-linear-mixed-effects-models.html"><span class="header-section-number">6</span> Introduction to Linear Mixed Effects Models</a></li>
+<li class="book-part">Appendices</li>
+<li><a class="" href="installing-r.html"><span class="header-section-number">A</span> Installing R</a></li>
+<li><a class="" href="conventions.html"><span class="header-section-number">B</span> Conventions</a></li>
+<li><a class="" href="license.html">License</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/psyteachr/statsresdesign">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="introduction-to-bayesian-hypothesis-testing" class="section level1" number="4">
+<h1>
+<span class="header-section-number">4</span> Introduction to Bayesian Hypothesis Testing<a class="anchor" aria-label="anchor" href="#introduction-to-bayesian-hypothesis-testing"><i class="fas fa-link"></i></a>
+</h1>
+<p>In this chapter, we will be exploring how you can perform hypothesis testing under a Bayesian framework. After working through some interactive apps to understand the logic behind Bayesian statistics and Bayes factors, we will calculate Bayes factors for two independent samples and two dependent samples using real data. The application of Bayes factors still mostly relies on testing against a point null hypothesis, so we will end on an alternative known as a Region of Practical Equivalence (ROPE). Here, we try to reject parameter values inside boundaries for your smallest effect size of interest.</p>
+<div id="learning-objectives-3" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives-3"><i class="fas fa-link"></i></a>
+</h2>
+<p>By the end of this chapter, you should be able to:</p>
+<ol style="list-style-type: decimal">
+<li><p>Understand the logic behind <a href="introduction-to-bayesian-hypothesis-testing.html#bayes-logic">Bayesian inference</a> using the sweet example and Shiny app.</p></li>
+<li><p>Use the online visualisation to explore what impacts <a href="introduction-to-bayesian-hypothesis-testing.html#Bayes-factors">Bayes factors</a>.</p></li>
+<li><p>Calculate Bayes factors for <a href="introduction-to-bayesian-hypothesis-testing.html#Bayes-independent-samples">two independent samples</a>.</p></li>
+<li><p>Calculate Bayes factors for <a href="introduction-to-bayesian-hypothesis-testing.html#Bayes-dependent-samples">two dependent samples</a>.</p></li>
+<li><p>Define a <a href="introduction-to-bayesian-hypothesis-testing.html#ROPE">Region of Practical Equivalence (ROPE)</a> as an alternative to null hypothesis testing.</p></li>
+</ol>
+<p>To follow along to this chapter and try the code yourself, please download the data files we will be using in <a href="data/09_data.zip">this zip file</a>.</p>
+<p>Credit for sourcing three of the data sets goes to the <a href="https://sites.google.com/view/openstatslab/home?authuser=0" target="_blank">Open Stats Lab</a> and its creator Dr. Kevin McIntyre. The project provides a great resource for teaching exercises using open data.</p>
+</div>
+<div id="bayes-logic" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> The Logic Behind Bayesian Inference<a class="anchor" aria-label="anchor" href="#bayes-logic"><i class="fas fa-link"></i></a>
+</h2>
+<p>To demonstrate the logic behind Bayesian inference, we will play around with <a href="https://shiny.psy.lmu.de/felix/BayesLessons/BayesianLesson1.Rmd" target="_blank">this shiny app by Wagenmakers (2015)</a>. The text walks you through the app and provides exercises to explore on your own, but we will use it to explore defining a prior distribution and seeing how the posterior updates with data.</p>
+<p>The example is based on estimating the the proportion of yellow candies in a bag with different coloured candies. If you see a yellow candy, it is logged as a 1. If you see a non-yellow candy, it is logged as a 0. We want to know what proportion of the candies are yellow.</p>
+<p>This is a handy demonstration for the logic behind Bayesian inference as it is the simplest application. Behind the scenes, we could calculate these values directly as the distributions are simple and there is only one parameter. In later examples and in lesson 10, we will focus on more complicated models which require sampling from the posterior.</p>
+<div id="step-1---pick-your-prior" class="section level3" number="4.2.1">
+<h3>
+<span class="header-section-number">4.2.1</span> Step 1 - Pick your prior<a class="anchor" aria-label="anchor" href="#step-1---pick-your-prior"><i class="fas fa-link"></i></a>
+</h3>
+<p>First, we define what our prior expectations are for the proportion of yellow candies. For a dichotomous outcome like this (yellow or not yellow), we can model the prior as a <a class="glossary">beta distribution<span class="def"></span></a>. There are only two parameters to set: <em>a</em> and <em>b</em>.</p>
+<p>Explore changing the parameters and their impact on the distribution, but here are a few observations to orient yourself:</p>
+<ol style="list-style-type: decimal">
+<li><p>Setting both to 1 create a flat prior: any proportion is possible.</p></li>
+<li><p>Using the same number for both centers the distribution on 0.5, with increasing numbers showing greater certainty (higher peak).</p></li>
+<li><p>If parameter a &lt; b, proportions less than 0.5 are more likely.</p></li>
+<li><p>If parameter b &gt; a, proportions higher than 0.5 are more likely.</p></li>
+</ol>
+<div class="try">
+<p>After playing around, what proportion of yellow candies do you think are likely? Are you certain about the value or are you more accepting of the data?</p>
+</div>
+</div>
+<div id="step-2---update-to-a-posterior" class="section level3" number="4.2.2">
+<h3>
+<span class="header-section-number">4.2.2</span> Step 2 - Update-to-a-posterior<a class="anchor" aria-label="anchor" href="#step-2---update-to-a-posterior"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now we have a prior, its time to collect some data and update to the posterior. In the lecture, we will play around with a practical demonstration of seeing how many candies are yellow, so set your prior by entering a value for <em>a</em> and <em>b</em>, and we will see what the data tell us. There are two boxes for entering data: the number of yellows you observe, and the number of non-yellows you observe.</p>
+<p>If you are trying this on your own, explore changing the prior and data to see how it affects the posterior distribution. For some inspiration and key observations:</p>
+<ol style="list-style-type: decimal">
+<li><p>Setting an uninformative (1,1) or weak prior (2, 2) over 0.5, the posterior is dominated by the data. For example, imagine we observed 5 yellows and 10 non-yellows. The posterior peaks around 0.30 but plausibly ranges between 0.2 and 0.6. Changing the data completely changes the posterior to show the prior has very little influence. As you change the number of yellows and non-yellows, the posterior updates more dramatically.</p></li>
+<li><p>Now set a strong prior (20, 20) over 0.5 with 5 yellows and 10 non-yellows. Despite the observed data showing a proportion of 0.33, the peak of the posterior distribution is slightly higher than 0.4. The posterior is a compromise between the prior and the likelihood, so a stronger prior means you need more data to change your beliefs. For example, imagine we had 10 times more data with 50 yellows and 100 non-yellows. Now, there is greater density between 0.3 and 0.4, to show the posterior is now more convinced of the proportion of yellows.</p></li>
+</ol>
+<p>In this demonstration, note we only have two curves for the prior and posterior, without the likelihood. When the prior and posterior come from the same distribution family, it is known as a <a href="https://en.wikipedia.org/wiki/Conjugate_prior">conjugate prior</a>, and the beta distribution is one of the simplest. We are simply modelling the proportion of successes and failures (here yellows vs non-yellows).</p>
+<p>In section 4 of the app, you can also explore Bayes factors applied to this scenario, working out how much you should shift your belief in favour of the alternative hypothesis compared to the null (here, that the proportion is exactly 0.5). At this point of the lecture, we have not explored Bayes factors yet, so we will not continue with it here.</p>
+</div>
+</div>
+<div id="Bayes-factors" class="section level2" number="4.3">
+<h2>
+<span class="header-section-number">4.3</span> The Logic Behind Bayes Factors<a class="anchor" aria-label="anchor" href="#Bayes-factors"><i class="fas fa-link"></i></a>
+</h2>
+<p>To demonstrate the logic behind Bayes factors, we will play around with <a href="https://rpsychologist.com/d3/bayes/" target="_blank">this interactive app by Magnusson</a>. Building on <a href="introduction-to-bayesian-hypothesis-testing.html#bayes-logic">section 1</a>, the visualisation shows a Bayesian two-sample t-test, demonstrating a more complicated application compared to the beta distribution and proportions. The visualisation shows both Bayesian estimation through the posterior distribution and 95% Highest Density Interval (HDI), and Bayes factors against a null hypothesis centered on 0. We will use this visualisation to reinforce what we learnt earlier and extend it to understanding the logic behind Bayes factors.</p>
+<p>There are three settings on the visualisation, :</p>
+<ol style="list-style-type: decimal">
+<li><p>Observed effect - Expressed as Cohen's d, this represents the standardised mean difference between two groups. You can set larger effects (positive or negative) or assume the null hypothesis is true (d = 0).</p></li>
+<li><p>Sample size - You can increase the sample size from 1 to 1000, with more steps between 1 and 100.</p></li>
+<li><p>SD of prior - The prior is always set to 0 as we are testing against the null hypothesis, but you can specify how strong this prior is. Decreasing the SD means you are more confident in an effect of 0. Increasing the SD means you are less certain about the prior.</p></li>
+</ol>
+<p>This visualisation is set up to test against the null hypothesis of no difference between two groups, but remember Bayes factors allow you to test any two hypotheses. The Bayes factor is represented by the difference between the two dots, where the curves represent a likelihood of 0 in the prior and posterior distributions. The Bayes factor is a ratio between these two values for the posterior odds of how much your belief should shift in favour of the experimental hypothesis compared to the null hypothesis.</p>
+<div class="info">
+<p>Keep an eye on the <em>p</em>-value and 95% Confidence Interval (CI) to see where the inferences are similiar or different for each statistical philosophy.</p>
+</div>
+<p>To reinforce the lessons from <a href="introduction-to-bayesian-hypothesis-testing.html#bayes-logic">section 1</a> and the emphasis now on Bayes factors, there are some key observations:</p>
+<ol style="list-style-type: decimal">
+<li><p>With a less informative prior (higher SD), the posterior is dominated by the likelihood to show the posterior is overwhelmed by data. For example, if you set the SD to 2, the prior peaks at 0 but the distribution is so flat it accepts any reasonable effect. If you move the observed effect anywhere along the scale, the likelihood and posterior almost completely overlap until you reach d = ±2.</p></li>
+<li><p>With a stronger prior (lower SD), the posterior represents more of a compromise between the prior and likelihood. If you change the SD to 0.5 and the observed effect to 1, the posterior is closer to being an intermediary. You may have the observed data, but your prior belief in a null effect is strong enough that it requires more data to be convinced otherwise.</p></li>
+<li><p>With more participants / data, there is less uncertainty in the likelihood. Keeping the same inputs as point 2, with 10 participants, the likelihood peaks at d = 1, but easily spans between 0 and 2. As you increase the sample size towards 1000, the uncertainty around the likelihood is lower. More data also overwhelms the prior, so although we had a relatively strong prior that we would have a null effect, with 50 participants, the likelihood and posterior mostly overlap.</p></li>
+<li><p>Focusing on the Bayes factor supporting the experimental hypothesis, if there is an effect, evidence in favour of the experimental hypothesis increases as the observed effect increases or the sample size increases. This is not too dissimilar to frequentist statistical power, but with Bayesian statistics, optional stopping can be less of a problem (<span class="citation">Rouder (<a href="references.html#ref-rouder_optional_2014">2014</a>)</span> but see <span class="citation">Schönbrodt et al. (<a href="references.html#ref-schonbrodt_sequential_2017">2017</a>)</span> for considerations you must make). So, if we do not have enough data to shift our beliefs towards either hypothesis, we can collect more data and update our beliefs.</p></li>
+<li><p>If we set the observed effect to 0, the <em>p</em>-value is 1 to suggest we cannot reject the null, but remember we cannot support the null. With Bayes factors, we can support the null and see with observed effect = 0, sample size = 50, and SD of prior = 0.5, the data are 2.60 times more likely under the null than the experimental hypothesis. So, we should shift our belief in favour of the null, but it is not very convincing. We can obtain a higher Bayes factor in support of the null by increasing the sample size or increasing the SD of the prior. This last part might sound a little odd at first, but if your prior was very strong in favour of the null (small SD), your beliefs do not need to shift in light of the data.</p></li>
+<li><p>Finally, if you set a weak prior (SD = 2), you will see the frequentist 95% CI and the Bayesian 95% HDI are almost identical. With a weak or uninformative prior, the values from the two intervals are usually similar, but you must interpret them differently. Increasing the sample size makes both intervals smaller and changing the observed effect shifts them around. If you make a stronger prior (SD = 0.5), now the 95% HDI will change as you move the observed effect size around. The frequentist 95% CI will always follow the likelihood as it is only based on the observed data. The Bayesian 95% HDI represents the area of the posterior, so it will be a compromise between the prior and likelihood, or it can be smaller if you have a stronger prior in favour of the null and an observed effect of 0.</p></li>
+</ol>
+<div class="try">
+<p>Based on the observations above, try and apply your understanding to the questions below using Magnusson's interactive app.</p>
+</div>
+<ul>
+<li><p>Assuming a moderate effect size of d = 0.4 and a weak prior SD = 0.5, how many participants per group would you need for the Bayes factor to be 3 or more in favour of the alternative hypothesis? <input class="webex-solveme nospaces" data-tol="0.001" size="2" data-answer='["57"]'></p></li>
+<li><p>Assuming a moderate effect size of d = 0.4 and 50 participants per group, when you use a weaker prior of SD = 2, evidence in favour of the alternative hypothesis is <select class="webex-select"><option value="blank"></option>
+<option value="x">stronger</option>
+<option value="answer">weaker</option>
+<option value="x">the same</option></select> than when you use a stronger prior of SD = 1.</p></li>
+</ul>
+<div class="webex-solution">
+<button>
+Explain this answer
+</button>
+<p>This is the opposite of point 5 in the explanation above. Remember Bayes factors represent a shift in belief in one hypothesis compared to another. If you are more confident in the null (smaller SD), then it would take more evidence to shift your belief in favour of the alternative hypothesis that there is a difference.</p>
+</div>
+<ul>
+<li>The old rule of thumb in psychology was 20 participants per group would provide sufficient statistical power. Assuming a moderate effect size of d = 0.5 and a prior SD = 1, the difference would be statistically significant (<em>p</em> = .049). However, looking at the guidelines provided in the lecture from <span class="citation">Wagenmakers et al. (<a href="references.html#ref-wagenmakers_why_2011">2011</a>)</span>, how could you describe the evidence in favour of the alternative hypothesis? <select class="webex-select"><option value="blank"></option>
+<option value="x">No evidence</option>
+<option value="answer">Anecdotal</option>
+<option value="x">Substantial</option>
+<option value="x">Strong</option></select>
+</li>
+</ul>
+</div>
+<div id="Bayes-independent-samples" class="section level2" number="4.4">
+<h2>
+<span class="header-section-number">4.4</span> Bayes factors for two independent samples<a class="anchor" aria-label="anchor" href="#Bayes-independent-samples"><i class="fas fa-link"></i></a>
+</h2>
+<div id="guided-example-bastian-et-al.-2014" class="section level3" number="4.4.1">
+<h3>
+<span class="header-section-number">4.4.1</span> Guided example (Bastian et al., 2014)<a class="anchor" aria-label="anchor" href="#guided-example-bastian-et-al.-2014"><i class="fas fa-link"></i></a>
+</h3>
+<p>This is the first time we have used R in this chapter, so we need to load some packages and the data for this task. If you do not have any of the packages, make sure you install them first.</p>
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://richarddmorey.github.io/BayesFactor/">BayesFactor</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/bayestestR/">bayestestR</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
+<p>For this guided example, we will reanalyse data from <span class="citation">Bastian et al. (<a href="references.html#ref-bastian_pain_2014">2014</a>)</span>. This study wanted to investigate whether experiencing pain together can increase levels of bonding between participants. The study was trying to explain how people often say friendships are strengthened by adversity.</p>
+<p>Participants were randomly allocated into two conditions: pain or control. Participants in the pain group experienced mild pain through a cold pressor task (leaving your hand in ice cold water) and a wall squat (sitting against a wall). The control group completed a different task that did not involve pain. The participants then completed a scale to measure how bonded they felt to other participants in the group. Higher values on this scale mean greater bonding.</p>
+<p>The independent variable is called <code><span><span class="st">"CONDITION"</span></span></code>. The control group has the value 0 and the pain group has the value 1. They wanted to find out whether participants in the pain group would have higher levels of bonding with their fellow participants than participants in the control group. After a little processing, the dependent variable is called <code><span><span class="st">"mean_bonding"</span></span></code> for the mean of 7 items related to bonding.</p>
+<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Bastian_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/Bastian.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Relabel condition to be more intuitive which group is which </span></span>
+<span><span class="va">Bastian_data</span><span class="op">$</span><span class="va">CONDITION</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Bastian_data</span><span class="op">$</span><span class="va">CONDITION</span>, </span>
+<span>                                   levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, </span>
+<span>                                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Control"</span>, <span class="st">"Pain"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># We also need to get our DV from the mean of 7 items</span></span>
+<span><span class="va">Bastian_data</span> <span class="op">&lt;-</span> <span class="va">Bastian_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>names_to <span class="op">=</span> <span class="st">"item"</span>, <span class="co"># var for item names</span></span>
+<span>               values_to <span class="op">=</span> <span class="st">"score"</span>, <span class="co"># var for item scores</span></span>
+<span>               cols <span class="op">=</span> <span class="va">group101</span><span class="op">:</span><span class="va">group107</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># Range of columns for group bonding items</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span>.cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="va">item</span>, <span class="op">-</span><span class="va">score</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># Group by everything but ignore item and score</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_bonding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">score</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># Summarise by creating a subscale name and specify sum or mean</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Always ungroup</span></span></code></pre></div>
+<p>This chapter will predominantly use the <code class="package">BayesFactor</code> package <span class="citation">(<a href="references.html#ref-MoreyRouder2022">Morey &amp; Rouder, 2022</a>)</span> and its functions applied to t-tests. To use the Bayesian version of the t-test, we use similar arguments to the base frequentist version by stating our design with a formula and which data frame you are referring to. For this study, we want to predict the bonding rating by the group they were allocated into: <code>mean_bonding ~ CONDITION</code>.</p>
+<div class="warning">
+<p>As we are using t-tests, keep in mind we are still applying a linear model to the data despite using Bayesian rather than frequentist statistics to model uncertainty. We are not going to cover it in this chapter, but you would still check your data for parametric assumptions like normal residuals and influential cases / outliers.</p>
+</div>
+<p>In the Bayesian t-test, we are comparing the null hypothesis of 0 against an alternative hypothesis. For our data in an independent samples t-test, we have the difference between our two groups. The prior for the null is a point-null hypothesis assuming the difference is 0, while the prior for the alternative is modelled as a Cauchy distribution. The Bayes factor tells you how much you should shift your belief towards one hypothesis compared to another, either in favour of the alternative or null hypothesis.</p>
+<p>In the Bayesian t-test function, the main new argument is <code>rscale</code> which sets the width of the prior distribution around the alternative hypothesis. T-tests use a <a href="https://en.wikipedia.org/wiki/Cauchy_distribution">Cauchy prior</a> which is similar to a normal distribution but with fatter tails and you only have to define one parameter: the r scale. The figure below visualises the difference between a Cauchy and normal distribution for the same range of r scale and SD values.</p>
+<pre><code>## 
+## Attaching package: 'cowplot'</code></pre>
+<pre><code>## The following object is masked from 'package:lubridate':
+## 
+##     stamp</code></pre>
+<div class="inline-figure"><img src="09-BayesHypo_files/figure-html/cauchy%20vs%20normal%20plot-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>The default prior is set to <code><span><span class="st">"medium"</span></span></code>, but you could change this depending on your understanding of the area of research. See the function help page for different options here, but medium is equivalent to a value of 0.707 for scaling the Cauchy prior which is the default setting for most statistics software. You can interpret the r scale as 50% of the distribution covers values ± your chosen value. An effect of zero is the most likely, but the larger the r scale value, the more plausible you consider large effects. If you use a value of 0.707 (<code><span><span class="st">"medium"</span></span></code>) on a two-tailed test, this means 50% of the prior distribution covers values between ± 0.707. You can enter a numeric value for the precise scaling or there are a few word presets like <code><span><span class="st">"medium"</span></span></code>, <code><span><span class="st">"wide"</span></span></code>, and <code><span><span class="st">"ultrawide"</span></span></code> depending on how strong or weak you want the prior to be.</p>
+<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Bastian_ttest</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html">ttestBF</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">mean_bonding</span> <span class="op">~</span> <span class="va">CONDITION</span>,</span>
+<span>                        data <span class="op">=</span> <span class="va">Bastian_data</span>,</span>
+<span>                        rscale <span class="op">=</span> <span class="st">"medium"</span>, </span>
+<span>                        paired <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning: data coerced from tibble to data frame</code></pre>
+<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Bastian_ttest</span></span></code></pre></div>
+<pre><code>## Bayes factor analysis
+## --------------
+## [1] Alt., r=0.707 : 1.445956 ±0.01%
+## 
+## Against denominator:
+##   Null, mu1-mu2 = 0 
+## ---
+## Bayes factor type: BFindepSample, JZS</code></pre>
+<div class="info">
+<p>Don't worry about the warning, there were just previous issues with using tibbles in the <code class="package">BayesFactor</code> package. Now the package converts tibbles to normal R data frames before doing its thing.</p>
+</div>
+<p>With the medium prior, we have a Bayes factor of 1.45 (<span class="math inline">\(BF\)</span><span class="math inline">\(_1\)</span><span class="math inline">\(_0\)</span> = 1.45), suggesting the experimental hypothesis is 1.45 times more likely than the point null hypothesis. By the guidelines from Wagenmakers et al. (2011), this is quite weak anecdotal evidence.</p>
+<p>There is also a percentage next to the Bayes factor. This is the proportional error estimate and tells you the error in estimating the Bayes factor value. Less error is better and a rough rule of thumb is less than 20% is acceptable <span class="citation">(<a href="references.html#ref-van_doorn_jasp_2021">Doorn et al., 2021</a>)</span>. In this example, the error estimate is 0.01%, so very small. This means we could expect the Bayes factor to range between 1.44 and 1.45 which makes little impact on the conclusion.</p>
+<div id="robustness-check" class="section level4" number="4.4.1.1">
+<h4>
+<span class="header-section-number">4.4.1.1</span> Robustness check<a class="anchor" aria-label="anchor" href="#robustness-check"><i class="fas fa-link"></i></a>
+</h4>
+<p>This will be more important for modelling in the next chapter, but it is good practice to check the sensitivity of your results to your choice of prior. You would exercise caution if your choice of prior affects the conclusions you are making, such as weak evidence turning into strong evidence. If the qualitative conclusions do not change across plausible priors, then your findings are robust. For example, the Bayes factor for the Bastian et al. example decreases as the prior r scale increases.</p>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Prior</th>
+<th align="right">BayesFactor</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Medium</td>
+<td align="right">1.45</td>
+</tr>
+<tr class="even">
+<td align="left">Wide</td>
+<td align="right">1.22</td>
+</tr>
+<tr class="odd">
+<td align="left">Ultrawide</td>
+<td align="right">0.97</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>A wider prior expresses less certainty about the size of the effect; larger effects become more plausible. Remember Bayes factors quantify the degree of belief in one hypothesis compared to another. As the evidence is quite weak, the Bayes factor decreases in favour of the null under weaker priors as you are expressing less certainty about the size of the effect.</p>
+</div>
+<div id="one--vs-two-tailed-tests" class="section level4" number="4.4.1.2">
+<h4>
+<span class="header-section-number">4.4.1.2</span> One- vs two-tailed tests<a class="anchor" aria-label="anchor" href="#one--vs-two-tailed-tests"><i class="fas fa-link"></i></a>
+</h4>
+<p>The authors were pretty convinced that the pain group would score higher on the bonding rating than the control group, so lets see what happens with a one-tailed test to see how its done. We need to define the <code>nullInterval</code> argument to state we only consider negative effects.</p>
+<div class="warning">
+<p>Make sure you check the order of your groups to check which direction you expect the results to go in. If you expect group A to be smaller than group B, you would code for negative effects. If you expect group A to be bigger than group B, you would code for positive effects. A common mistake is defining the wrong direction if you do not know which order the groups are coded.</p>
+</div>
+<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Bastian_onetail</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html">ttestBF</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">mean_bonding</span> <span class="op">~</span> <span class="va">CONDITION</span>,</span>
+<span>                        data <span class="op">=</span> <span class="va">Bastian_data</span>,</span>
+<span>                        rscale <span class="op">=</span> <span class="st">"medium"</span>, </span>
+<span>                        paired <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                        nullInterval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="co"># negative only as we expect control &lt; pain</span></span></code></pre></div>
+<pre><code>## Warning: data coerced from tibble to data frame</code></pre>
+<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Bastian_onetail</span></span></code></pre></div>
+<pre><code>## Bayes factor analysis
+## --------------
+## [1] Alt., r=0.707 -Inf&lt;d&lt;0    : 2.790031  ±0%
+## [2] Alt., r=0.707 !(-Inf&lt;d&lt;0) : 0.1018811 ±0.02%
+## 
+## Against denominator:
+##   Null, mu1-mu2 = 0 
+## ---
+## Bayes factor type: BFindepSample, JZS</code></pre>
+<p>In a one-tailed test, we now have two tests. In row one, we have the test we want where we compare our experimental hypothesis (negative effects) against the point null. In row two, we have the opposite which is the complement of our experimental hypothesis, which would be that the effect is <em>not</em> negative. Even with a one-tailed test, the evidence in favour of our experimental hypothesis compared to the null is anecdotal at best (<span class="math inline">\(BF\)</span><span class="math inline">\(_1\)</span><span class="math inline">\(_0\)</span> = 2.79).</p>
+<p>If we wanted to test the null compared to the experimental hypothesis, we can simply take the reciprocal of the object, here demonstrated on the two-tailed object.</p>
+<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">1</span> <span class="op">/</span> <span class="va">Bastian_ttest</span></span></code></pre></div>
+<pre><code>## Bayes factor analysis
+## --------------
+## [1] Null, mu1-mu2=0 : 0.6915839 ±0.01%
+## 
+## Against denominator:
+##   Alternative, r = 0.707106781186548, mu =/= 0 
+## ---
+## Bayes factor type: BFindepSample, JZS</code></pre>
+<p>For this object, we already know there is anecdotal evidence in favour of the experimental hypothesis, so this is just telling us the null is less likely than the experimental hypothesis (<span class="math inline">\(BF\)</span><span class="math inline">\(_0\)</span><span class="math inline">\(_1\)</span> = 0.69). This will come in handy when you specifically want to test the null though.</p>
+<p>For the purposes of the rest of the demonstration, we will stick with our original object with a two-tailed test to see how we can interpret inconclusive results. In the original study, the pain group scored significantly higher than the control group, but the p-value was .048, so hardly convincing evidence. With Bayes factors, at least we can see we ideally need more data to make a decision.</p>
+</div>
+<div id="parameter-estimation" class="section level4" number="4.4.1.3">
+<h4>
+<span class="header-section-number">4.4.1.3</span> Parameter estimation<a class="anchor" aria-label="anchor" href="#parameter-estimation"><i class="fas fa-link"></i></a>
+</h4>
+<p>We will spend more time on this process in week/chapter 10, but a Bayes factor on its own is normally not enough. We also want an estimate of the effect size and the precision around it. Within the <code class="package">BayesFactor</code> package, there is a function to sample from the posterior distribution using MCMC sampling. We need to pass the t-test object into the <code>posterior</code> function, and include the number of iterations we want. We will use 10,000 here. Depending on your computer, this may take a few seconds.</p>
+<div class="warning">
+<p>If you use a one-tailed test, you must index the first object (e.g., <code>Bastian_ttest[1]</code>) as a one-tailed test includes two lines: 1) the directional alternative we state against the null and 2) the complement of the alternative against the null.</p>
+</div>
+<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Bastian_samples</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/posterior-methods.html">posterior</a></span><span class="op">(</span><span class="va">Bastian_ttest</span>,</span>
+<span>                            iterations <span class="op">=</span> <span class="fl">1e5</span><span class="op">)</span> <span class="co"># 10,000 in math notation</span></span></code></pre></div>
+<p>Once we have the samples, we can use the base <code>plot</code> function to see trace plots (more on those in chapter 10) and a density plot of the posterior distributions for several parameters.</p>
+<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Bastian_samples</span><span class="op">)</span></span></code></pre></div>
+<p><img src="09-BayesHypo_files/figure-html/Bastian%20plot-1.png" width="100%" style="display: block; margin: auto;"><img src="09-BayesHypo_files/figure-html/Bastian%20plot-2.png" width="100%" style="display: block; margin: auto;"></p>
+<p>The second and fourth plots are what we are mainly interested in for a t-test. Once we know what kind of evidence we have for different hypotheses, typically we want to know what the effect size is. In the <code class="package">BayesFactor</code> package, we get the mean difference between groups (unhelpfully named beta) and the effect size Delta, which is kind of like Cohen's d. It is calculated by dividing the t statistic by the square root of the sample size, so a type of standardised mean difference. One of my main complaints with the <code class="package">BayesFactor</code> package is not explaining what the outputs mean as the only explanation I could find is <a href="http://bayesfactor.blogspot.com/2014/02/bayes-factor-t-tests-part-1.html" target="_blank">old blog post</a> with no clear overview in the documentation.</p>
+<p>The plot provides the posterior distribution of different statistics based on sampling 10,000 times. For beta, we can see the peak of the distribution is around -0.5, spanning from above 0 to -1. For delta, we can see the peak of the distribution is around -0.5, and spans from above 0 to -1 again.</p>
+<p>For a more fine-tuned description of the posterior distribution, we can use handy functions from the <code class="package">bayestestR</code> package <span class="citation">(<a href="references.html#ref-Makowski2019">Makowski et al., 2019</a>)</span>. We will use this much more in chapter 10 as there are some great plotting functions, but these functions work for BayesFactor objects. To get the point estimates of each parameter, we can use the <code><span><span class="va">point_estimate</span></span></code> function:</p>
+<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/point_estimate.html">point_estimate</a></span><span class="op">(</span><span class="va">Bastian_samples</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Parameter</th>
+<th align="right">Median</th>
+<th align="right">Mean</th>
+<th align="right">MAP</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">mu</td>
+<td align="right">3.4261304</td>
+<td align="right">3.4262019</td>
+<td align="right">3.4131426</td>
+</tr>
+<tr class="even">
+<td align="left">beta (Control - Pain)</td>
+<td align="right">-0.4848002</td>
+<td align="right">-0.4892667</td>
+<td align="right">-0.4665795</td>
+</tr>
+<tr class="odd">
+<td align="left">sig2</td>
+<td align="right">1.1061817</td>
+<td align="right">1.1348647</td>
+<td align="right">1.0803148</td>
+</tr>
+<tr class="even">
+<td align="left">delta</td>
+<td align="right">-0.4619808</td>
+<td align="right">-0.4664735</td>
+<td align="right">-0.4443186</td>
+</tr>
+<tr class="odd">
+<td align="left">g</td>
+<td align="right">0.5448393</td>
+<td align="right">7.6797358</td>
+<td align="right">0.0236393</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Our best guess (median of the posterior) for the mean difference between groups is -0.49 and a delta of -0.47 in favour of the pain group.</p>
+<p>We do not just want a point estimate though, we also want the credible interval around it. For this, we have the <code><span><span class="va">hdi</span></span></code> function.</p>
+<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/hdi.html">hdi</a></span><span class="op">(</span><span class="va">Bastian_samples</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Parameter</th>
+<th align="right">CI</th>
+<th align="right">CI_low</th>
+<th align="right">CI_high</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">mu</td>
+<td align="right">0.95</td>
+<td align="right">3.1355925</td>
+<td align="right">3.7088678</td>
+</tr>
+<tr class="even">
+<td align="left">beta (Control - Pain)</td>
+<td align="right">0.95</td>
+<td align="right">-1.0362104</td>
+<td align="right">0.0505082</td>
+</tr>
+<tr class="odd">
+<td align="left">sig2</td>
+<td align="right">0.95</td>
+<td align="right">0.7316134</td>
+<td align="right">1.5957396</td>
+</tr>
+<tr class="even">
+<td align="left">delta</td>
+<td align="right">0.95</td>
+<td align="right">-0.9816252</td>
+<td align="right">0.0549678</td>
+</tr>
+<tr class="odd">
+<td align="left">g</td>
+<td align="right">0.95</td>
+<td align="right">0.0321040</td>
+<td align="right">7.7710573</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>So, 95% of the posterior distribution for the mean difference is between -1.04 and 0.04, and that delta is between -0.99 and 0.04. As both values cross 0, we would not be confident in these findings and ideally we would need to collect more data, which is consistent with the Bayes Factor results.</p>
+<p>Finally, instead of separate functions, there is a handy wrapper for the median, 95% credible interval, and ROPE (more on that later).</p>
+<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html">describe_posterior</a></span><span class="op">(</span><span class="va">Bastian_samples</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="2%">
+<col width="19%">
+<col width="9%">
+<col width="4%">
+<col width="9%">
+<col width="9%">
+<col width="7%">
+<col width="7%">
+<col width="7%">
+<col width="8%">
+<col width="14%">
+</colgroup>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="left">Parameter</th>
+<th align="right">Median</th>
+<th align="right">CI</th>
+<th align="right">CI_low</th>
+<th align="right">CI_high</th>
+<th align="right">pd</th>
+<th align="right">ROPE_CI</th>
+<th align="right">ROPE_low</th>
+<th align="right">ROPE_high</th>
+<th align="right">ROPE_Percentage</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">4</td>
+<td align="left">mu</td>
+<td align="right">3.4261304</td>
+<td align="right">0.95</td>
+<td align="right">3.1373459</td>
+<td align="right">3.7109673</td>
+<td align="right">1.00000</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">beta (Control - Pain)</td>
+<td align="right">-0.4848002</td>
+<td align="right">0.95</td>
+<td align="right">-1.0426880</td>
+<td align="right">0.0452834</td>
+<td align="right">0.96438</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.0540526</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="left">sig2</td>
+<td align="right">1.1061817</td>
+<td align="right">0.95</td>
+<td align="right">0.7707757</td>
+<td align="right">1.6676312</td>
+<td align="right">1.00000</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">delta</td>
+<td align="right">-0.4619808</td>
+<td align="right">0.95</td>
+<td align="right">-0.9985058</td>
+<td align="right">0.0413485</td>
+<td align="right">0.96438</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.0585263</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">g</td>
+<td align="right">0.5448393</td>
+<td align="right">0.95</td>
+<td align="right">0.0928315</td>
+<td align="right">15.8435212</td>
+<td align="right">1.00000</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.0076000</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>There are a bunch of tests and tricks we have not covered here, so check out the <a href="https://richarddmorey.github.io/BayesFactor/" target="_blank">Bayesfactor package page online</a> for a series of vignettes.</p>
+</div>
+<div id="reporting-your-findings" class="section level4" number="4.4.1.4">
+<h4>
+<span class="header-section-number">4.4.1.4</span> Reporting your findings<a class="anchor" aria-label="anchor" href="#reporting-your-findings"><i class="fas fa-link"></i></a>
+</h4>
+<p>When reporting your findings, <span class="citation">Doorn et al. (<a href="references.html#ref-van_doorn_jasp_2021">2021</a>)</span> suggest several key pieces of information to provide your reader:</p>
+<ol style="list-style-type: decimal">
+<li><p>A complete description and justification of your prior;</p></li>
+<li><p>Clearly state each hypothesis you are comparing and specify using the Bayes factor notation (<span class="math inline">\(BF\)</span><span class="math inline">\(_0\)</span><span class="math inline">\(_1\)</span> or <span class="math inline">\(BF\)</span><span class="math inline">\(_1\)</span><span class="math inline">\(_0\)</span>);</p></li>
+<li><p>The Bayes factor value and error percentage;</p></li>
+<li><p>A robustness check of your findings under different plausible priors;</p></li>
+<li><p>Your parameter estimate (effect size) including the posterior mean or median and its 95% credible / highest density interval (HDI).</p></li>
+</ol>
+<p>Where possible, try and provide the reader with the results in graphical and numerical form, such as including a plot of the posterior distribution. This will be easier in the next chapter as some of the plotting helper functions do not work nicely with the <code class="package">BayesFactor</code> package.</p>
+</div>
+</div>
+<div id="Schroeder-activity" class="section level3" number="4.4.2">
+<h3>
+<span class="header-section-number">4.4.2</span> Independent activity (Schroeder &amp; Epley, 2015)<a class="anchor" aria-label="anchor" href="#Schroeder-activity"><i class="fas fa-link"></i></a>
+</h3>
+<p>For an independent activity, we will use data from <span class="citation">Schroeder &amp; Epley (<a href="references.html#ref-schroeder_sound_2015">2015</a>)</span>. The aim of the study was to investigate whether delivering a short speech to a potential employer would be more effective at landing you a job than writing the speech down and the employer reading it themselves. Thirty-nine professional recruiters were randomly assigned to receive a job application speech as either a transcript for them to read, or an audio recording of the applicant reading the speech.</p>
+<p>The recruiters then rated the applicants on perceived intellect, their impression of the applicant, and whether they would recommend hiring the candidate. All ratings were originally on a Likert scale ranging from 0 (low intellect, impression etc.) to 10 (high impression, recommendation etc.), with the final value representing the mean across several items.</p>
+<p>For this example, we will focus on the hire rating (variable <code><span><span class="st">"Hire_Rating"</span></span></code> to see whether the audio condition would lead to higher ratings than the transcript condition (variable <code><span><span class="st">"CONDITION"</span></span></code>).</p>
+<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Schroeder_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/Schroeder_hiring.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Relabel condition to be more intuitive which group is which </span></span>
+<span><span class="va">Schroeder_data</span><span class="op">$</span><span class="va">CONDITION</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Schroeder_data</span><span class="op">$</span><span class="va">CONDITION</span>, </span>
+<span>                                   levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, </span>
+<span>                                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Transcript"</span>, <span class="st">"Audio"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="try">
+<p>From here, apply what you learnt in the first guided example to this new independent task and complete the questions below to check your understanding. Since we expect higher ratings for audio than transcript, use a one-tailed test. Remember to sample from the posterior, so we can also get estimates of the effect sizes.</p>
+</div>
+<p>You can check your attempt to the solutions at <a href="introduction-to-bayesian-hypothesis-testing.html#Schroeder-solution">the bottom of the page</a>.</p>
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Schroeder_ttest</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span></code></pre></div>
+<ul>
+<li><p>Rounding to two decimals, what is the Bayes Factor in favour of the alternative hypothesis? <input class="webex-solveme nospaces" data-tol="0.001" size="4" data-answer='["8.21"]'></p></li>
+<li><p>Looking at the guidelines from Wagenmakers et al. (2015), how could you describe the evidence in favour of the alternative hypothesis? <select class="webex-select"><option value="blank"></option>
+<option value="x">No</option>
+<option value="x">Anecdotal</option>
+<option value="answer">Substantial</option>
+<option value="x">Strong</option></select></p></li>
+<li><p>Rounding to two decimals, what is the absolute (ignoring the sign) mean difference (beta) in favour of the audio condition? <input class="webex-solveme nospaces" data-tol="0.001" size="4" data-answer='["1.54"]'></p></li>
+<li><p>Looking at the 95% credible interval, can we rule out an effect of 0 given these data and model? <select class="webex-select"><option value="blank"></option>
+<option value="answer">Yes</option>
+<option value="x">No</option></select></p></li>
+</ul>
+</div>
+</div>
+<div id="Bayes-dependent-samples" class="section level2" number="4.5">
+<h2>
+<span class="header-section-number">4.5</span> Bayes factors for two dependent samples<a class="anchor" aria-label="anchor" href="#Bayes-dependent-samples"><i class="fas fa-link"></i></a>
+</h2>
+<div id="guided-example-mehr-et-al.-2016" class="section level3" number="4.5.1">
+<h3>
+<span class="header-section-number">4.5.1</span> Guided example (Mehr et al., 2016)<a class="anchor" aria-label="anchor" href="#guided-example-mehr-et-al.-2016"><i class="fas fa-link"></i></a>
+</h3>
+<p>For a paired samples t-test, the process is identical to the independent samples t-test apart from defining the variables. So, we will demonstrate a full example like before with less commentary, then you have an independent data frame to test your understanding.</p>
+<p>The next study we are going to look at is by <span class="citation">Mehr et al. (<a href="references.html#ref-mehr_for_2016">2016</a>)</span>. They were interested in whether singing to infants conveyed important information about social affiliation. Infants become familiar with melodies that are repeated in their specific culture. The authors were interested in whether a novel person (someone they had never seen before) could signal to the child that they are a member of the same social group and attract their attention by singing a familiar song to them.</p>
+<p>Mehr et al. (2016) invited 32 infants and their parents to participate in a repeated measures experiment. First, the parents were asked to repeatedly sing a previously unfamiliar song to the infants for two weeks. When they returned to the lab, they measured the baseline gaze (where they were looking) of the infants towards two unfamiliar people on a screen who were just silently smiling at them. This was measured as the proportion of time looking at the individual who would later sing the familiar song (0.5 would indicate half the time was spent looking at the familiar singer. Values closer to one indicate looking at them for longer). The two silent people on the screen then took it in turns to sing a lullaby. One of the people sung the song that the infant’s parents had been told to sing for the previous two weeks, and the other one sang a song with the same lyrics and rhythm, but with a different melody. Mehr et al. (2016) then repeated the gaze procedure to the two people at the start of the experiment to provide a second measure of gaze as a proportion of looking at the familiar singer.</p>
+<p>We are interested in whether the infants increased the proportion of time spent looking at the singer who sang the familiar song after they sang, in comparison to before they sang to the infants. We have one dependent variable (gaze proportion) and one within-subjects independent variable (baseline vs test). We want to know whether gaze proportion was higher at test (<code><span><span class="st">"Test_Proportion_Gaze_to_Singer"</span></span></code>) than it was at baseline (<code><span><span class="st">"Baseline_Proportion_Gaze_to_Singer"</span></span></code>).</p>
+<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Mehr_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/Mehr_voice.csv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>Baseline <span class="op">=</span> <span class="va">Baseline_Proportion_Gaze_to_Singer</span>, <span class="co"># Shorten super long names</span></span>
+<span>         Test <span class="op">=</span> <span class="va">Test_Proportion_Gaze_to_Singer</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">Mehr_ttest</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html">ttestBF</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Mehr_data</span><span class="op">$</span><span class="va">Baseline</span>,</span>
+<span>                      y <span class="op">=</span> <span class="va">Mehr_data</span><span class="op">$</span><span class="va">Test</span>,</span>
+<span>                      paired <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>                      rscale <span class="op">=</span> <span class="st">"medium"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">Mehr_ttest</span></span></code></pre></div>
+<pre><code>## Bayes factor analysis
+## --------------
+## [1] Alt., r=0.707 : 2.296479 ±0%
+## 
+## Against denominator:
+##   Null, mu = 0 
+## ---
+## Bayes factor type: BFoneSample, JZS</code></pre>
+<p>Like Bastian et al. (2014), we have just anecdotal evidence in favour of the experimental hypothesis over the null (<span class="math inline">\(BF\)</span><span class="math inline">\(_1\)</span><span class="math inline">\(0\)</span> = 2.30).</p>
+<div class="try">
+<p>Mehr et al. (2016) expected gaze proportion to be higher at test, so try defining a one-tailed test and see what kind of evidence we have in favour of the alternative hypothesis.</p>
+</div>
+<p>As before, we know there is only anecdotal evidence in favour of the experimental hypothesis, but we also want the effect size and its 95% credible interval. So, we can sample from the posterior, plot it, and get some estimates.</p>
+<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Mehr_samples</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/posterior-methods.html">posterior</a></span><span class="op">(</span><span class="va">Mehr_ttest</span>,</span>
+<span>                          iterations <span class="op">=</span> <span class="fl">1e5</span><span class="op">)</span></span></code></pre></div>
+<p>Just note in the plot we have fewer panels as the paired samples approach simplifies things. Mu is our mean difference in the first panel and delta is our standardised effect in the third panel. For a dependent variable like gaze proportion, an unstandardised effect size is informative and comparable across studies, but its also useful to report standardised effect sizes for future power analyses etc.</p>
+<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Subset first plot for mean to display correctly</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Mehr_samples</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>,</span>
+<span>     main <span class="op">=</span> <span class="st">"Posterior for mu"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="09-BayesHypo_files/figure-html/Mehr%20plots-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Subset third plot for delta to display correctly</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Mehr_samples</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span>,</span>
+<span>     main <span class="op">=</span> <span class="st">"Posterior for delta"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="09-BayesHypo_files/figure-html/Mehr%20plots-2.png" width="100%" style="display: block; margin: auto;"></div>
+<p>We finally have our wrapper function for the median posterior distribution and its 95% credible interval.</p>
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html">describe_posterior</a></span><span class="op">(</span><span class="va">Mehr_samples</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="2%">
+<col width="9%">
+<col width="10%">
+<col width="4%">
+<col width="10%">
+<col width="10%">
+<col width="6%">
+<col width="7%">
+<col width="8%">
+<col width="9%">
+<col width="15%">
+</colgroup>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="left">Parameter</th>
+<th align="right">Median</th>
+<th align="right">CI</th>
+<th align="right">CI_low</th>
+<th align="right">CI_high</th>
+<th align="right">pd</th>
+<th align="right">ROPE_CI</th>
+<th align="right">ROPE_low</th>
+<th align="right">ROPE_high</th>
+<th align="right">ROPE_Percentage</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">mu</td>
+<td align="right">-0.0665270</td>
+<td align="right">0.95</td>
+<td align="right">-0.1260660</td>
+<td align="right">-0.0079075</td>
+<td align="right">0.9866</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.8898737</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="left">sig2</td>
+<td align="right">0.0288372</td>
+<td align="right">0.95</td>
+<td align="right">0.0182590</td>
+<td align="right">0.0492998</td>
+<td align="right">1.0000</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">1.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">delta</td>
+<td align="right">-0.3926439</td>
+<td align="right">0.95</td>
+<td align="right">-0.7480745</td>
+<td align="right">-0.0438846</td>
+<td align="right">0.9866</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.0260000</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">g</td>
+<td align="right">0.4905500</td>
+<td align="right">0.95</td>
+<td align="right">0.0877182</td>
+<td align="right">13.6082978</td>
+<td align="right">1.0000</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.0140421</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>We can see here the median posterior estimate of the mean difference is -.07 with a 95% credible interval ranging from -.13 to -.01. As the dependent variable is measured as a proportion of gaze time, infants looked at the familiar singer for 7% (1-13% for the 95% credible interval) longer at test than at baseline. This means we can exclude 0 from the likely effects, but we still only have anecdotal evidence in favour of the experimental hypothesis compared to the null.</p>
+</div>
+<div id="Zwaan-activity" class="section level3" number="4.5.2">
+<h3>
+<span class="header-section-number">4.5.2</span> Independent activity (Zwaan et al., 2020)<a class="anchor" aria-label="anchor" href="#Zwaan-activity"><i class="fas fa-link"></i></a>
+</h3>
+<p>For your final independent activity, we have data from <span class="citation">Zwaan et al. (<a href="references.html#ref-zwaan_participant_2018">2018</a>)</span> who wanted to see how replicable experiments from cognitive psychology are. For this exercise, we will explore the <a href="https://en.wikipedia.org/wiki/Eriksen_flanker_task" target="_blank">flanker task</a>.</p>
+<p>In short, we have two conditions: congruent and incongruent. In congruent trials, five symbols like arrows are the same and participants must identify the central symbol with a keyboard response. In incongruent trials, the four outer symbols are different to the central symbol. Typically, we find participants respond faster to congruent trials than incongruent trials. The dependent variable here is the mean response time in milliseconds (ms).</p>
+<p>We want to know whether response times are faster to congruent trials (<code><span><span class="st">"session1_responsecongruent"</span></span></code>) than incongruent trials (<code><span><span class="st">"session1_incongruent"</span></span></code>). Zwaan et al. measured a few things like changing the stimuli and repeating the task in two sessions, so we will just focus on the first session for this example.</p>
+<div class="try">
+<p>Perform a paired samples t-test comparing the response times to congruent and incongruent trials. The questions below relate to a one-tailed test since there is a strong prediction to expect faster responses in the congruent condition compared to the incongruent condition. Think carefully about whether you expect positive or negative effects depending on the order you enter the variables.</p>
+</div>
+<p>You can check your attempt to the solutions at <a href="introduction-to-bayesian-hypothesis-testing.html#Zwaan-solution">the bottom of the page</a>.</p>
+<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Zwaan_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/Zwaan_flanker.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">Zwaan_ttest</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span></code></pre></div>
+<ul>
+<li>Looking at the guidelines from Wagenmakers et al. (2011), how could you describe the evidence in favour of the alternative hypothesis? <select class="webex-select"><option value="blank"></option>
+<option value="x">Substantial</option>
+<option value="x">Strong</option>
+<option value="x">Very strong</option>
+<option value="answer">Extreme</option></select>
+</li>
+</ul>
+<div class="webex-solution">
+<button>
+Explain this answer
+</button>
+<p>The Bayes Factor for this analysis is huge. Unless you edit the settings, R reports large numbers in scientific notation. The Bayes Factor in favour of the alternative hypothesis here is 8.7861e+12 or as a real number 8786100000000. For a finding as established as the flanker task, testing against a point null is not too informative, but this shows what extreme evidence looks like. We will come back to this in the ROPE demonstration later.</p>
+</div>
+<ul>
+<li><p>Rounding to two decimals, what is the absolute (ignoring the sign) mean difference (beta) in response time between congruent and incongruent trials? <input class="webex-solveme nospaces" data-tol="0.001" size="5" data-answer='["38.78"]'></p></li>
+<li><p>Looking at the 95% credible interval for mu, we would expect the absolute mean difference to range between <select class="webex-select"><option value="blank"></option>
+<option value="answer">30.06</option>
+<option value="x">38.78</option>
+<option value="x">47.54</option></select>ms and <select class="webex-select"><option value="blank"></option>
+<option value="x">30.06</option>
+<option value="x">38.78</option>
+<option value="answer">47.54</option></select>ms.</p></li>
+<li><p>Rounding to two decimals, what is the absolute standardised mean difference (delta) in response time between congruent and incongruent trials? <input class="webex-solveme nospaces" data-tol="0.001" size="4" data-answer='["0.69",".69"]'></p></li>
+</ul>
+</div>
+</div>
+<div id="ROPE" class="section level2" number="4.6">
+<h2>
+<span class="header-section-number">4.6</span> Equivalence Testing vs ROPE<a class="anchor" aria-label="anchor" href="#ROPE"><i class="fas fa-link"></i></a>
+</h2>
+<div id="guided-example-for-two-independent-samples-bastian-et-al.-2014" class="section level3" number="4.6.1">
+<h3>
+<span class="header-section-number">4.6.1</span> Guided example for two independent samples (Bastian et al., 2014)<a class="anchor" aria-label="anchor" href="#guided-example-for-two-independent-samples-bastian-et-al.-2014"><i class="fas fa-link"></i></a>
+</h3>
+<p>In sections 9.4 and 9.5, we focused on the Bayesian approach to null hypothesis testing. We compared the alternative hypothesis to the null hypothesis and wanted to know how much we should shift our beliefs. However, there are times when comparing against a point null is uninformative. The same advice applies to frequentist statistics where you can use equivalence testing (see <a href="#Frequentist-Equivalence">the bonus section in the appendix</a> if you are interested in this). In this setup, you set two boundaries representing your smallest effect size of interest (SESOI) and conduct a two one-sided test: one comparing your sample mean (difference) to the upper bound and one comparing your sample mean (difference) to the lower bound. If both tests are significant, you can conclude the mean was within your bounds and it is practically equivalent to zero.</p>
+<p>In a Bayesian framework, we follow a similar approach by setting an upper and lower bound for the interval we consider practically or theoretically meaningful. This is known as the Region of Practical Equivalence (ROPE). However, we do not perform a two one-sided test, we directly compare the posterior distribution to the ROPE and interpret how much of the ROPE captures our 95% credible interval. This creates three decisions <span class="citation">(<a href="references.html#ref-kruschke_bayesian_2018-1">Kruschke &amp; Liddell, 2018a</a>)</span> instead of comparing the experimental hypothesis to the point null:</p>
+<ol style="list-style-type: decimal">
+<li><p>HDI completely outside the ROPE: We reject the ROPE as the parameter is larger than the effects we consider too small to be practically/theoretically meaningful.</p></li>
+<li><p>HDI completely within the ROPE: We accept the ROPE as the parameter is smaller than the effects we consider practically/theoretically meaningful.</p></li>
+<li><p>HDI and the ROPE partially overlap: We are undecided as we need more data and greater precision in the posterior to make a decision about whether we can reject the ROPE.</p></li>
+</ol>
+<p>This will be more meaningful in chapter 10 when we turn to Bayesian modelling as the <code class="package">bayestestR</code> package has great functions for visualising the ROPE, but they unfortunately do not work with <code class="package">BayesFactor</code> objects. We will return to the Bastian et al. (2014) data and the <code><span><span class="fu">describe_posterior</span><span class="op">(</span><span class="op">)</span></span></code> function. If you explored the complete output earlier, you might have noticed the values relating to ROPE, but we ignored it at the time. As a reminder, lets see the output:</p>
+<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># rerun the code from section 9.4.1 if you do not have this object saved</span></span>
+<span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html">describe_posterior</a></span><span class="op">(</span><span class="va">Bastian_samples</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="2%">
+<col width="19%">
+<col width="9%">
+<col width="4%">
+<col width="9%">
+<col width="9%">
+<col width="7%">
+<col width="7%">
+<col width="7%">
+<col width="8%">
+<col width="14%">
+</colgroup>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="left">Parameter</th>
+<th align="right">Median</th>
+<th align="right">CI</th>
+<th align="right">CI_low</th>
+<th align="right">CI_high</th>
+<th align="right">pd</th>
+<th align="right">ROPE_CI</th>
+<th align="right">ROPE_low</th>
+<th align="right">ROPE_high</th>
+<th align="right">ROPE_Percentage</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">4</td>
+<td align="left">mu</td>
+<td align="right">3.4261304</td>
+<td align="right">0.95</td>
+<td align="right">3.1373459</td>
+<td align="right">3.7109673</td>
+<td align="right">1.00000</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">beta (Control - Pain)</td>
+<td align="right">-0.4848002</td>
+<td align="right">0.95</td>
+<td align="right">-1.0426880</td>
+<td align="right">0.0452834</td>
+<td align="right">0.96438</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.0540526</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="left">sig2</td>
+<td align="right">1.1061817</td>
+<td align="right">0.95</td>
+<td align="right">0.7707757</td>
+<td align="right">1.6676312</td>
+<td align="right">1.00000</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">delta</td>
+<td align="right">-0.4619808</td>
+<td align="right">0.95</td>
+<td align="right">-0.9985058</td>
+<td align="right">0.0413485</td>
+<td align="right">0.96438</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.0585263</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">g</td>
+<td align="right">0.5448393</td>
+<td align="right">0.95</td>
+<td align="right">0.0928315</td>
+<td align="right">15.8435212</td>
+<td align="right">1.00000</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0.0076000</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>For more information on ROPE within the <code class="package">bayestestR</code> package, see <a href="https://easystats.github.io/bayestestR/articles/region_of_practical_equivalence.html" target="_blank">the online vignettes</a>. In the output, we have:</p>
+<ul>
+<li><p>The 95% credible interval - we will need this to compare to the ROPE.</p></li>
+<li><p>The probability of direction (pd) - how much of the posterior distribution is in a positive or negative direction?</p></li>
+<li><p>Region of practical equivalence (ROPE) - the interval we would consider for our SESOI.</p></li>
+<li><p>% in ROPE - how much of the posterior is within the ROPE?</p></li>
+</ul>
+<p>By default, the <code><span><span class="fu">describe_posterior</span><span class="op">(</span><span class="op">)</span></span></code> function sets the ROPE region to the mean plus or minus 0.1 * SD of your response. We can set our own ROPE using the <code>rope_range</code> argument. Justifying your ROPE is probably the most difficult decision you will make as it requires subject knowledge for what you would consider the smallest effect size of interest. From the lecture, there are different strategies:</p>
+<ol style="list-style-type: decimal">
+<li><p>Your understanding of the applications / mechanisms (e.g., a clinically meaningful decrease in pain).</p></li>
+<li><p>Smallest effects from previous research (e.g., lower bound of individual study effect sizes or lower bound of a meta-analysis).</p></li>
+<li><p>Small telescopes (the effect size the original study had 33% power to detect).</p></li>
+</ol>
+<p>For Bastian et al. (2014), they measured bonding on a 5-point Likert scale, so we might consider anything less than a one-point difference as too small to be practically meaningful.</p>
+<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html">describe_posterior</a></span><span class="op">(</span><span class="va">Bastian_samples</span>,</span>
+<span>                   rope_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># plus or minus one point difference</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="2%">
+<col width="19%">
+<col width="9%">
+<col width="4%">
+<col width="9%">
+<col width="9%">
+<col width="7%">
+<col width="7%">
+<col width="7%">
+<col width="8%">
+<col width="14%">
+</colgroup>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="left">Parameter</th>
+<th align="right">Median</th>
+<th align="right">CI</th>
+<th align="right">CI_low</th>
+<th align="right">CI_high</th>
+<th align="right">pd</th>
+<th align="right">ROPE_CI</th>
+<th align="right">ROPE_low</th>
+<th align="right">ROPE_high</th>
+<th align="right">ROPE_Percentage</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">4</td>
+<td align="left">mu</td>
+<td align="right">3.4261304</td>
+<td align="right">0.95</td>
+<td align="right">3.1373459</td>
+<td align="right">3.7109673</td>
+<td align="right">1.00000</td>
+<td align="right">0.95</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">beta (Control - Pain)</td>
+<td align="right">-0.4848002</td>
+<td align="right">0.95</td>
+<td align="right">-1.0426880</td>
+<td align="right">0.0452834</td>
+<td align="right">0.96438</td>
+<td align="right">0.95</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.9898737</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="left">sig2</td>
+<td align="right">1.1061817</td>
+<td align="right">0.95</td>
+<td align="right">0.7707757</td>
+<td align="right">1.6676312</td>
+<td align="right">1.00000</td>
+<td align="right">0.95</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.2915789</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">delta</td>
+<td align="right">-0.4619808</td>
+<td align="right">0.95</td>
+<td align="right">-0.9985058</td>
+<td align="right">0.0413485</td>
+<td align="right">0.96438</td>
+<td align="right">0.95</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">1.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">g</td>
+<td align="right">0.5448393</td>
+<td align="right">0.95</td>
+<td align="right">0.0928315</td>
+<td align="right">15.8435212</td>
+<td align="right">1.00000</td>
+<td align="right">0.95</td>
+<td align="right">-1</td>
+<td align="right">1</td>
+<td align="right">0.6907789</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Note how changing the ROPE range changes the values for every parameter, so you will need to think which parameter you are interested in and what would be a justifiable ROPE for it. For this example, we will focus on the mean difference between groups (beta). Using a ROPE of plus or minus 1, 99.26% of the 95% HDI is within the ROPE. Its so close, but it falls in the third decision from above where we need more data to make a decision. The lower bound of the HDI is -1.03, so it extends just outside our ROPE region.</p>
+<p>Compared to the standard Bayes factor where we had weak evidence in favour of the alternative hypothesis compared to the point null, using the ROPE approach means we also have an inconclusive decision, but our effect size is almost too small to be practically meaningful.</p>
+</div>
+<div id="independent-activity-for-two-independent-samples-schroeder-epley-2014" class="section level3" number="4.6.2">
+<h3>
+<span class="header-section-number">4.6.2</span> Independent activity for two independent samples (Schroeder &amp; Epley, 2014)<a class="anchor" aria-label="anchor" href="#independent-activity-for-two-independent-samples-schroeder-epley-2014"><i class="fas fa-link"></i></a>
+</h3>
+<p>For this activity, you will need the objects you created in <a href="introduction-to-bayesian-hypothesis-testing.html#Schroeder-activity">section 9.4.2</a> for the independent activity. Remember it is based on a one-tailed t-test as we expected higher ratings for the audio group compared to the transcript group. You will need the samples from the posterior as the only thing you will need to change is the arguments you use in the <code><span><span class="fu">describe_posterior</span><span class="op">(</span><span class="op">)</span></span></code> function.</p>
+<div class="try">
+<p>Use the <code><span><span class="fu">describe_posterior</span><span class="op">(</span><span class="op">)</span></span></code> from <a href="introduction-to-bayesian-hypothesis-testing.html#Schroeder-activity">section 9.4.2</a>, but this time enter values for the ROPE arguments. The original study was on a 10-point scale. Your choice of ROPE will depend on your understanding of the subject area, but they measured their outcomes on a 0-10 scale. We might have a higher bar for concluding a meaningful effect of medium on people's hire ratings, so use a ROPE region of 2 points. Since we used a one-tailed test focusing on negative effects (transcript &lt; audio), we can just focus on the region between -2 and 0.</p>
+</div>
+<p>You can check your attempt to the solutions at <a href="introduction-to-bayesian-hypothesis-testing.html#Schroeder-ROPE-solution">the bottom of the page</a>.</p>
+<ul>
+<li><p>Looking at the 95% credible interval for beta, we would expect the absolute mean difference to range between <select class="webex-select"><option value="blank"></option>
+<option value="answer">0.32</option>
+<option value="x">2.94</option>
+<option value="x">3.11</option>
+<option value="x">4.52</option></select> and <select class="webex-select"><option value="blank"></option>
+<option value="x">0.32</option>
+<option value="answer">2.94</option>
+<option value="x">3.11</option>
+<option value="x">4.52</option></select>.</p></li>
+<li><p>Rounding to two decimals, what percentage of the 95% credible interval is within the ROPE? <input class="webex-solveme nospaces" data-tol="0.001" size="5" data-answer='["75.88"]'></p></li>
+<li>
+<p>What is the most appropriate conclusion based on this ROPE?:</p>
+<div id="radio_ZGONCWGPNR" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ZGONCWGPNR" value="x"><span>HDI completely outside the ROPE: We reject the ROPE.</span></label><label><input type="radio" autocomplete="off" name="radio_ZGONCWGPNR" value="x"><span>HDI completely within the ROPE: We accept the ROPE.</span></label><label><input type="radio" autocomplete="off" name="radio_ZGONCWGPNR" value="answer"><span>HDI and the ROPE partially overlap: We are undecided and we need more data.</span></label>
+</div>
+</li>
+</ul>
+</div>
+<div id="guided-example-for-two-dependent-samples-mehr-et-al.-2014" class="section level3" number="4.6.3">
+<h3>
+<span class="header-section-number">4.6.3</span> Guided example for two dependent samples (Mehr et al., 2014)<a class="anchor" aria-label="anchor" href="#guided-example-for-two-dependent-samples-mehr-et-al.-2014"><i class="fas fa-link"></i></a>
+</h3>
+<p>For the Mehr et al. (2014) data, the outcome is a little easier to interpret for an unstandardised effect than the two between-subjects examples. They compared infants' proportion of gaze duration spent on the model that sang the familiar song and wanted to know whether this would increase at test compared to baseline. As the proportion of gaze is bound between 0 (none of the time) to 1 (all of the time), we might consider a 5% (0.05) increase or decrease as theoretically meaningful if we are not very certain the test will be higher than baseline.</p>
+<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html">describe_posterior</a></span><span class="op">(</span><span class="va">Mehr_samples</span>,</span>
+<span>                   rope_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="2%">
+<col width="9%">
+<col width="10%">
+<col width="4%">
+<col width="10%">
+<col width="10%">
+<col width="6%">
+<col width="7%">
+<col width="8%">
+<col width="9%">
+<col width="15%">
+</colgroup>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="left">Parameter</th>
+<th align="right">Median</th>
+<th align="right">CI</th>
+<th align="right">CI_low</th>
+<th align="right">CI_high</th>
+<th align="right">pd</th>
+<th align="right">ROPE_CI</th>
+<th align="right">ROPE_low</th>
+<th align="right">ROPE_high</th>
+<th align="right">ROPE_Percentage</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">mu</td>
+<td align="right">-0.0665270</td>
+<td align="right">0.95</td>
+<td align="right">-0.1260660</td>
+<td align="right">-0.0079075</td>
+<td align="right">0.9866</td>
+<td align="right">0.95</td>
+<td align="right">-0.05</td>
+<td align="right">0.05</td>
+<td align="right">0.2747263</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="left">sig2</td>
+<td align="right">0.0288372</td>
+<td align="right">0.95</td>
+<td align="right">0.0182590</td>
+<td align="right">0.0492998</td>
+<td align="right">1.0000</td>
+<td align="right">0.95</td>
+<td align="right">-0.05</td>
+<td align="right">0.05</td>
+<td align="right">1.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">delta</td>
+<td align="right">-0.3926439</td>
+<td align="right">0.95</td>
+<td align="right">-0.7480745</td>
+<td align="right">-0.0438846</td>
+<td align="right">0.9866</td>
+<td align="right">0.95</td>
+<td align="right">-0.05</td>
+<td align="right">0.05</td>
+<td align="right">0.0022842</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">g</td>
+<td align="right">0.4905500</td>
+<td align="right">0.95</td>
+<td align="right">0.0877182</td>
+<td align="right">13.6082978</td>
+<td align="right">1.0000</td>
+<td align="right">0.95</td>
+<td align="right">-0.05</td>
+<td align="right">0.05</td>
+<td align="right">0.0000000</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Our observed mean difference was a posterior median of -0.07, 95% CI = [-.13, -0.01], which is 27.50% within the ROPE region of plus or minus 0.05 points. We are not far off ruling out our ROPE, but we still need more data to make a decision. Hopefully, you can see by this point, many of these studies have more inconclusive conclusions when analysed through a Bayesian framework than the original frequentist statistics.</p>
+</div>
+<div id="independent-activity-for-two-dependent-samples-zwaan-et-al.-2018" class="section level3" number="4.6.4">
+<h3>
+<span class="header-section-number">4.6.4</span> Independent activity for two dependent samples (Zwaan et al., 2018)<a class="anchor" aria-label="anchor" href="#independent-activity-for-two-dependent-samples-zwaan-et-al.-2018"><i class="fas fa-link"></i></a>
+</h3>
+<p>For this activity, you will need the objects you created in <a href="introduction-to-bayesian-hypothesis-testing.html#Zwaan-activity">section 9.5.2</a> for the independent activity. Remember it is based on a one-tailed t-test as we expected faster response times to congruent trials than incongruent trials. You will need the samples from the posterior as the only thing you will need to change is the arguments you use in the <code><span><span class="fu">describe_posterior</span><span class="op">(</span><span class="op">)</span></span></code> function.</p>
+<div class="try">
+<p>Use the <code><span><span class="fu">describe_posterior</span><span class="op">(</span><span class="op">)</span></span></code> from <a href="introduction-to-bayesian-hypothesis-testing.html#Zwaan-activity">section 9.5.2</a>, but this time enter values for the ROPE arguments. Set your ROPE to -10-0ms (or 0-10 depending on the order you entered the variables) as these are smaller effects closer to the sampling error we can expect with response time experiments held online <span class="citation">(<a href="references.html#ref-reimers_presentation_2015">Reimers &amp; Stewart, 2015</a>)</span>.</p>
+</div>
+<p>You can check your attempt to the solutions at <a href="introduction-to-bayesian-hypothesis-testing.html#Zwaan-ROPE-solution">the bottom of the page</a>.</p>
+<ul>
+<li><p>Looking at the 95% credible interval for mu, we would expect the absolute mean difference to range between <select class="webex-select"><option value="blank"></option>
+<option value="answer">30.06</option>
+<option value="x">31.48</option>
+<option value="x">38.78</option>
+<option value="x">47.54</option></select> and <select class="webex-select"><option value="blank"></option>
+<option value="x">30.06</option>
+<option value="x">31.48</option>
+<option value="x">38.78</option>
+<option value="answer">47.54</option></select>.</p></li>
+<li><p>What percentage of the 95% credible interval is within the ROPE? <input class="webex-solveme nospaces" data-tol="0.001" size="1" data-answer='["0"]'></p></li>
+<li>
+<p>What is the most appropriate conclusion based on this ROPE?:</p>
+<div id="radio_KFVPFWPXJA" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_KFVPFWPXJA" value="answer"><span>HDI completely outside the ROPE: We reject the ROPE.</span></label><label><input type="radio" autocomplete="off" name="radio_KFVPFWPXJA" value="x"><span>HDI completely within the ROPE: We accept the ROPE.</span></label><label><input type="radio" autocomplete="off" name="radio_KFVPFWPXJA" value="x"><span>HDI and the ROPE partially overlap: We are undecided and we need more data.</span></label>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id="summary" class="section level2" number="4.7">
+<h2>
+<span class="header-section-number">4.7</span> Summary<a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
+</h2>
+<p>In this chapter, you learnt about hypothesis testing using a Bayesian framework. The first two activities explored the logic of Bayesian statistics to make inferences and how it can be used to test hypotheses when expressed as the Bayes factor. You then learnt how to perform Bayes factors applied to the simplest cases of two independent samples and two dependent samples. Bayes factors are a useful way of quantifying the evidence in favour of a hypotheses compared to a competing hypothesis. Bayesian statistics can still be used mindlessly, but hopefully you can see they provide the opportunity to move away from purely dichotomous thinking. Evidence that would be statistically significant (<em>p</em> &lt; .05) but close to alpha only represents anecdotal evidence.</p>
+<p>As with any new skill, practice is the best approach to becoming comfortable in applying your knowledge to novel scenario. Hopefully, you worked through the guided examples and tested your understanding on the independent activities.</p>
+<p>For further learning, we recommend the following resources relevant to this chapter:</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="citation">Doorn et al. (<a href="references.html#ref-van_doorn_jasp_2021">2021</a>)</span> - Although it focuses on the JASP software, this article provides an accessible introduction to Bayes factors and how you can report your findings.</p></li>
+<li><p><span class="citation">Kruschke &amp; Liddell (<a href="references.html#ref-kruschke_bayesian_2018">2018b</a>)</span> - This article discusses the proposed shift away from dichotomous hypothesis testing towards estimation and how it relates to Bayesian statistics through summarising the posterior and the ROPE procedure.</p></li>
+<li><p><span class="citation">Wong et al. (<a href="references.html#ref-wong_potential_2021">2021</a>)</span> - Although Bayes factors have the potential to help you make more nuanced inferences, they are still prone to misinterpretations. This preprint outlines common errors and misconceptions when researcher report Bayes factors.</p></li>
+</ol>
+</div>
+<div id="independent-activity-solutions" class="section level2" number="4.8">
+<h2>
+<span class="header-section-number">4.8</span> Independent activity solutions<a class="anchor" aria-label="anchor" href="#independent-activity-solutions"><i class="fas fa-link"></i></a>
+</h2>
+<div id="Schroeder-solution" class="section level3" number="4.8.1">
+<h3>
+<span class="header-section-number">4.8.1</span> Schroeder and Epley (2015) Bayes factor<a class="anchor" aria-label="anchor" href="#Schroeder-solution"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Schroeder_ttest</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html">ttestBF</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">Hire_Rating</span> <span class="op">~</span> <span class="va">CONDITION</span>,</span>
+<span>        data <span class="op">=</span> <span class="va">Schroeder_data</span>, </span>
+<span>        rscale <span class="op">=</span> <span class="st">"medium"</span>,</span>
+<span>        nullInterval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="co"># Expect negative effects since Transcript &lt; Audio</span></span></code></pre></div>
+<pre><code>## Warning: data coerced from tibble to data frame</code></pre>
+<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Schroeder_ttest</span></span></code></pre></div>
+<pre><code>## Bayes factor analysis
+## --------------
+## [1] Alt., r=0.707 -Inf&lt;d&lt;0    : 8.205739  ±0%
+## [2] Alt., r=0.707 !(-Inf&lt;d&lt;0) : 0.1020371 ±0%
+## 
+## Against denominator:
+##   Null, mu1-mu2 = 0 
+## ---
+## Bayes factor type: BFindepSample, JZS</code></pre>
+<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># We need to index the first object as a one-tailed test includes two lines: </span></span>
+<span><span class="co"># 1. Directional alternative we state against the null</span></span>
+<span><span class="co"># 2. Complement of the alternative against the null</span></span>
+<span></span>
+<span><span class="va">Schroeder_samples</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/posterior-methods.html">posterior</a></span><span class="op">(</span><span class="va">Schroeder_ttest</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, </span>
+<span>                               iterations <span class="op">=</span> <span class="fl">1e5</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Schroeder_samples</span><span class="op">)</span></span></code></pre></div>
+<p><img src="09-BayesHypo_files/figure-html/Schroeder%20solution%20plots-1.png" width="100%" style="display: block; margin: auto;"><img src="09-BayesHypo_files/figure-html/Schroeder%20solution%20plots-2.png" width="100%" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html">describe_posterior</a></span><span class="op">(</span><span class="va">Schroeder_samples</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="2%">
+<col width="23%">
+<col width="9%">
+<col width="4%">
+<col width="8%">
+<col width="9%">
+<col width="2%">
+<col width="7%">
+<col width="8%">
+<col width="8%">
+<col width="14%">
+</colgroup>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="left">Parameter</th>
+<th align="right">Median</th>
+<th align="right">CI</th>
+<th align="right">CI_low</th>
+<th align="right">CI_high</th>
+<th align="right">pd</th>
+<th align="right">ROPE_CI</th>
+<th align="right">ROPE_low</th>
+<th align="right">ROPE_high</th>
+<th align="right">ROPE_Percentage</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">4</td>
+<td align="left">mu</td>
+<td align="right">3.8130925</td>
+<td align="right">0.95</td>
+<td align="right">3.109169</td>
+<td align="right">4.5185592</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">beta (Transcript - Audio)</td>
+<td align="right">-1.5465217</td>
+<td align="right">0.95</td>
+<td align="right">-2.946880</td>
+<td align="right">-0.3121002</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="left">sig2</td>
+<td align="right">4.7849364</td>
+<td align="right">0.95</td>
+<td align="right">3.138439</td>
+<td align="right">7.8110282</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">delta</td>
+<td align="right">-0.7084995</td>
+<td align="right">0.95</td>
+<td align="right">-1.362898</td>
+<td align="right">-0.1365876</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">g</td>
+<td align="right">0.7529274</td>
+<td align="right">0.95</td>
+<td align="right">0.113435</td>
+<td align="right">21.8814934</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div id="Zwaan-solution" class="section level3" number="4.8.2">
+<h3>
+<span class="header-section-number">4.8.2</span> Zwaan et al. (2020) Bayes factor<a class="anchor" aria-label="anchor" href="#Zwaan-solution"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Zwaan_ttest</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html">ttestBF</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Zwaan_data</span><span class="op">$</span><span class="va">session1_responsecongruent</span>,</span>
+<span>                      y <span class="op">=</span> <span class="va">Zwaan_data</span><span class="op">$</span><span class="va">session1_incongruent</span>,</span>
+<span>                      paired <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>                      rscale <span class="op">=</span> <span class="st">"medium"</span>,</span>
+<span>                      nullInterval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="co"># negative as we expect incongruent to be larger than congruent</span></span>
+<span></span>
+<span><span class="va">Zwaan_ttest</span></span></code></pre></div>
+<pre><code>## Bayes factor analysis
+## --------------
+## [1] Alt., r=0.707 -Inf&lt;d&lt;0    : 8.786135e+12 ±0%
+## [2] Alt., r=0.707 !(-Inf&lt;d&lt;0) : 60.58291     ±0%
+## 
+## Against denominator:
+##   Null, mu = 0 
+## ---
+## Bayes factor type: BFoneSample, JZS</code></pre>
+<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Zwaan_samples</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/posterior-methods.html">posterior</a></span><span class="op">(</span><span class="va">Zwaan_ttest</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="co"># index first item for a one-tailed test</span></span>
+<span>                          iterations <span class="op">=</span> <span class="fl">1e5</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Zwaan_samples</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>,</span>
+<span>     main <span class="op">=</span> <span class="st">"Posterior for mu"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="09-BayesHypo_files/figure-html/Zwaan%20solution%20plots-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Zwaan_samples</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span>, </span>
+<span>     main <span class="op">=</span> <span class="st">"Posterior for delta"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="09-BayesHypo_files/figure-html/Zwaan%20solution%20plots-2.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html">describe_posterior</a></span><span class="op">(</span><span class="va">Zwaan_samples</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<colgroup>
+<col width="2%">
+<col width="9%">
+<col width="12%">
+<col width="4%">
+<col width="12%">
+<col width="12%">
+<col width="2%">
+<col width="7%">
+<col width="8%">
+<col width="9%">
+<col width="15%">
+</colgroup>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="left">Parameter</th>
+<th align="right">Median</th>
+<th align="right">CI</th>
+<th align="right">CI_low</th>
+<th align="right">CI_high</th>
+<th align="right">pd</th>
+<th align="right">ROPE_CI</th>
+<th align="right">ROPE_low</th>
+<th align="right">ROPE_high</th>
+<th align="right">ROPE_Percentage</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">mu</td>
+<td align="right">-38.7918762</td>
+<td align="right">0.95</td>
+<td align="right">-47.6011164</td>
+<td align="right">-30.0234377</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="left">sig2</td>
+<td align="right">3146.1775444</td>
+<td align="right">0.95</td>
+<td align="right">2548.8931250</td>
+<td align="right">3953.1759593</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">delta</td>
+<td align="right">-0.6923077</td>
+<td align="right">0.95</td>
+<td align="right">-0.8652760</td>
+<td align="right">-0.5196815</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">g</td>
+<td align="right">0.7060218</td>
+<td align="right">0.95</td>
+<td align="right">0.1296344</td>
+<td align="right">19.6262419</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div id="Schroeder-ROPE-solution" class="section level3" number="4.8.3">
+<h3>
+<span class="header-section-number">4.8.3</span> Schroeder and Epley (2015) ROPE<a class="anchor" aria-label="anchor" href="#Schroeder-ROPE-solution"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html">describe_posterior</a></span><span class="op">(</span><span class="va">Schroeder_samples</span>,</span>
+<span>                   rope_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="2%">
+<col width="23%">
+<col width="9%">
+<col width="4%">
+<col width="8%">
+<col width="9%">
+<col width="2%">
+<col width="7%">
+<col width="8%">
+<col width="8%">
+<col width="14%">
+</colgroup>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="left">Parameter</th>
+<th align="right">Median</th>
+<th align="right">CI</th>
+<th align="right">CI_low</th>
+<th align="right">CI_high</th>
+<th align="right">pd</th>
+<th align="right">ROPE_CI</th>
+<th align="right">ROPE_low</th>
+<th align="right">ROPE_high</th>
+<th align="right">ROPE_Percentage</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">4</td>
+<td align="left">mu</td>
+<td align="right">3.8130925</td>
+<td align="right">0.95</td>
+<td align="right">3.109169</td>
+<td align="right">4.5185592</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">-2</td>
+<td align="right">0</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">beta (Transcript - Audio)</td>
+<td align="right">-1.5465217</td>
+<td align="right">0.95</td>
+<td align="right">-2.946880</td>
+<td align="right">-0.3121002</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">-2</td>
+<td align="right">0</td>
+<td align="right">0.7561895</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="left">sig2</td>
+<td align="right">4.7849364</td>
+<td align="right">0.95</td>
+<td align="right">3.138439</td>
+<td align="right">7.8110282</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">-2</td>
+<td align="right">0</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">delta</td>
+<td align="right">-0.7084995</td>
+<td align="right">0.95</td>
+<td align="right">-1.362898</td>
+<td align="right">-0.1365876</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">-2</td>
+<td align="right">0</td>
+<td align="right">1.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">g</td>
+<td align="right">0.7529274</td>
+<td align="right">0.95</td>
+<td align="right">0.113435</td>
+<td align="right">21.8814934</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">-2</td>
+<td align="right">0</td>
+<td align="right">0.0000000</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div id="Zwaan-ROPE-solution" class="section level3" number="4.8.4">
+<h3>
+<span class="header-section-number">4.8.4</span> Zwaan et al. (2020) ROPE<a class="anchor" aria-label="anchor" href="#Zwaan-ROPE-solution"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html">describe_posterior</a></span><span class="op">(</span><span class="va">Zwaan_samples</span>,</span>
+<span>                   rope_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<colgroup>
+<col width="2%">
+<col width="9%">
+<col width="12%">
+<col width="4%">
+<col width="12%">
+<col width="12%">
+<col width="2%">
+<col width="7%">
+<col width="8%">
+<col width="9%">
+<col width="15%">
+</colgroup>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="left">Parameter</th>
+<th align="right">Median</th>
+<th align="right">CI</th>
+<th align="right">CI_low</th>
+<th align="right">CI_high</th>
+<th align="right">pd</th>
+<th align="right">ROPE_CI</th>
+<th align="right">ROPE_low</th>
+<th align="right">ROPE_high</th>
+<th align="right">ROPE_Percentage</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">mu</td>
+<td align="right">-38.7918762</td>
+<td align="right">0.95</td>
+<td align="right">-47.6011164</td>
+<td align="right">-30.0234377</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">-10</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="left">sig2</td>
+<td align="right">3146.1775444</td>
+<td align="right">0.95</td>
+<td align="right">2548.8931250</td>
+<td align="right">3953.1759593</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">-10</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">delta</td>
+<td align="right">-0.6923077</td>
+<td align="right">0.95</td>
+<td align="right">-0.8652760</td>
+<td align="right">-0.5196815</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">-10</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">g</td>
+<td align="right">0.7060218</td>
+<td align="right">0.95</td>
+<td align="right">0.1296344</td>
+<td align="right">19.6262419</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">-10</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+
+</div>
+</div>
+</div>
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  if (t = document.getElementById("webex-total_correct")) {
+    var correct = document.getElementsByClassName("webex-correct").length;
+    var solvemes = document.getElementsByClassName("webex-solveme").length;
+    var radiogroups = document.getElementsByClassName("webex-radiogroup").length;
+    var selects = document.getElementsByClassName("webex-select").length;
+
+    t.innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    $(solveme[i]).after(" <span class='webex-icon'></span>");
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    $(selects[i]).after(" <span class='webex-icon'></span>");
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+$( document ).ready(function() {
+  var cite = ' ';
+  var psyteachr = ' <a href="https://psyteachr.github.io/"><img src="images/logos/psyteachr_logo.png" style="height: 31px; color: white;" alt="psyTeachR: Reproducible Research" /></a>';
+  var license = ' <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>';
+
+  $("footer div.row div:eq(1) p").html(
+    psyteachr + license + cite
+  );
+
+  // open rdrr links externally
+  $("a[href^='https://rdrr.io']").click(function(){
+    window.open(this.href);
+    return false;
+  });
+
+  // visible second sidebar in mobile
+  function move_sidebar() {
+    var w = window.innerWidth;
+    if (w < 992) {
+      $("#toc").appendTo($("#main-nav"));
+    } else {
+      $("#toc").appendTo($("div.sidebar-chapter"));
+    }
+  }
+  move_sidebar();
+  window.onresize = move_sidebar;
+});
+</script><div class="chapter-nav">
+<div class="prev"><a href="introduction-to-generalised-linear-models.html"><span class="header-section-number">3</span> Introduction to Generalised Linear Models</a></div>
+<div class="next"><a href="introduction-to-bayesian-estimation.html"><span class="header-section-number">5</span> Introduction to Bayesian Estimation</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#introduction-to-bayesian-hypothesis-testing"><span class="header-section-number">4</span> Introduction to Bayesian Hypothesis Testing</a></li>
+<li><a class="nav-link" href="#learning-objectives-3"><span class="header-section-number">4.1</span> Learning objectives</a></li>
+<li>
+<a class="nav-link" href="#bayes-logic"><span class="header-section-number">4.2</span> The Logic Behind Bayesian Inference</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#step-1---pick-your-prior"><span class="header-section-number">4.2.1</span> Step 1 - Pick your prior</a></li>
+<li><a class="nav-link" href="#step-2---update-to-a-posterior"><span class="header-section-number">4.2.2</span> Step 2 - Update-to-a-posterior</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#Bayes-factors"><span class="header-section-number">4.3</span> The Logic Behind Bayes Factors</a></li>
+<li>
+<a class="nav-link" href="#Bayes-independent-samples"><span class="header-section-number">4.4</span> Bayes factors for two independent samples</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#guided-example-bastian-et-al.-2014"><span class="header-section-number">4.4.1</span> Guided example (Bastian et al., 2014)</a></li>
+<li><a class="nav-link" href="#Schroeder-activity"><span class="header-section-number">4.4.2</span> Independent activity (Schroeder &amp; Epley, 2015)</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#Bayes-dependent-samples"><span class="header-section-number">4.5</span> Bayes factors for two dependent samples</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#guided-example-mehr-et-al.-2016"><span class="header-section-number">4.5.1</span> Guided example (Mehr et al., 2016)</a></li>
+<li><a class="nav-link" href="#Zwaan-activity"><span class="header-section-number">4.5.2</span> Independent activity (Zwaan et al., 2020)</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#ROPE"><span class="header-section-number">4.6</span> Equivalence Testing vs ROPE</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#guided-example-for-two-independent-samples-bastian-et-al.-2014"><span class="header-section-number">4.6.1</span> Guided example for two independent samples (Bastian et al., 2014)</a></li>
+<li><a class="nav-link" href="#independent-activity-for-two-independent-samples-schroeder-epley-2014"><span class="header-section-number">4.6.2</span> Independent activity for two independent samples (Schroeder &amp; Epley, 2014)</a></li>
+<li><a class="nav-link" href="#guided-example-for-two-dependent-samples-mehr-et-al.-2014"><span class="header-section-number">4.6.3</span> Guided example for two dependent samples (Mehr et al., 2014)</a></li>
+<li><a class="nav-link" href="#independent-activity-for-two-dependent-samples-zwaan-et-al.-2018"><span class="header-section-number">4.6.4</span> Independent activity for two dependent samples (Zwaan et al., 2018)</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#summary"><span class="header-section-number">4.7</span> Summary</a></li>
+<li>
+<a class="nav-link" href="#independent-activity-solutions"><span class="header-section-number">4.8</span> Independent activity solutions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#Schroeder-solution"><span class="header-section-number">4.8.1</span> Schroeder and Epley (2015) Bayes factor</a></li>
+<li><a class="nav-link" href="#Zwaan-solution"><span class="header-section-number">4.8.2</span> Zwaan et al. (2020) Bayes factor</a></li>
+<li><a class="nav-link" href="#Schroeder-ROPE-solution"><span class="header-section-number">4.8.3</span> Schroeder and Epley (2015) ROPE</a></li>
+<li><a class="nav-link" href="#Zwaan-ROPE-solution"><span class="header-section-number">4.8.4</span> Zwaan et al. (2020) ROPE</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/psyteachr/statsresdesign/blob/master/book/09-BayesHypo.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/psyteachr/statsresdesign/edit/master/book/09-BayesHypo.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Statistics and Research Design</strong>" was written by James Bartlett. It was last built on 2024-03-18.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

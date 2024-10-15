@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 3 Introduction to Generalised Linear Models | Statistics and Research Design</title>
+<meta name="author" content="James Bartlett">
+<meta name="description" content="In this chapter, we build on simple and multiple linear regression. All the lessons you learnt there still apply for building models with one or more predictors, but sometimes it is not...">
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta property="og:title" content="Chapter 3 Introduction to Generalised Linear Models | Statistics and Research Design">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://psyteachr.github.io/statsresdesign/introduction-to-generalised-linear-models.html">
+<meta property="og:image" content="https://psyteachr.github.io/statsresdesign/images/logos/logo.png">
+<meta property="og:description" content="In this chapter, we build on simple and multiple linear regression. All the lessons you learnt there still apply for building models with one or more predictors, but sometimes it is not...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 3 Introduction to Generalised Linear Models | Statistics and Research Design">
+<meta name="twitter:description" content="In this chapter, we build on simple and multiple linear regression. All the lessons you learnt there still apply for building models with one or more predictors, but sometimes it is not...">
+<meta name="twitter:image" content="https://psyteachr.github.io/statsresdesign/images/logos/logo.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.6.1/transition.js"></script><script src="libs/bs3compat-0.6.1/tabs.js"></script><script src="libs/bs3compat-0.6.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-6NP3MF25W3');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="include/psyteachr.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Statistics and Research Design</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li><a class="" href="introduction-to-linear-regression.html"><span class="header-section-number">1</span> Introduction to Linear Regression</a></li>
+<li><a class="" href="multiple-linear-regression.html"><span class="header-section-number">2</span> Multiple Linear Regression</a></li>
+<li><a class="active" href="introduction-to-generalised-linear-models.html"><span class="header-section-number">3</span> Introduction to Generalised Linear Models</a></li>
+<li><a class="" href="introduction-to-bayesian-hypothesis-testing.html"><span class="header-section-number">4</span> Introduction to Bayesian Hypothesis Testing</a></li>
+<li><a class="" href="introduction-to-bayesian-estimation.html"><span class="header-section-number">5</span> Introduction to Bayesian Estimation</a></li>
+<li><a class="" href="introduction-to-linear-mixed-effects-models.html"><span class="header-section-number">6</span> Introduction to Linear Mixed Effects Models</a></li>
+<li class="book-part">Appendices</li>
+<li><a class="" href="installing-r.html"><span class="header-section-number">A</span> Installing R</a></li>
+<li><a class="" href="conventions.html"><span class="header-section-number">B</span> Conventions</a></li>
+<li><a class="" href="license.html">License</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/psyteachr/statsresdesign">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="introduction-to-generalised-linear-models" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> Introduction to Generalised Linear Models<a class="anchor" aria-label="anchor" href="#introduction-to-generalised-linear-models"><i class="fas fa-link"></i></a>
+</h1>
+<p>In this chapter, we build on simple and multiple linear regression. All the lessons you learnt there still apply for building models with one or more predictors, but sometimes it is not appropriate to assume normality. It is a popular and convenient choice as assuming normality is often robust, but for some outcomes it would simply not be the appropriate choice. Generalised linear models allow you to specify a link and link function for the model residuals, so you can apply a linear model to alternative distributions. In this chapter, we will cover two types of generalised linear models: logistic regression and ordinal regression.</p>
+<div id="learning-objectives-2" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives-2"><i class="fas fa-link"></i></a>
+</h2>
+<p>By the end of this chapter, you should be able to:</p>
+<ol style="list-style-type: decimal">
+<li><p>Understand how to run and interpret <a href="introduction-to-generalised-linear-models.html#logistic-regression">logistic regression</a>.</p></li>
+<li><p>Understand how to run and interpret <a href="introduction-to-generalised-linear-models.html#ordinal-regression">ordinal regression</a>.</p></li>
+</ol>
+<p>To follow along to this chapter and try the code yourself, please download the data files we will be using in <a href="data/03_data.zip">this zip file</a>.</p>
+</div>
+<div id="packages-and-the-data-sets-1" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Packages and the data sets<a class="anchor" aria-label="anchor" href="#packages-and-the-data-sets-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>We first need to load some packages and the data for this task. If you do not have any of the packages, make sure you install them first.</p>
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># wrangling and visualisation functions </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="co"># Parameter estimates</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rvlenth/emmeans">emmeans</a></span><span class="op">)</span></span>
+<span><span class="co"># Ordinal regression</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/runehaubo/ordinal">ordinal</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Irving data for logistic regression</span></span>
+<span><span class="va">irving_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/Irving_2021.csv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">Condition</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Brandt data for ordinal regression</span></span>
+<span><span class="va">Brandt_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/Brandt_unlit.csv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>ExpCond <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">ExpCond</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">~</span> <span class="fl">0</span>, <span class="co"># Ethical </span></span>
+<span>                             <span class="va">ExpCond</span> <span class="op">==</span> <span class="op">-</span><span class="fl">1</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># Unethical</span></span></code></pre></div>
+</div>
+<div id="logistic-regression" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> Logistic Regression<a class="anchor" aria-label="anchor" href="#logistic-regression"><i class="fas fa-link"></i></a>
+</h2>
+<div id="introduction-to-the-dataset-2" class="section level3" number="3.3.1">
+<h3>
+<span class="header-section-number">3.3.1</span> Introduction to the dataset<a class="anchor" aria-label="anchor" href="#introduction-to-the-dataset-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>For the guided examples, we have two datasets, but we will introduce them in turn. To demonstrate logistic regression, we will use data from the original <span class="citation">Irving et al. (<a href="references.html#ref-irving_correcting_2022">2022</a>)</span> study, which Bartlett and Zhang from chapter 1's data replicated.</p>
+<p>Irving et al. studied statistical misinformation, meaning a scientific result that people think is true, but later turns out to be false. Their specific focus was on mistaking correlational evidence for causal evidence and how you can best correct misinformation. Their research question was: Can you correct statistical misinformation through debunking? The hypothesis was: There will be fewer causal inferences in the correction group compared to the no correction group</p>
+<p>129 participants completed a continuous influence paradigm where participants read a fictious newspaper article one sentence at a time about a causal link between cognitive decline and watching TV in older adults. There is one independent variable (<code>Condition</code>) to randomly allocate participants into one of two groups:</p>
+<ol style="list-style-type: decimal">
+<li><p>The correction group (group <code>1</code> in the data) had one sentence saying: “The lead author has since specified that the results have been misrepresented and that TV screen time has not yet been found to cause cognitive decline. Only a correlation has been found…”</p></li>
+<li><p>The no correction group (group <code>0</code> in the data) alternatively said: “The lead author of the study could not be reached for comment”</p></li>
+</ol>
+<p>Participants then completed five free-text questions asking them about information in the study. Their responses were manually coded and received a 1 if they made a mistaken causal inference, or a 0 if they did not make one (<code>DV1_1</code> to <code>DV1_5</code> in the data set).</p>
+<p>In chapter 1, we looked at the sum of these inferences to approach the data analysis assuming normality, but here we will treat the questions individually. Instead of questioning whether people in the correction group would produce fewer mistaken causal inferences than those in the no correction group, we will test whether the probability of making a mistaken causal inference will be lower in the correction group compared to the no correction group.</p>
+<p>For the guided example, we will focus on <code>DV1_1</code> which coded <code>1</code> or <code>0</code> for whether participant's provided a mistaken causal inference in the question "Based on the news story, why is binge watching TV seen as bad?".</p>
+</div>
+<div id="exploratory-data-analysis-2" class="section level3" number="3.3.2">
+<h3>
+<span class="header-section-number">3.3.2</span> Exploratory data analysis<a class="anchor" aria-label="anchor" href="#exploratory-data-analysis-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>When starting any data analysis, it is important to visualise the data for some exploratory data analysis. Using the skills you developed in data skills for reproducible research, you can explore the data to understand its properties and look for potential patterns. In this scenario, a bar plot might be handy as we have a dichotomous outcome, so we can explore the frequency of responses across each group.</p>
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">irving_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>DV1_1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">DV1_1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">DV1_1</span>, fill <span class="op">=</span> <span class="va">Condition</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"dodge"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Mistaken Causal Inference in Question 1"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Frequency"</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">45</span>, <span class="fl">5</span><span class="op">)</span>, limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">45</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-GLM1_files/figure-html/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>It looks like more participants in the correction group compared to the no correction group did not make a mistaken causal inference (0), whereas more participants in the no correction group compared to the correction group made a mistaken causal inference (1).</p>
+<p>Instead of counts, we can also express binary 0 and 1 data as a proportion or probability of making a mistake. If you take the mean of binary data, it tells you the proportion, so we can calculate the proportion of participant's making a mistake in each group.</p>
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">irving_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Condition</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>proportion_causal_inference <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">DV1_1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Condition</th>
+<th align="right">proportion_causal_inference</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">0</td>
+<td align="right">0.4696970</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="right">0.3492063</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Both the bar plot and summary statistics support our prediction, participants in the no correction condition (47%) were more likely to make a mistaken causal inference than participants in the correction condition (35%). These are just descriptive statistics though, so you need to think about modelling to make inferences from these data.</p>
+</div>
+<div id="would-linear-regression-work" class="section level3" number="3.3.3">
+<h3>
+<span class="header-section-number">3.3.3</span> Would linear regression work?<a class="anchor" aria-label="anchor" href="#would-linear-regression-work"><i class="fas fa-link"></i></a>
+</h3>
+<div class="warning">
+<p>The most important part of data analysis is your role as the decision maker and thinking about what would be the most appropriate choice of modelling. Sometimes, there are equally valid approaches, while other times there is one better suited approach. If you apply an inappropriate test, R will gladly follow your instructions. Its your job to think critically about your modelling approach and check its an appropriate choice.</p>
+</div>
+<p>When we have a dichotomous outcome coded 0 and 1, it has numerical value, so R will happily apply regular linear regression.</p>
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">irving_model1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">DV1_1</span> <span class="op">~</span> <span class="va">Condition</span>, data <span class="op">=</span> <span class="va">irving_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">irving_model1</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = DV1_1 ~ Condition, data = irving_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.4697 -0.4697 -0.3492  0.5303  0.6508 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.46970    0.06058   7.754 2.51e-12 ***
+## Condition1  -0.12049    0.08668  -1.390    0.167    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.4921 on 127 degrees of freedom
+## Multiple R-squared:  0.01499,    Adjusted R-squared:  0.007231 
+## F-statistic: 1.932 on 1 and 127 DF,  p-value: 0.1669</code></pre>
+<p>It is somewhat interpretable as when you take the mean of binary data, you get the proportion. So, the intercept represents the proportion of mistaken causal inferences in the no correction group, and the slope coefficient represents the mean difference in proportion, suggesting there are .12/12% fewer mistakes in the correction group, but its not statistically significant.</p>
+<p>Although it works and we can make sense of the results, the question is whether it is an informative and appropriate way of modelling a binary outcome. Lets check the assumptions to see if anything looks off.</p>
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">irving_model1</span><span class="op">)</span></span></code></pre></div>
+<p><img src="03-GLM1_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;"><img src="03-GLM1_files/figure-html/unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto;"><img src="03-GLM1_files/figure-html/unnamed-chunk-5-3.png" width="100%" style="display: block; margin: auto;"><img src="03-GLM1_files/figure-html/unnamed-chunk-5-4.png" width="100%" style="display: block; margin: auto;"></p>
+<p>Now we can see the problems. Because we only have two possible outcomes, the assumption checks are all off. The qq plot in panel 2 particularly shows the problem, as there is a giant chunk missing where the values between 0 and 1 should at, at least theoretically if we assume normal residuals.</p>
+<p>Now we can apply logistic regression to more appropriately model the dichotomous nature of the outcome.</p>
+</div>
+<div id="logistic-regression-1" class="section level3" number="3.3.4">
+<h3>
+<span class="header-section-number">3.3.4</span> Logistic regression<a class="anchor" aria-label="anchor" href="#logistic-regression-1"><i class="fas fa-link"></i></a>
+</h3>
+<div id="generalised-linear-regression" class="section level4" number="3.3.4.1">
+<h4>
+<span class="header-section-number">3.3.4.1</span> Generalised linear regression<a class="anchor" aria-label="anchor" href="#generalised-linear-regression"><i class="fas fa-link"></i></a>
+</h4>
+<p>In a linear model, we model the outcome as a product of an intercept, a slope, and error. Its that final error part which is why we have worried about normality so far. In a regular linear regression model, we need the model residuals (the difference between the expected and observed values) to be normally distributed.</p>
+<p>Logistic regression is an adaptation of the linear regression framework we have worked with so far, where we can replace that error component. This is called generalised linear regression and we can specify a link and link function, instead of normal residuals being built into the model.</p>
+<p>So far, we have always used <code><span><span class="fu"><a target="_blank" href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="op">)</span></span></code>, but R comes with another function called <code><span><span class="fu"><a target="_blank" href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="op">)</span></span></code> for generalised linear regression models. To demonstrate how we can set the link family, we can use it to recreate a regular linear regression model, but this time explicitly calling a normal distribution as the link (using its alternate name a Gaussian distribution) and <code><span><span class="st">"identity"</span></span></code> as the link function.</p>
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">irving_model1_glm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">DV1_1</span> <span class="op">~</span> <span class="va">Condition</span>, </span>
+<span>                     family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">gaussian</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span>, </span>
+<span>                     data <span class="op">=</span> <span class="va">irving_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">irving_model1_glm</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = DV1_1 ~ Condition, family = gaussian(link = "identity"), 
+##     data = irving_data)
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.46970    0.06058   7.754 2.51e-12 ***
+## Condition1  -0.12049    0.08668  -1.390    0.167    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 0.24218)
+## 
+##     Null deviance: 31.225  on 128  degrees of freedom
+## Residual deviance: 30.757  on 127  degrees of freedom
+## AIC: 187.14
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+<p>The link specifies the distribution family and the link function is the transformation for the model units. So, for our normal/Gaussian distribution, we have an identity link which essentially means no transformation, just the values we input. A normal distribution is described by a mean and standard deviation, so we just interpret the raw units in the model.</p>
+<p>The results here are accurate to the third decimal to show its an identical process. The only difference to our regular model output is the model fit statistics. Regular linear regression uses ordinal least squares to fit the model, whereas generalised linear regression fits the models using maximum likelihood. Holding everything else constant, this requires greater computing power, so its redundant to use <code><span><span class="fu"><a target="_blank" href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="op">)</span></span></code> when you just want to assume normal/Gaussian errors, but its important to show the logic behind these procedures.</p>
+<div class="info">
+<p>In this chapter, we are focusing on logistic regression and ordinal regression as variations of generalised linear regression. There are more possibilities though, so type <code><a href="https://rdrr.io/r/stats/family.html">?family</a></code> into the console to see the different families you could enter for the link and link function.</p>
+</div>
+</div>
+<div id="logistic-regression-in-glm" class="section level4" number="3.3.4.2">
+<h4>
+<span class="header-section-number">3.3.4.2</span> Logistic regression in <code>glm()</code><a class="anchor" aria-label="anchor" href="#logistic-regression-in-glm"><i class="fas fa-link"></i></a>
+</h4>
+<p>After that brief detour, we will now actually fit the logistic regression model using <code><span><span class="fu"><a target="_blank" href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="op">)</span></span></code>. As we have a dichotomous outcome, one useful distribution is the binomial. This applies when you want to calculate the probability of an dichotomous outcome from a series of successes (1s) and failures (0s). This models that probability nicely as it has a boundary of 0 or 0% (no successes) and 1 or 100% (all successes). Traditionally, we refer to successes and failures, but you can apply it to any binary outcome where one response is labelled 0 and the other response is labelled 1.</p>
+<p>To apply the linear model element, we then use the <code><span><span class="st">"logit"</span></span></code> link function as the unit transformation. Probability ranges between 0 and 1, odds range between 0 and infinity, but log odds (the logit bit) range between minus infinity and infinity, meaning we can fit straight lines to it. Let's see what a logistic regression model looks like.</p>
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">irving_model2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">DV1_1</span> <span class="op">~</span> <span class="va">Condition</span>, </span>
+<span>                     family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span>, </span>
+<span>                     data <span class="op">=</span> <span class="va">irving_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">irving_model2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">irving_model2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = DV1_1 ~ Condition, family = binomial(link = "logit"), 
+##     data = irving_data)
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept)  -0.1214     0.2466  -0.492    0.623
+## Condition1   -0.5012     0.3615  -1.386    0.166
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 174.71  on 128  degrees of freedom
+## Residual deviance: 172.77  on 127  degrees of freedom
+## AIC: 176.77
+## 
+## Number of Fisher Scoring iterations: 4
+## 
+##                  2.5 %    97.5 %
+## (Intercept) -0.6095075 0.3620304
+## Condition1  -1.2179406 0.2032817</code></pre>
+<p>The model looks reassuringly similar. We have our coefficients for the intercept and slope, with their standard errors and <em>p</em>-values. There are no <em>p</em>-values for the model fit though as remember they are based on maximum likelihood, rather than least squares.</p>
+<p>The main difference here is the interpretation of the coefficients. The link function is logit, so we get them in log odds. These are not intuitive to interpret, so we can take the exponential to interpret the slope coefficient as an odds ratio with its 95% CI.</p>
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Take the exponential of the second coefficient to avoid typing it manually</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">irving_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Exponential of the confidence interval</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">irving_model2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>## Condition1 
+##  0.6058222 
+##                 2.5 %   97.5 %
+## (Intercept) 0.5436185 1.436243
+## Condition1  0.2958388 1.225418</code></pre>
+<p>An odds ratio is a ratio of the odds of an event happening in one group compared to the odds of an event happening in another group. In this context, a ratio of making a mistaken causal inference (1s compared to 0s) in the no correction group, compared to the correction group.</p>
+<p>An odds ratio of 1 means they are equally likely to happen. An odds ratio of less than 1 means something is less likely to happen, whereas more than 1 means something is more likely to happen. The odds ratio is 0.61 here, suggesting the odds of making a mistaken causal inference is lower in the correction group (our target group - <code>1</code>) compared to the no correction group (the reference group - <code>0</code>). Odds ratios below 1 can be tricky to interpret, so you can flip them around by taking the reciprocal.</p>
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Take the reciprocal of the exponential of the second coefficient </span></span>
+<span><span class="fl">1</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">irving_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Reciprocal of the exponential of the confidence interval</span></span>
+<span><span class="fl">1</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">irving_model2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>## Condition1 
+##   1.650649 
+##                2.5 %    97.5 %
+## (Intercept) 1.839525 0.6962612
+## Condition1  3.380219 0.8160484</code></pre>
+<p>Expressed this way, there are 1.65 [0.82, 3.38] lower odds (or expressed in probability 65% lower) of making a mistaken causal inference in the correction group compared to the no correction group. In this model, it is not statistically significant and we can see there is a decent amount of uncertainty around the estimate, with an odds ratio spanning above and below 1.</p>
+<div class="warning">
+<p>In this scenario, you would get the same reciprocal odds ratio if you changed the groups around with correction as the reference group. Taking the reciprocal is the same information expressed differently, but its important you are clear about the model estimates to avoid confusing your reader. If you do this yourself, make sure you explain what the model estimates were and how you took the reciprocal.</p>
+</div>
+<p>Returning to the idea of model comparison, we could compare the two GLM models using <code><span><span class="fu"><a target="_blank" href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="op">)</span></span></code> and it will tell you the change in deviance (relating the maximum likelihood fitting process), but we can focus on comparing the AIC values for model fit between the two models. Lower values of AIC are better and if we subtract model 1 (the linear model) from model 2 (the logistic model), a negative difference would indicate better model fit from the ordinal model.</p>
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">irving_model2</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">irving_model1_glm</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] -10.36985</code></pre>
+<p>Reassuringly, the logistic regression model fits the data better with less prediction error when we use a binomial distribution for the errors, compared to when we force it into a normal residual model.</p>
+</div>
+<div id="calculating-the-model-probability-estimates" class="section level4" number="3.3.4.3">
+<h4>
+<span class="header-section-number">3.3.4.3</span> Calculating the model probability estimates<a class="anchor" aria-label="anchor" href="#calculating-the-model-probability-estimates"><i class="fas fa-link"></i></a>
+</h4>
+<p>Finally, there is a relationship between probability, odds, and log odds. So, we can use the coefficients to produce model estimates for the probability of a mistaken causal inference in each group. The logic is the same as for regular linear regression models, the intercept is the reference group, and the slope coefficient for your predictor is the shift across units of your predictors. We can calculate the probability by taking the exponential of the log odds divided by 1 plus the exponential log odds.</p>
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Estimated probability of making an error in the 0 condition </span></span>
+<span><span class="co"># We use coef() to isolate the model coefficients and subset the 1st item - the intercept</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">irving_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">irving_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## (Intercept) 
+##    0.469697</code></pre>
+<p>This means the estimated probability of a mistaken causal inference in the no correction condition is .47 or 47%. Then for the correction group, we repeat the process, but adding together the intercept and slope coefficient. Given the slope was negative, this is the equivalent of subtracting the slope.</p>
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Estimated probability of making an error in the 1 condition</span></span>
+<span><span class="co"># We use coef() to isolate the model coefficients and subset the 1st item - the intercept </span></span>
+<span><span class="co"># We then add the 2nd item in coef() - the slope </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">irving_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">irving_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">irving_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">irving_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## (Intercept) 
+##   0.3492063</code></pre>
+<p>This means the estimated probability of a mistaken causal inference in the correction condition is .35 or 35%. These values line up nicely with our original summary statistics, but keep in mind they are model estimates. They are closer here as its a very simple model and we are demonstrating the principles, but they will not line up this close when you have more complex models with partial effects to understand.</p>
+</div>
+<div id="using-emmeans-to-get-model-estimates" class="section level4" number="3.3.4.4">
+<h4>
+<span class="header-section-number">3.3.4.4</span> Using <code>emmeans</code> to get model estimates<a class="anchor" aria-label="anchor" href="#using-emmeans-to-get-model-estimates"><i class="fas fa-link"></i></a>
+</h4>
+<p>Another way of getting model estimates is using <code><span><span class="fu">emmeans</span><span class="op">(</span><span class="op">)</span></span></code> function from the <code class="package">emmeans</code> package <span class="citation">(<a href="references.html#ref-Lenth2022">Lenth, 2022</a>)</span>. This can be particularly useful in more complicated models when you want marginal effects across interactions, but you might prefer to see the estimates in this format instead of reconstructing them from the coefficients.</p>
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># logistic regression model as the object</span></span>
+<span><span class="co"># Specifying Condition as the predictor we want marginal effects for</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">irving_model2</span>, specs <span class="op">=</span> <span class="st">"Condition"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##  Condition emmean    SE  df asymp.LCL asymp.UCL
+##  0         -0.121 0.247 Inf    -0.605     0.362
+##  1         -0.623 0.264 Inf    -1.141    -0.105
+## 
+## Results are given on the logit (not the response) scale. 
+## Confidence level used: 0.95</code></pre>
+<p>These are still in log odds units, so you can calculate the probability using the same <span class="math inline">\(exp(logit) / 1 + exp(logit)\)</span> method. For example, the estimated probability of a mistaken causal conclusion in the no correction group (<code>0</code>) is:</p>
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.121</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.121</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 0.4697869</code></pre>
+<p>Which corresponds nicely with what we reconstructed from the model coefficients.</p>
+</div>
+</div>
+</div>
+<div id="ordinal-regression" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Ordinal Regression<a class="anchor" aria-label="anchor" href="#ordinal-regression"><i class="fas fa-link"></i></a>
+</h2>
+<div id="introduction-to-the-dataset-3" class="section level3" number="3.4.1">
+<h3>
+<span class="header-section-number">3.4.1</span> Introduction to the dataset<a class="anchor" aria-label="anchor" href="#introduction-to-the-dataset-3"><i class="fas fa-link"></i></a>
+</h3>
+<p>To demonstrate ordinal regression, we will use data from <span class="citation">Brandt et al. (<a href="references.html#ref-brandt_does_2014">2014</a>)</span>. The aim of Brandt et al. was to replicate a relatively famous social psychology study (Banerjee et al., 2012) on the effect of recalling unethical behaviour on the perception of brightness.</p>
+<p>In common language, unethical behaviour is considered as "dark", so the original authors designed a priming experiment where participants were randomly allocated to recall an unethical behaviour or an ethical behaviour from their past. Participants then completed a series of measures including their perception of how bright the testing room was. Brandt et al. were sceptical and wanted to replicate this study to see if they could find similar results.</p>
+<p>Participants were randomly allocated (<code>ExpCond</code>) to recall an unethical behaviour (<code>1</code>; n = 49) or an ethical behaviour (<code>0</code>; n = 51). The key outcome was their perception of how bright the room was (<code>welllit</code>), from 1 (not bright at all) to 7 (very bright). The research question was: Does recalling unethical behaviour lead people to perceive a room as darker than if they recall ethical behaviour?</p>
+</div>
+<div id="exploratory-data-analysis-3" class="section level3" number="3.4.2">
+<h3>
+<span class="header-section-number">3.4.2</span> Exploratory data analysis<a class="anchor" aria-label="anchor" href="#exploratory-data-analysis-3"><i class="fas fa-link"></i></a>
+</h3>
+<p>When starting any data analysis, it is important to visualise the data for some exploratory data analysis. Using the skills you developed in data skills for reproducible research, you can explore the data to understand its properties and look for potential patterns. We can create a boxplot to get a brief overview of how perceived brightness changes depending on the experimental condition.</p>
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Brandt_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ExpCond</span>, y <span class="op">=</span> <span class="va">welllit</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Ethical Group"</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Ethical"</span>, <span class="st">"Unethical"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Brightness Rating"</span>, breaks <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-GLM1_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>There are some signs of the outcome being ordinal, but its not super obvious. We can create a histogram showing the distribution of brightness rating by group, to see how discrete the data are.</p>
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Brandt_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">welllit</span>, fill <span class="op">=</span> <span class="va">ExpCond</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"dodge"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Brightness Rating"</span>, breaks <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Count"</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20</span>, <span class="fl">5</span><span class="op">)</span>, limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-GLM1_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>That's much better. Now, we can see the clearly ordinal nature of brightness rating and how participants can only respond on the integer 1-7 scale.</p>
+</div>
+<div id="would-linear-regression-work-1" class="section level3" number="3.4.3">
+<h3>
+<span class="header-section-number">3.4.3</span> Would linear regression work?<a class="anchor" aria-label="anchor" href="#would-linear-regression-work-1"><i class="fas fa-link"></i></a>
+</h3>
+<div class="warning">
+<p>The most important part of data analysis is your role as the decision maker and thinking about what would be the most appropriate choice of modelling. Sometimes, there are equally valid approaches, while other times there is one better suited approach. If you apply an inappropriate test, R will gladly follow your instructions. Its your job to think critically about your modelling approach and check its an appropriate choice.</p>
+</div>
+<p>R will happily let us apply simple linear regression to predict brightness rating (<code>welllit</code>) from the categorical predictor of experimental condition (<code>ExpCond</code>). This is by far the most common approach to tackling ordinal outcomes in psychology, particularly when you take the mean or sum of multiple ordinal items, so it looks a little more continuous. If you meet the other assumptions of linear regression, it can often be a pragmatic and robust approach.</p>
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Linear model predicting brightness rating from condition </span></span>
+<span><span class="va">brandt_model1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">welllit</span> <span class="op">~</span> <span class="va">ExpCond</span>, data <span class="op">=</span> <span class="va">Brandt_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># model summary</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">brandt_model1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Confidence intervals around estimates</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">brandt_model1</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = welllit ~ ExpCond, data = Brandt_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.1569 -0.3673  0.2379  0.8431  1.8431 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   5.1569     0.1779  28.992   &lt;2e-16 ***
+## ExpCond1      0.2105     0.2541   0.828    0.409    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.27 on 98 degrees of freedom
+## Multiple R-squared:  0.006953,   Adjusted R-squared:  -0.00318 
+## F-statistic: 0.6861 on 1 and 98 DF,  p-value: 0.4095
+## 
+##                  2.5 %    97.5 %
+## (Intercept)  4.8038772 5.5098483
+## ExpCond1    -0.2937809 0.7147492</code></pre>
+<p>The intercept suggests the mean brightness rating for participants in the ethical group was 5.16. The coefficient and model are not statistically significant - explaining very little variance in the outcome - and suggests those in the unethical group had a mean increase in brightness rating of 0.21 [-0.29, 0.71].</p>
+<p>The first problem comes in the interpretation. As a linear model expecting normally distributed residuals, we get means for the intercept and coefficient, and they could - at least theoretically - be any values. So, we get an average of 5.16 and 5.37 for our two groups, but the scale items could only be integers from 1-7. So, you can question how informative it is to treat these data as interval, when they are only labels for arbitrary numbers ranging from 1 (not bright at all) to 7 (very bright).</p>
+<p>The second problem comes in the assumptions of the model. If the means are around the middle of the scale, it can behave approximately normal. If the means are closer to the boundaries, then you start running into problems as the residuals that the model thinks are theoretically boundless, hit a boundary. Let's look at the checks for this model.</p>
+<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">brandt_model1</span><span class="op">)</span></span></code></pre></div>
+<p><img src="03-GLM1_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;"><img src="03-GLM1_files/figure-html/unnamed-chunk-18-2.png" width="100%" style="display: block; margin: auto;"><img src="03-GLM1_files/figure-html/unnamed-chunk-18-3.png" width="100%" style="display: block; margin: auto;"><img src="03-GLM1_files/figure-html/unnamed-chunk-18-4.png" width="100%" style="display: block; margin: auto;"></p>
+<p>The qq plot in pane 2 of the residuals against the theoretical distribution is key here. Most of the points follow the dashes line, but it shifts away towards the lower boundary. There are also telltale signs of discrete ordinal data as the residuals move in set points. This is because the outcome can only be 1-7, but the theoretical quantiles are boundless.</p>
+<p>So, while the assumptions do not look catastrophic, we will explore how we can model the ordinal nature of the outcome better.</p>
+</div>
+<div id="ordinal-regression-1" class="section level3" number="3.4.4">
+<h3>
+<span class="header-section-number">3.4.4</span> Ordinal regression<a class="anchor" aria-label="anchor" href="#ordinal-regression-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Ordinal regression models are a kind of logistic regression model. They are also known as cumulative link or ordered logit models. They work on the same logic as logistic regression where we want to model the probability of a discrete outcome, but instead of only two possible outcomes, ordinal regression models split a scale up into an ordered series of discrete outcomes. Between each scale point, the model estimates the threshold and sees how the outcome shifts across your predictor(s).</p>
+<p>To get an idea of cumulative probability, we can plot the Brandt et al. data to see how the cumulative percentage of responses across the scale shifts for each group.</p>
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Brandt_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">welllit</span>, colour <span class="op">=</span> <span class="va">ExpCond</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_ecdf.html">stat_ecdf</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">7</span>, name <span class="op">=</span> <span class="st">"Brightness Perception"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0.2</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"Cumulative Percent"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-GLM1_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>For each group, the lines corresponds with the cumulative percentage at each scale point. When the line is horizontal, there is no change. When the line moves vertically, it represents the next percentage increase, adding to the cumulative percentage from the previous shift, until you reach 100%.</p>
+<p>Ordinal regression models estimate these shifts in probability and you get <em>k</em>-1 estimates for the thresholds, meaning you get one fewer estimate than the total number of scale points. Behind the scenes, the model interprets the outcome as a Gaussian looking latent variable, meaning the ordinal scale points are tapping into some kind of construct, but honouring there are discrete scale points.</p>
+<p>The coefficient in the model represents the probability shift of a 1 scale point increase from one distribution to another on the scale of your predictors. So, for every 1-unit increase in a continuous predictor, you see how the probability shifts, or how the probability shifts for the difference between two groups in a categorical predictor. A positive slope coefficient would mean an increase in probability along your predictor scale, while a negative slope coefficient would mean a decrease in probability along your predictor scale.</p>
+<p>We will fit ordinal regression models using the <code class="package">ordinal</code> <span class="citation">(<a href="references.html#ref-Christensen2023">Christensen, 2023</a>)</span> package as it nicely supports cumulative link models as regular regression models we have used until this point or scaled up to mixed effects models.</p>
+<p>First, we need to convert the outcome into a factor, so there are a discrete ordered number of points.</p>
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Brandt_data</span> <span class="op">&lt;-</span> <span class="va">Brandt_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>WellLitFactor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">welllit</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">Brandt_data</span><span class="op">$</span><span class="va">WellLitFactor</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "1" "3" "4" "5" "6" "7"</code></pre>
+<p>We can see here the scale points are in ascending order as we want them to be, and no one in the data ever responded 2. Next, we can fit our ordinal regression model using the same format as all our regression models.</p>
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># clm = cumulative link model</span></span>
+<span><span class="va">brandt_model2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ordinal/man/clm.html">clm</a></span><span class="op">(</span><span class="va">WellLitFactor</span> <span class="op">~</span> <span class="va">ExpCond</span>, data <span class="op">=</span> <span class="va">Brandt_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## formula: WellLitFactor ~ ExpCond
+## data:    Brandt_data
+## 
+##  link  threshold nobs logLik  AIC    niter max.grad cond.H 
+##  logit flexible  100  -152.47 316.94 6(0)  1.10e-07 6.9e+01
+## 
+## Coefficients:
+##          Estimate Std. Error z value Pr(&gt;|z|)
+## ExpCond1   0.2594     0.3606   0.719    0.472
+## 
+## Threshold coefficients:
+##     Estimate Std. Error z value
+## 1|3  -4.4751     1.0181  -4.395
+## 3|4  -1.7798     0.3403  -5.231
+## 4|5  -1.0845     0.2921  -3.713
+## 5|6   0.1309     0.2703   0.484
+## 6|7   1.9504     0.3460   5.637
+##               2.5 %    97.5 %
+## ExpCond1 -0.4465061 0.9702407</code></pre>
+<p>In the first segment of the output, its somewhat similar to the other models we have fitted, but there is no intercept at the top. We just have the slope coefficients for each predictor (1 in this case), then the threshold coefficients for <em>k</em>-1 scale points.</p>
+<p>As this is an adapted version of logistic regression, the units are in log odds. So, they are easier to interpret as an odds ratio by taking the exponential.</p>
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">$</span><span class="va">beta</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## ExpCond1 
+## 1.296112 
+##              2.5 %  97.5 %
+## ExpCond1 0.6398599 2.63858</code></pre>
+<p>The results correspond with what we plotted previously, we have an odds ratio of 1.30 [0.64, 2.64], meaning there are 1.3 higher odds of a brighter rating in the unethical condition compared to the ethical condition. However, the confidence interval is pretty wide here and the <em>p</em>-value is not statistically significant, so we cannot conclude there is a shift in probability between the two groups here.</p>
+<p>Returning to the idea of model comparison, it will not let us compare them using <code><span><span class="fu"><a target="_blank" href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="op">)</span></span></code> as we cannot compare the same outcome when its numeric vs a factor. However, we can compare the AIC values for model fit between the two models. Lower values of AIC are better and if we subtract model 1 (the linear model) from model 2 (the ordinal model), a negative difference would indicate better model fit from the ordinal model.</p>
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">brandt_model1</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] -18.67021</code></pre>
+<p>That does seem to be the case here. Although both models were non-significant, modelling the outcome as ordinal - reassuringly - fits the data better with less prediction error.</p>
+<div id="breaking-down-threshold-coefficients" class="section level4" number="3.4.4.1">
+<h4>
+<span class="header-section-number">3.4.4.1</span> Breaking down threshold coefficients<a class="anchor" aria-label="anchor" href="#breaking-down-threshold-coefficients"><i class="fas fa-link"></i></a>
+</h4>
+<p>We would normally focus on the coefficient as the main outcome of the modelling, but we can also break down the threshold coefficients so they are not a mystery. These represent the estimates for the cumulative probability of choosing a given scale point. These relate to the reference group, so we see the cumulative probability of the ethical condition. Remember, these are still in log odds, so we can calculate the probability like we did for logistic regression by dividing the odds ratio by 1 plus the odds ratio.</p>
+<div class="info">
+<p>The code below uses <code><span><span class="fu"><a target="_blank" href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="op">)</span></span></code> function and subsetting (the <code>[1]</code>etc.) to avoid writing out the numbers manually and reduce copy and paste errors. Try <code>coef(brandt_model2)</code> in the console to see the coefficients it returns.</p>
+</div>
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Cumulative percentage for ethical group choosing less than 3 - coefficient 1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Cumulative percentage for ethical group choosing less than 4 - coefficient 2</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Cumulative percentage for ethical group choosing less than 5- coefficient 3</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Cumulative percentage for ethical group choosing less than 6- coefficient 4</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Cumulative percentage for ethical group choosing less than 7- coefficient 5</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##        1|3 
+## 0.01126058 
+##       3|4 
+## 0.1443283 
+##       4|5 
+## 0.2526636 
+##       5|6 
+## 0.5326661 
+##       6|7 
+## 0.8754855</code></pre>
+<p>This means choosing less than 3 (remember no one responded 2) represents .011 or 1.12%. Choosing less than 4 represents .144 or 14.4%, and so on. Once we get to the final threshold, this represents less than 7 at .875/87.5%. The cumulative probability of 7 or less is then 1/100%, which is why you get <em>k</em>-1 thresholds. So, you can work that final step out as 1 - .875 = .125/12.5%.</p>
+<p>These cumulative percentage estimates are for the reference group (ethical), so you could calculate the estimate for the unethical group by subtracting the slope coefficient (0.2594) from each threshold. For example, for the first threshold:</p>
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Cumulative percentage for unethical group choosing less than 3</span></span>
+<span><span class="co"># Coefficient 1 minus coefficient 6 as the slope is weirdly the last one here, not the first</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##         1|3 
+## 0.008710377</code></pre>
+<div class="info">
+<p>As before, we are using the <code><span><span class="fu"><a target="_blank" href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="op">)</span></span></code> function and subsetting (the <code>[1]</code>etc.) to avoid writing out the numbers manually and reduce copy and paste errors. This time, we are using two coefficients to subtract the slope coefficient from each threshold coefficient. So, if you apply this to a new data set, make sure you check how many coefficients there are to subset them accurately.</p>
+</div>
+<p>This means the cumulative probability estimate for less than 3 is .009 or 0.87% in the unethical group.</p>
+</div>
+<div id="different-threshold-assumptions" class="section level4" number="3.4.4.2">
+<h4>
+<span class="header-section-number">3.4.4.2</span> Different threshold assumptions<a class="anchor" aria-label="anchor" href="#different-threshold-assumptions"><i class="fas fa-link"></i></a>
+</h4>
+<p>Finally, the default option in <code class="package">ordinal</code> is for <code>flexible</code> thresholds between scale points. This estimates a coefficient for threshold and makes the fewest assumptions about the outcome. Alternative options are <code>equidistant</code> which assume evenly spaced scale points, or <code>symmetric</code> which assume scale points are evenly spaced above and below the scale center. These two make stronger assumptions about the outcome but require fewer parameters, so you would need to think carefully about whether they would suit the outcome you are modelling.</p>
+<p>To see how the <code>equidistant</code> option would compare:</p>
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># clm = cumulative link model with equidistant thresholds</span></span>
+<span><span class="va">brandt_model3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ordinal/man/clm.html">clm</a></span><span class="op">(</span><span class="va">WellLitFactor</span> <span class="op">~</span> <span class="va">ExpCond</span>, data <span class="op">=</span> <span class="va">Brandt_data</span>, threshold <span class="op">=</span> <span class="st">"equidistant"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">brandt_model3</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## formula: WellLitFactor ~ ExpCond
+## data:    Brandt_data
+## 
+##  link  threshold   nobs logLik  AIC    niter max.grad cond.H 
+##  logit equidistant 100  -158.95 323.90 5(0)  7.75e-11 8.3e+01
+## 
+## Coefficients:
+##          Estimate Std. Error z value Pr(&gt;|z|)
+## ExpCond1   0.2728     0.3583   0.761    0.447
+## 
+## Threshold coefficients:
+##             Estimate Std. Error z value
+## threshold.1  -3.7721     0.4394  -8.585
+## spacing       1.3626     0.1280  10.647</code></pre>
+<p>This time, you only get one threshold estimate and a spacing parameter. Instead of calculating the cumulative probability at each threshold, you must successively add them together:</p>
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Cumulative percentage for ethical group choosing less than 3 equally spaced</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model3</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="fl">0</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model3</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model3</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="fl">0</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model3</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Cumulative percentage for ethical group choosing less than 4 equally spaced</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model3</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="fl">1</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model3</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model3</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="fl">1</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">brandt_model3</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Etc. </span></span></code></pre></div>
+<pre><code>## threshold.1 
+##  0.02248644 
+## threshold.1 
+##  0.08245417</code></pre>
+</div>
+</div>
+</div>
+<div id="independent-activities" class="section level2" number="3.5">
+<h2>
+<span class="header-section-number">3.5</span> Independent activities<a class="anchor" aria-label="anchor" href="#independent-activities"><i class="fas fa-link"></i></a>
+</h2>
+<p>Now you have followed along to the guided examples, it is important you can transfer your knowledge to a new scenario. So, we have two new exercises for you to try out your understanding of these techniques on. Follow the instructions below and answer the questions, you can then scroll down to the <a href="introduction-to-generalised-linear-models.html#C3_solution">end of the chapter</a> to see the solution we based on the questions on.</p>
+<div id="independent-logistic-regression" class="section level3" number="3.5.1">
+<h3>
+<span class="header-section-number">3.5.1</span> Independent logistic regression<a class="anchor" aria-label="anchor" href="#independent-logistic-regression"><i class="fas fa-link"></i></a>
+</h3>
+<p>For an independent activity, we will use the same data set from <span class="citation">Irving et al. (<a href="references.html#ref-irving_correcting_2022">2022</a>)</span>, but this time using a different question as a binary outcome. If you are coming to this fresh, make sure to remind yourself of the data set outlined in the <a href="introduction-to-generalised-linear-models.html#logistic-regression">logistic regression section</a> and load the data.</p>
+<p>Instead of using <code>DV1_1</code>, you will use <code>DV1_3</code> instead. This asked participants "Based on the results of this study, can we conclude that watching TV causes cognitive decline?". Coded responses were 1 for if the participant's responded with a mistaken causal conclusion and 0 if they did not provide a mistaken causal conclusion.</p>
+<div class="try">
+<p>From here, apply what you learnt in the guided example for logistic regression to this new independent task and complete the questions below to check your understanding. Remember you are predicting <code>DV1_3</code> from <code>Condition</code> to see if the probability of a mistaken causal inference is greater in the correction condition compared to the no correction condition.</p>
+</div>
+<ul>
+<li><p>The correction condition is a <select class="webex-select"><option value="blank"></option>
+<option value="answer">significant</option>
+<option value="x">non-significant</option></select> and <select class="webex-select"><option value="blank"></option>
+<option value="x">positive</option>
+<option value="answer">negative</option></select> predictor of the third mistaken causal inference question.</p></li>
+<li><p>Rounding to two decimals, the slope coefficient converted to an odds ratio is <input class="webex-solveme nospaces" data-tol="0.001" size="4" data-answer='["0.09",".09"]'>. Taking the reciprocal, the odds ratio is <input class="webex-solveme nospaces" data-tol="0.001" size="5" data-answer='["10.58"]'> [lower 95% CI = <input class="webex-solveme nospaces" data-tol="0.001" size="4" data-answer='["2.85"]'>, upper 95% CI = <input class="webex-solveme nospaces" data-tol="0.001" size="4" data-answer='["68.8"]'>].</p></li>
+<li><p>This suggests there are <input class="webex-solveme nospaces" data-tol="0.001" size="5" data-answer='["10.58"]'> lower odds of making a mistaken causal inference in the <select class="webex-select"><option value="blank"></option>
+<option value="x">no correction</option>
+<option value="answer">correction</option></select> condition compared to the <select class="webex-select"><option value="blank"></option>
+<option value="answer">no correction</option>
+<option value="x">correction</option></select> condition.</p></li>
+<li><p>Rounding to three decimals, the estimated probability of making a mistaken causal inference in the no correction group is <input class="webex-solveme nospaces" data-tol="0.001" size="5" data-answer='["0.258",".258"]'> and the estimated probability of making a mistaken causal inference in the correction group is <input class="webex-solveme nospaces" data-tol="0.001" size="5" data-answer='["0.032",".032"]'>.</p></li>
+</ul>
+</div>
+<div id="independent-ordinal-regression" class="section level3" number="3.5.2">
+<h3>
+<span class="header-section-number">3.5.2</span> Independent ordinal regression<a class="anchor" aria-label="anchor" href="#independent-ordinal-regression"><i class="fas fa-link"></i></a>
+</h3>
+<p>For an independent activity, we will use data from <span class="citation">Schroeder &amp; Epley (<a href="references.html#ref-schroeder_sound_2015">2015</a>)</span>. The aim of the study was to investigate whether delivering a short speech to a potential employer would be more effective at landing you a job than writing the speech down and the employer reading it themselves. Thirty-nine professional recruiters were randomly assigned to receive a job application speech as either a transcript for them to read, or an audio recording of the applicant reading the speech.</p>
+<p>The recruiters then rated the applicants on perceived intellect, their impression of the applicant, and whether they would recommend hiring the candidate. All ratings were originally on a rating scale ranging from 0 (low intellect, impression etc.) to 10 (high impression, recommendation etc.), with the final value representing the mean across several items.</p>
+<p>For this example, we will focus on the hire rating (variable <code>Hire_Rating</code> to see whether the audio condition had a would lead to higher ratings than the transcript condition (variable <code>CONDITION</code>).</p>
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">schroeder_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/Schroeder_hiring.csv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">CONDITION</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="try">
+<p>From here, apply what you learnt in the guided example for ordinal regression to this new independent task and complete the questions below to check your understanding. Remember you will need to treat the outcome as a factor to fit the ordinal model. The answers are based on the default approach for estimating flexible thresholds.</p>
+</div>
+<ul>
+<li><p>The experimental condition is a <select class="webex-select"><option value="blank"></option>
+<option value="answer">significant</option>
+<option value="x">non-significant</option></select> and <select class="webex-select"><option value="blank"></option>
+<option value="answer">positive</option>
+<option value="x">negative</option></select> predictor of hire rating.</p></li>
+<li><p>Rounding to two decimals, the slope coefficient converted to an odds ratio is <input class="webex-solveme nospaces" data-tol="0.001" size="4" data-answer='["4.67"]'> [lower 95% CI = <input class="webex-solveme nospaces" data-tol="0.001" size="4" data-answer='["1.44"]'>, upper 95% CI = <input class="webex-solveme nospaces" data-tol="0.001" size="5" data-answer='["16.31"]'>].</p></li>
+<li><p>This suggests there are <input class="webex-solveme nospaces" data-tol="0.001" size="4" data-answer='["4.67"]'> higher odds of a larger hire rating in the <select class="webex-select"><option value="blank"></option>
+<option value="x">transcript</option>
+<option value="answer">audio</option></select> condition compared to the <select class="webex-select"><option value="blank"></option>
+<option value="answer">transcript</option>
+<option value="x">audio</option></select> condition.</p></li>
+<li><p>Rounding to three decimals, the estimated cumulative probability for the transcript group choosing a hire rating of lower than 3 (hint: coefficient 3) is <input class="webex-solveme nospaces" data-tol="0.001" size="5" data-answer='["0.498",".498"]'> and the cumulative probability for the audio group choosing a hire rating of lower than 3 (hint: coefficient 3 minus coefficient 9) is <input class="webex-solveme nospaces" data-tol="0.001" size="5" data-answer='["0.175",".175"]'>.</p></li>
+</ul>
+</div>
+</div>
+<div id="further-resources-2" class="section level2" number="3.6">
+<h2>
+<span class="header-section-number">3.6</span> Further resources<a class="anchor" aria-label="anchor" href="#further-resources-2"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li><p><a href="https://openintro-ims.netlify.app/model-logistic" target="_blank">The online textbook Introduction to Modern Statistics</a> by Çetinkaya-Rundel and Hardin (2021) outlines logistic regression in chapter 9, then separatly covers the inferential element in chapter 26.</p></li>
+<li><p><a href="https://cran.r-project.org/web/packages/ordinal/vignettes/clm_article.pdf" target="_blank">The ordinal package vignette</a> by Christensen (2023) outlines ordinal regression and the models you can fit using the package in lots of detail.</p></li>
+</ol>
+</div>
+<div id="C3_solution" class="section level2" number="3.7">
+<h2>
+<span class="header-section-number">3.7</span> Independent activity solutions<a class="anchor" aria-label="anchor" href="#C3_solution"><i class="fas fa-link"></i></a>
+</h2>
+<div id="independent-logistic-regression-1" class="section level3" number="3.7.1">
+<h3>
+<span class="header-section-number">3.7.1</span> Independent logistic regression<a class="anchor" aria-label="anchor" href="#independent-logistic-regression-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>To produce a logistic regression model for the third causal question, we will predict <code>DV1_3</code> from <code>Condition</code> as a single predictor.</p>
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">irving_model3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">DV1_3</span> <span class="op">~</span> <span class="va">Condition</span>, </span>
+<span>                     family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span>, </span>
+<span>                     data <span class="op">=</span> <span class="va">irving_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">irving_model3</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = DV1_3 ~ Condition, family = binomial(link = "logit"), 
+##     data = irving_data)
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -1.0586     0.2815  -3.761 0.000169 ***
+## Condition1   -2.3591     0.7718  -3.057 0.002237 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 107.837  on 128  degrees of freedom
+## Residual deviance:  93.043  on 127  degrees of freedom
+## AIC: 97.043
+## 
+## Number of Fisher Scoring iterations: 6</code></pre>
+<p>We can calculate the odds ratio from the coefficients in log odds by taking the exponential for the slope and its 95% CI.</p>
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Odds ratio from log odds of making an error in condition 1 compared to 0</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">irving_model3</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Confidence interval on odds ratio</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">irving_model3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>## Condition1 
+## 0.09450338 
+##                  2.5 %    97.5 %
+## (Intercept) 0.19420051 0.5898304
+## Condition1  0.01453579 0.3508368</code></pre>
+<p>When the odds ratio is below 1, it can be easier to interpret by taking the reciprocal and flip the comparison around.</p>
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Reciprocal of odds ratio from log odds of making an error in condition 1 compared to 0</span></span>
+<span><span class="fl">1</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">irving_model3</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Reciprocal of confidence interval on odds ratio</span></span>
+<span><span class="fl">1</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">irving_model3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>## Condition1 
+##   10.58163 
+##                 2.5 %   97.5 %
+## (Intercept)  5.149317 1.695403
+## Condition1  68.795718 2.850328</code></pre>
+<p>You can calculate the probabilities for each group by using the intercept in the probability equation, then the intercept plus the slope coefficient.</p>
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Estimated probability of making an error in the 0 condition </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">irving_model3</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">irving_model3</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Estimated probability of making an error in the 1 condition </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">irving_model3</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">irving_model3</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">irving_model3</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">irving_model3</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## (Intercept) 
+##   0.2575758 
+## (Intercept) 
+##  0.03174603</code></pre>
+<p>Alternatively, you could use <code><span><span class="fu">emmeans</span><span class="op">(</span><span class="op">)</span></span></code> to get the model estimates and use the logit estimates to calculate the probabilities.</p>
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">irving_model3</span>, <span class="st">"Condition"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##  Condition emmean    SE  df asymp.LCL asymp.UCL
+##  0          -1.06 0.281 Inf     -1.61    -0.507
+##  1          -3.42 0.719 Inf     -4.83    -2.009
+## 
+## Results are given on the logit (not the response) scale. 
+## Confidence level used: 0.95</code></pre>
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.06</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.06</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3.42</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3.42</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 0.2573095
+## [1] 0.03167623</code></pre>
+</div>
+<div id="independent-ordinal-regression-1" class="section level3" number="3.7.2">
+<h3>
+<span class="header-section-number">3.7.2</span> Independent ordinal regression<a class="anchor" aria-label="anchor" href="#independent-ordinal-regression-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>First, we need to convert hire rating to a factor for the ordinal model to work.</p>
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">schroeder_data</span> <span class="op">&lt;-</span> <span class="va">schroeder_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>hire_factor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Hire_Rating</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>We can explore the distribution of the two groups and see there is a clearer difference here, with more low ratings in the transcript (<code>0</code>) group and more high ratings in the audio (<code>1</code>) group.</p>
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">schroeder_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Hire_Rating</span>, fill <span class="op">=</span> <span class="va">condition</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"dodge"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">8</span>, name <span class="op">=</span> <span class="st">"Hire Rating"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-GLM1_files/figure-html/unnamed-chunk-36-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>Alternatively, we can visualise the cumulative probability and see how it climbs steeper for the transcript group (more lower responses) and shallow for the audio group (more higher responses).</p>
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">schroeder_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Hire_Rating</span>, colour <span class="op">=</span> <span class="va">condition</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_ecdf.html">stat_ecdf</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">8</span>, name <span class="op">=</span> <span class="st">"Hire Rating"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0.2</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"Cumulative Percent"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-GLM1_files/figure-html/unnamed-chunk-37-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>Finally, we can fit our ordinal regression model and see the slope coefficient is positive and it is statistically significant.</p>
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">schroeder_model2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ordinal/man/clm.html">clm</a></span><span class="op">(</span><span class="va">hire_factor</span> <span class="op">~</span> <span class="va">condition</span>, data <span class="op">=</span> <span class="va">schroeder_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">schroeder_model2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">schroeder_model2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## formula: hire_factor ~ condition
+## data:    schroeder_data
+## 
+##  link  threshold nobs logLik AIC    niter max.grad cond.H 
+##  logit flexible  39   -77.29 172.59 7(1)  5.69e-10 1.6e+02
+## 
+## Coefficients:
+##            Estimate Std. Error z value Pr(&gt;|z|)  
+## condition1   1.5409     0.6146   2.507   0.0122 *
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Threshold coefficients:
+##      Estimate Std. Error z value
+## 0|1 -2.364790   0.754794  -3.133
+## 1|2 -0.761366   0.459091  -1.658
+## 2|3 -0.009953   0.437700  -0.023
+## 3|4  0.526688   0.459758   1.146
+## 4|5  1.262387   0.504261   2.503
+## 5|6  2.197283   0.575101   3.821
+## 6|7  2.357000   0.589496   3.998
+## 7|8  3.976969   0.861277   4.618
+##                2.5 %   97.5 %
+## condition1 0.3669235 2.791582</code></pre>
+<p>To be easier to interpret, we can convert the log odds to the odds ratio by taking the exponential for the slope coefficient and its 95% confidence interval.</p>
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get beta as odds ratio instead of logit</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">schroeder_model2</span><span class="op">$</span><span class="va">beta</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Convert CI to odds ratio</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">schroeder_model2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## condition1 
+##   4.668953 
+##               2.5 %  97.5 %
+## condition1 1.443288 16.3068</code></pre>
+<p>Finally, as a demonstration, we can calculate the estimated cumulative probability of choosing a rating of less than 3 (0-2) for the transcript group and the audio group. Note we are using coefficient 3 as that is the third threshold. We then subtract coefficient 9 as the slope coefficient is added on to the end.</p>
+<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Cumulative percentage for transcript group choosing less than 3 - coefficient 1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">schroeder_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">schroeder_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Cumulative percentage for audio group choosing less than 3 - coefficient 1 minus coefficient 9</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">schroeder_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">schroeder_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">9</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">schroeder_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">schroeder_model2</span><span class="op">)</span><span class="op">[</span><span class="fl">9</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##       2|3 
+## 0.4975119 
+##       2|3 
+## 0.1749581</code></pre>
+
+</div>
+</div>
+</div>
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  if (t = document.getElementById("webex-total_correct")) {
+    var correct = document.getElementsByClassName("webex-correct").length;
+    var solvemes = document.getElementsByClassName("webex-solveme").length;
+    var radiogroups = document.getElementsByClassName("webex-radiogroup").length;
+    var selects = document.getElementsByClassName("webex-select").length;
+
+    t.innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    $(solveme[i]).after(" <span class='webex-icon'></span>");
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    $(selects[i]).after(" <span class='webex-icon'></span>");
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+$( document ).ready(function() {
+  var cite = ' ';
+  var psyteachr = ' <a href="https://psyteachr.github.io/"><img src="images/logos/psyteachr_logo.png" style="height: 31px; color: white;" alt="psyTeachR: Reproducible Research" /></a>';
+  var license = ' <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>';
+
+  $("footer div.row div:eq(1) p").html(
+    psyteachr + license + cite
+  );
+
+  // open rdrr links externally
+  $("a[href^='https://rdrr.io']").click(function(){
+    window.open(this.href);
+    return false;
+  });
+
+  // visible second sidebar in mobile
+  function move_sidebar() {
+    var w = window.innerWidth;
+    if (w < 992) {
+      $("#toc").appendTo($("#main-nav"));
+    } else {
+      $("#toc").appendTo($("div.sidebar-chapter"));
+    }
+  }
+  move_sidebar();
+  window.onresize = move_sidebar;
+});
+</script><div class="chapter-nav">
+<div class="prev"><a href="multiple-linear-regression.html"><span class="header-section-number">2</span> Multiple Linear Regression</a></div>
+<div class="next"><a href="introduction-to-bayesian-hypothesis-testing.html"><span class="header-section-number">4</span> Introduction to Bayesian Hypothesis Testing</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#introduction-to-generalised-linear-models"><span class="header-section-number">3</span> Introduction to Generalised Linear Models</a></li>
+<li><a class="nav-link" href="#learning-objectives-2"><span class="header-section-number">3.1</span> Learning objectives</a></li>
+<li><a class="nav-link" href="#packages-and-the-data-sets-1"><span class="header-section-number">3.2</span> Packages and the data sets</a></li>
+<li>
+<a class="nav-link" href="#logistic-regression"><span class="header-section-number">3.3</span> Logistic Regression</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#introduction-to-the-dataset-2"><span class="header-section-number">3.3.1</span> Introduction to the dataset</a></li>
+<li><a class="nav-link" href="#exploratory-data-analysis-2"><span class="header-section-number">3.3.2</span> Exploratory data analysis</a></li>
+<li><a class="nav-link" href="#would-linear-regression-work"><span class="header-section-number">3.3.3</span> Would linear regression work?</a></li>
+<li><a class="nav-link" href="#logistic-regression-1"><span class="header-section-number">3.3.4</span> Logistic regression</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#ordinal-regression"><span class="header-section-number">3.4</span> Ordinal Regression</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#introduction-to-the-dataset-3"><span class="header-section-number">3.4.1</span> Introduction to the dataset</a></li>
+<li><a class="nav-link" href="#exploratory-data-analysis-3"><span class="header-section-number">3.4.2</span> Exploratory data analysis</a></li>
+<li><a class="nav-link" href="#would-linear-regression-work-1"><span class="header-section-number">3.4.3</span> Would linear regression work?</a></li>
+<li><a class="nav-link" href="#ordinal-regression-1"><span class="header-section-number">3.4.4</span> Ordinal regression</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#independent-activities"><span class="header-section-number">3.5</span> Independent activities</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#independent-logistic-regression"><span class="header-section-number">3.5.1</span> Independent logistic regression</a></li>
+<li><a class="nav-link" href="#independent-ordinal-regression"><span class="header-section-number">3.5.2</span> Independent ordinal regression</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#further-resources-2"><span class="header-section-number">3.6</span> Further resources</a></li>
+<li>
+<a class="nav-link" href="#C3_solution"><span class="header-section-number">3.7</span> Independent activity solutions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#independent-logistic-regression-1"><span class="header-section-number">3.7.1</span> Independent logistic regression</a></li>
+<li><a class="nav-link" href="#independent-ordinal-regression-1"><span class="header-section-number">3.7.2</span> Independent ordinal regression</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/psyteachr/statsresdesign/blob/master/book/03-GLM1.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/psyteachr/statsresdesign/edit/master/book/03-GLM1.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Statistics and Research Design</strong>" was written by James Bartlett. It was last built on 2024-03-18.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
